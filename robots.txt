@@ -1,0 +1,5 @@
+# The public portal may be indexed. Everything behind the staff sign-in is
+# rendered in the browser and is not served as separate pages, so there is
+# nothing else here for a crawler to find.
+User-agent: *
+Allow: /
