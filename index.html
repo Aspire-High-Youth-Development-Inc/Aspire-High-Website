@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js"></script>  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aspire High Youth Development Inc.</title>
@@ -697,9 +698,9 @@ tr.task-done td:first-child{text-decoration:line-through}
         <p class="eyebrow" data-i18n="support.eyebrow">Support our work</p>
         <h2 data-i18n="support.h2">Every gift pays for a seat at the table</h2>
       </div>
-      <div id="supportPanel">
+      <div id="supportPanel"></div>
     </div>
-</section>
+  </section>
 
 <section id="training">
     <div class="wrap">
@@ -5469,7 +5470,7 @@ function renderSupport(){
       <div>
         <p class="lede">${esc(d.blurb || "Your gift funds tutoring, mentorship and the everyday things that keep young people in the room.")}</p>
         <div class="hero-cta">
-           <a class="btn btn-gold" href="${esc(d.url)}">${esc(t("btn.donate","Donate now"))}</a>
+          <a class="btn btn-gold" href="${esc(d.url)}">${esc(t("btn.donate","Donate now"))}</a>
           ${caseDoc ? `<a class="btn btn-ghost" href="${esc(caseDoc)}">Read the case for support</a>` : ""}
         </div>
       </div>
