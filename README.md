@@ -3,7 +3,7 @@
 The public site for Aspire High Youth Development Inc., in a single
 self-contained file. No build step, no dependencies, no server.
 
-**Live site:** https://pateldixit28603.github.io/aspire-high/
+**Live site:** https://aspire-high-youth-development-inc.github.io/Aspire-High-Website/#home
 
 ---
 
@@ -13,36 +13,11 @@ The files in this folder go at the **top level** of the repository — not insid
 a folder. If `index.html` ends up in a subfolder the site address changes and
 the link above stops working.
 
-1. Open https://github.com/pateldixit28603/aspire-high
-2. If an old `index.html` is already there, delete it first: click it, then the
-   **⋯** menu → **Delete file** → **Commit changes**.
-3. Back on the repository page, click **Add file → Upload files**.
-4. Drag in the files from this folder: `index.html` (the whole site — the
-   English and Spanish application are inside it), plus `404.html`,
-   `robots.txt`, `README.md` and `.nojekyll`. For an update, `index.html`
-   alone is enough.
-
-   `.nojekyll` is hidden. On macOS press **⌘ ⇧ .** in Finder to show it; on
-   Windows, File Explorer → **View → Show → Hidden items**. The site works
-   without it, but it keeps GitHub from trying to rebuild the page as a blog.
-5. Click **Commit changes**.
-6. Go to **Settings → Pages**. Under **Source** choose **Deploy from a branch**,
-   branch `main`, folder `/ (root)`, then **Save**.
-7. Wait a minute or two and open the live link.
-
 ### If the page still looks old
 
 GitHub Pages caches hard, and so does the browser. Reload with
 **Ctrl + Shift + R** (**⌘ ⇧ R** on a Mac), or open the link in a private
 window to confirm the new version is live.
-
-### Using your own address
-
-For `portal.aspirehighyouth.org` instead of the github.io address, add a file
-called `CNAME` containing only that hostname, then point a CNAME record at
-`pateldixit28603.github.io` in DNS. Settings → Pages will confirm it.
-
----
 
 ## Switching on the student application (do this first)
 
@@ -211,4 +186,4 @@ Decide whether to move them or run them through the break.
 
 ## Credits
 
-Built by the Data Analytics team at Aspire High Youth Development Inc.
+Built by the Data Analytics and IT teams at Aspire High Youth Development Inc.
