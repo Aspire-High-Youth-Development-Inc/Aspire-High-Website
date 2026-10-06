@@ -5470,7 +5470,7 @@ function renderSupport(){
       <div>
         <p class="lede">${esc(d.blurb || "Your gift funds tutoring, mentorship and the everyday things that keep young people in the room.")}</p>
         <div class="hero-cta">
-          <a class="btn btn-gold" href="${esc(d.url)}">${esc(t("btn.donate","Donate now"))}</a>
+          <a class="btn btn-gold" href="${esc(d.url)}" target="_blank">${esc(t("btn.donate","Donate now"))}</a>
           ${caseDoc ? `<a class="btn btn-ghost" href="${esc(caseDoc)}">Read the case for support</a>` : ""}
         </div>
       </div>
