@@ -5469,7 +5469,10 @@ function renderSupport(){
       <div>
         <p class="lede">${esc(d.blurb || "Your gift funds tutoring, mentorship and the everyday things that keep young people in the room.")}</p>
         <div class="hero-cta">
-            <!-- embed test 1 -->
+           <a class="btn btn-gold" href="${esc(d.url)}">${esc(t("btn.donate","Donate now"))}</a>
+          ${caseDoc ? `<a class="btn btn-ghost" href="${esc(caseDoc)}">Read the case for support</a>` : ""}
+        </div>
+        <!-- embed test 1 -->
             <div>
                 <div data-zeffy-embed data-form-url="/embed/donation-form/support-the-new-generation-of-students"></div>
                 <div data-zeffy-embed-fallback style="display:none;">
@@ -5482,9 +5485,6 @@ function renderSupport(){
               </div>
             </div>
           <!-- -->
-           // <a class="btn btn-gold" href="${esc(d.url)}">${esc(t("btn.donate","Donate now"))}</a>
-          ${caseDoc ? `<a class="btn btn-ghost" href="${esc(caseDoc)}">Read the case for support</a>` : ""}
-        </div>
       </div>
       <div class="support-box">
         <h3>${esc(t("support.other","Other ways to help"))}</h3>
