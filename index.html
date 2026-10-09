@@ -702,7 +702,7 @@ tr.task-done td:first-child{text-decoration:line-through}
     </div>
   </section>
 
-<section id="training">
+<section id="training" data-staff>
     <div class="wrap">
       <div class="sec-head rv">
         <p class="eyebrow" data-i18n="training.eyebrow">Training</p>
@@ -715,7 +715,7 @@ tr.task-done td:first-child{text-decoration:line-through}
     </div>
   </section>
 
-<section id="data">
+<section id="data" data-staff>
     <div class="wrap">
       <div class="sec-head rv">
         <p class="eyebrow" data-i18n="data.eyebrow">Airtable</p>
@@ -756,14 +756,15 @@ tr.task-done td:first-child{text-decoration:line-through}
         <p class="lede" data-i18n="library.lede">Served live from the organization's shared Drive folder. Add or update a file in Drive and it appears here.</p>
       </div>
       <div class="cards" id="docCards" style="margin-bottom:30px"></div>
-      <h3 class="sub">${esc(t("folders.h3","Shared folders"))}</h3>
+      <div data-staff>
+      <h3 class="sub" data-i18n="folders.h3">Shared folders</h3>
       <p class="muted sub-note">Each folder is listed live from Drive. Add or remove a file there and it changes here.</p>
       <div class="tabs" id="folderTabs" role="tablist" aria-label="Drive folders"></div>
       <div id="folderPanel"></div>
       <div class="note"><span><b>Empty folder box?</b> In Drive, right-click the folder &rarr; <b>Share</b> &rarr; <b>Anyone with the link</b> &rarr; <b>Viewer</b>. A folder limited to your organization cannot be listed on a public page.</span></div>
+      </div>
     </div>
   </section>
-
 <section id="faq">
     <div class="wrap">
       <div class="sec-head rv">
@@ -1450,7 +1451,7 @@ const DEFAULTS = {
      account. The workshop and forms folders start as staff-only because they may
      hold named student responses. Change any of them on the Manage page. */
   driveFolders: [
-    { label:"Data & Strategic Plan",         id:"1GeApaL_1P2wul-KPPJsASZ6uj9BxzKPa", access:"public" }
+    { label:"Data & Strategic Plan",         id:"1GeApaL_1P2wul-KPPJsASZ6uj9BxzKPa", access:"staff" }
   ],
 
   /* The Franklin High School cohort photograph from the 2026-27 flyer.
@@ -3237,8 +3238,6 @@ const NAV_PUBLIC = [
   { href:"#involved", label:"Get involved", key:"nav.involved" },
   { label:"Resources", key:"nav.resources", children:[
       { href:"#calendar", label:"Calendar", key:"nav.calendar" },
-      { href:"#training", label:"Training", key:"nav.training" },
-      { href:"#data",     label:"Live data", key:"nav.data" },
       { href:"#library",  label:"Documents", key:"nav.library" },
       { href:"#faq",      label:"FAQ", key:"nav.faq" }
     ]},
@@ -5771,6 +5770,7 @@ function refreshDataSection(){
 function renderViewEmbeds(){
   const views = CONTENT.airtableViews || [];
   const tabs = $("#viewTabs"), box = $("#viewEmbed");
+  if (!isStaff()){ tabs.innerHTML = ""; box.innerHTML = ""; return; }
   if (!views.length){
     tabs.innerHTML = "";
     const staff = session() && session().role === "staff";
