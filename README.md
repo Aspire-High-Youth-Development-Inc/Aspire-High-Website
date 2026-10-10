@@ -3,7 +3,7 @@
 The public site for Aspire High Youth Development Inc., in a single
 self-contained file. No build step, no dependencies, no server.
 
-**Live site:** https://github.com/Aspire-High-Youth-Development-Inc/Aspire-High-Website.git
+**Live site:** https://aspire-high-youth-development-inc.github.io/Aspire-High-Website/#home
 
 ---
 
