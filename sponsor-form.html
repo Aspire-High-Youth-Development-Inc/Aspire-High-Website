@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Become a Sponsor | Aspire High</title>
+<style>
+:root{--navy:#0B2D5B;--navy-light:#123a73;--maroon:#800020;--white:#fff;--bg:#F5F7FA;--line:#DCE2EA;--text:#0B2D5B;--muted:#5b6b82}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:var(--text)}
+.page{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+.topbar{display:flex;justify-content:flex-end;margin:0 0 10px}
+.topbar a{font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;border:1px solid var(--line);background:var(--white);padding:6px 14px;border-radius:20px}
+.banner{background:linear-gradient(135deg,var(--navy) 60%,var(--navy-light) 100%);border-radius:10px;padding:28px 32px;position:relative;overflow:hidden;color:var(--white);margin-bottom:22px}
+.banner::after{content:"";position:absolute;right:-60px;top:-40px;bottom:-40px;width:220px;background:var(--maroon);transform:rotate(18deg);opacity:.9}
+.banner-inner{position:relative;z-index:2}
+.brand-name{font-size:28px;font-weight:800;letter-spacing:1px;margin:0}
+.brand-sub{font-size:13px;letter-spacing:2px;margin:2px 0 6px;opacity:.9}
+.brand-tag{font-style:italic;font-size:14px;opacity:.9;margin:0 0 14px}
+.form-title{font-size:20px;font-weight:700;margin:0}
+.intro-card{background:var(--white);border-radius:8px;padding:20px 24px;margin-bottom:24px;border:1px solid var(--line);border-top:4px solid var(--maroon)}
+.intro-card p{margin:6px 0;font-size:14px;color:var(--muted);line-height:1.5}
+.intro-card .est{font-weight:600;color:var(--navy)}
+.section{background:var(--white);border-radius:8px;border:1px solid var(--line);margin-bottom:20px;overflow:hidden}
+.section-header{background:var(--navy);color:var(--white);padding:12px 20px;font-size:16px;font-weight:700;border-bottom:4px solid var(--maroon)}
+.section-desc{font-size:13px;color:var(--muted);padding:14px 20px 0;line-height:1.5}
+.q{padding:16px 20px;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:none}
+.q-label{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--navy)}
+.req{color:var(--maroon)}
+.q-hint{font-size:12px;color:var(--muted);font-weight:400;margin:-4px 0 8px;line-height:1.5}
+.field{display:block;width:100%;max-width:420px;border:1px solid var(--line);border-radius:5px;padding:9px 12px;font-family:inherit;font-size:13px;color:var(--text);background:#fbfcfd}
+.field::placeholder{color:#9aa5b5;opacity:1}
+.field:focus{outline:2px solid var(--maroon);outline-offset:1px;border-color:var(--maroon)}
+.field.wide{max-width:100%}
+textarea.field{min-height:96px;resize:vertical;line-height:1.5}
+select.field{color:#9aa5b5}
+select.field.has-value{color:var(--text)}
+.opt-row{display:flex;align-items:flex-start;gap:8px;font-size:13px;margin:6px 0;cursor:pointer;line-height:1.4}
+.opt-row input{accent-color:var(--maroon);margin-top:2px}
+.q.invalid{background:#fff7f8}
+.err{display:none;color:var(--maroon);font-size:12px;font-weight:600;margin-top:6px}
+.q.invalid .err{display:block}
+.submit-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px}
+.submit-btn,.back-btn{border:none;padding:11px 26px;border-radius:5px;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.submit-btn{background:var(--maroon);color:#fff}
+.submit-btn:hover{background:#6b001b}
+.back-btn{background:var(--white);color:var(--navy);border:1px solid var(--line)}
+.footer-note{font-size:12px;color:var(--muted)}
+.form-status{display:none;margin-top:12px;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.5}
+.form-status.show{display:block}
+.form-status.error{background:#fff7f8;border:1px solid var(--maroon);color:var(--maroon)}
+.thanks{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--maroon);border-radius:8px;padding:24px;margin-bottom:20px}
+.thanks h2{margin:0 0 10px;font-size:20px}
+.thanks p{font-size:14px;color:var(--muted);line-height:1.5}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.page-footer{text-align:center;background:var(--navy);color:#cdd7e6;font-size:12px;padding:14px;border-radius:8px;margin-top:10px}
+@media(max-width:640px){.banner{padding:22px 20px}.banner::after{width:120px;right:-50px}.field{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><a href="sponsor.html">&larr; Sponsor information</a></div>
+  <div class="banner"><div class="banner-inner">
+    <p class="brand-name">ASPIRE HIGH</p>
+    <p class="brand-sub">YOUTH DEVELOPMENT INC.</p>
+    <p class="brand-tag">Building Futures. Changing Generations.</p>
+    <p class="form-title">Become a Sponsor!</p>
+  </div></div>
+
+  <div class="thanks" id="thanks" role="status" aria-live="polite" tabindex="-1" hidden>
+    <h2>Thank you - we received your sponsor form.</h2>
+    <p>A member of the Aspire High team will reach out using the contact details you gave us.</p>
+    <p>Questions in the meantime? Email <a href="mailto:information@aspirehighyouth.org">information@aspirehighyouth.org</a></p>
+    <a class="submit-btn" href="index.html">Back to Aspire High</a>
+  </div>
+
+  <form id="sponsorForm" novalidate>
+    <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <div class="intro-card">
+      <p><strong>Thank you for your interest in Aspire High Youth Development!</strong></p>
+      <p>Because of supporters like you, students gain access to mentors, career exposure, and life-changing opportunities that help shape their futures.</p>
+      <p>Please fill out the form below and tell us how we can work together to create meaningful impact for the young people we serve. We will get back to you as soon as we can!</p>
+      <p class="est">* Indicates required question</p>
+    </div>
+
+    <div id="step1">
+      <div class="section">
+        <div class="section-header">1. Company Info</div>
+        <div class="section-desc">Tell us about your company! Please share some basic information about your organization, including its name, location, and your primary point of contact. This information helps us better understand your company and ensure a smooth and successful partnership.</div>
+        <div class="q"><div class="q-label"><label for="email">Email <span class="req">*</span></label></div>
+          <input class="field" type="email" id="email" name="email" placeholder="Your email" data-req autocomplete="email"><div class="err">Please enter a valid email.</div></div>
+        <div class="q"><div class="q-label"><label for="company_name">Company Name <span class="req">*</span></label></div>
+          <input class="field" type="text" id="company_name" name="company_name" placeholder="Your answer" data-req><div class="err">This question is required.</div></div>
+        <div class="q"><div class="q-label"><label for="company_website">Company Website</label></div>
+          <input class="field" type="text" id="company_website" name="company_website" placeholder="Your answer" inputmode="url"></div>
+        <div class="q"><div class="q-label"><label for="company_size">Estimated Company Size</label></div>
+          <input class="field" type="text" id="company_size" name="company_size" placeholder="Your answer"></div>
+        <div class="q"><div class="q-label"><label for="contact_name">Contact Name <span class="req">*</span></label></div>
+          <div class="q-hint">Please give us the name of the best person we can contact.</div>
+          <input class="field" type="text" id="contact_name" name="contact_name" placeholder="Your answer" data-req autocomplete="name"><div class="err">This question is required.</div></div>
+        <div class="q"><div class="q-label"><label for="contact_email">Contact Email <span class="req">*</span></label></div>
+          <div class="q-hint">Please give us the email of your best contact.</div>
+          <input class="field" type="email" id="contact_email" name="contact_email" placeholder="Your answer" data-req><div class="err">Please enter a valid email.</div></div>
+        <div class="q"><div class="q-label"><label for="location">Location <span class="req">*</span></label></div>
+          <select class="field" id="location" name="location" data-req>
+            <option value="">Choose</option><option>New York</option><option>New Jersey</option><option>Pennsylvania</option><option>Delaware</option><option>Connecticut</option><option>Maryland</option><option>Other (Please Specify Below)</option>
+          </select><div class="err">This question is required.</div></div>
+        <div class="q"><div class="q-label"><label for="location_other">If Other, please specify location</label></div>
+          <input class="field" type="text" id="location_other" name="location_other" placeholder="Your answer"></div>
+      </div>
+    </div>
+
+    <div id="step2" hidden>
+      <div class="section">
+        <div class="section-header">2. How Would You Like to Partner?</div>
+        <div class="section-desc">Tell us how we can work together. Select everything that interests you.</div>
+        <div class="q">
+          <label class="opt-row"><input type="checkbox" name="partnership_interests" value="Financial sponsorship"> Financial sponsorship</label>
+          <label class="opt-row"><input type="checkbox" name="partnership_interests" value="Program or event sponsorship"> Program or event sponsorship</label>
+          <label class="opt-row"><input type="checkbox" name="partnership_interests" value="Employee engagement (mentoring and volunteering)"> Employee engagement (mentoring and volunteering)</label>
+          <label class="opt-row"><input type="checkbox" name="partnership_interests" value="Brand and community partnership (storytelling, digital engagement, community spotlights)"> Brand and community partnership (storytelling, digital engagement, community spotlights)</label>
+          <label class="opt-row"><input type="checkbox" name="partnership_interests" value="In-kind donation of goods or services"> In-kind donation of goods or services</label>
+          <label class="opt-row"><input type="checkbox" name="partnership_interests" value="Not sure yet, would like to talk"> Not sure yet, I would like to talk</label>
+        </div>
+        <div class="q"><div class="q-label"><label for="message">Anything else you would like us to know?</label></div>
+          <textarea class="field wide" id="message" name="message" placeholder="Your answer"></textarea></div>
+      </div>
+    </div>
+
+    <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+    <div class="submit-row">
+      <button type="button" class="back-btn" id="backBtn" hidden>Back</button>
+      <span class="footer-note" id="pageNote">Page 1 of 2</span>
+      <button type="button" class="submit-btn" id="nextBtn">Next</button>
+      <button type="submit" class="submit-btn" id="submitBtn" hidden>Submit</button>
+    </div>
+  </form>
+  <div class="page-footer">Aspire High Youth Development Inc.</div>
+</div>
+<script>
+(function(){
+  /* Paste your Google Apps Script Web app URL (it ends in /exec) between the quotes. */
+  var ENDPOINT = "";
+
+  var form = document.getElementById("sponsorForm"), s1 = document.getElementById("step1"), s2 = document.getElementById("step2");
+  var next = document.getElementById("nextBtn"), back = document.getElementById("backBtn"), submit = document.getElementById("submitBtn");
+  var note = document.getElementById("pageNote"), status = document.getElementById("formStatus"), thanks = document.getElementById("thanks");
+  var REQUIRED = "Please complete the required (*) questions highlighted above.";
+
+  function show(msg){ status.textContent = msg; status.className = "form-status show error"; }
+  function clear(){ status.textContent = ""; status.className = "form-status"; }
+  function validate(scope){
+    var bad = null;
+    scope.querySelectorAll("[data-req]").forEach(function(el){
+      var v = el.value.trim(), ok = v !== "";
+      if (ok && el.type === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      el.closest(".q").classList.toggle("invalid", !ok);
+      if (!ok && !bad) bad = el;
+    });
+    return bad;
+  }
+  function go(step){
+    var two = step === 2;
+    s1.hidden = two; s2.hidden = !two; next.hidden = two; submit.hidden = !two; back.hidden = !two;
+    note.textContent = "Page " + step + " of 2";
+    clear(); window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function done(){
+    form.reset(); form.hidden = true; thanks.hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" }); thanks.focus();
+  }
+  document.getElementById("location").addEventListener("change", function(){ this.classList.toggle("has-value", this.value !== ""); });
+  next.addEventListener("click", function(){
+    var bad = validate(s1);
+    if (bad){ show(REQUIRED); bad.focus(); return; }
+    go(2);
+  });
+  back.addEventListener("click", function(){ go(1); });
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var trap = form.querySelector('input[name="website"]');
+    if (trap && trap.value){ done(); return; }          /* hidden field filled in: a bot */
+    if (validate(s1)){ go(1); show(REQUIRED); return; }
+    if (!ENDPOINT){
+      show("Online submission isn't switched on yet, so this form was not sent. Please email information@aspirehighyouth.org and we will help you.");
+      return;
+    }
+    submit.disabled = true; submit.textContent = "Sending...";
+    fetch(ENDPOINT, { method: "POST", body: new URLSearchParams(new FormData(form)) })
+      .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json().catch(function(){ return { ok: true }; }); })
+      .then(function(res){ if (res && res.ok === false) throw new Error(res.error || "rejected"); done(); })
+      .catch(function(){ show("Something went wrong and your form was not sent. Please try again, or email information@aspirehighyouth.org."); })
+      .then(function(){ submit.disabled = false; submit.textContent = "Submit"; });
+  });
+})();
+</script>
+</body>
+</html>
