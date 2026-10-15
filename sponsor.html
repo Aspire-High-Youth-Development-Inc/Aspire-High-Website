@@ -46,6 +46,13 @@ h2{font-size:clamp(24px,3vw,32px);font-weight:800;margin-bottom:8px}
 footer{background:var(--navy);color:#cdd7e6;text-align:center;font-size:14px;padding:22px 24px}
 footer a{color:#fff}
 @media(max-width:820px){.hero .wrap,.cards,.sponsors{grid-template-columns:1fr}.hero{padding:44px 0}}
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.js .rv.pop{transform:translateY(14px) scale(.92)}
+.js .rv.in{opacity:1;transform:none}
+.hero-in{animation:rise .85s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--d,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.progress{position:fixed;top:0;left:0;height:4px;width:100%;background:var(--gold);transform-origin:0 50%;transform:scaleX(0);z-index:50}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}.hero-in{animation:none}.progress{display:none}}
 </style>
 </head>
 <body>
@@ -94,5 +101,53 @@ footer a{color:#fff}
   </div></section>
 </main>
 <footer>Aspire High Youth Development Inc. &middot; <a href="mailto:information@aspirehighyouth.org">information@aspirehighyouth.org</a> &middot; <a href="https://aspirehighyouth.org">aspirehighyouth.org</a></footer>
+<script>
+(function(){
+  var root = document.documentElement;
+  root.classList.add("js");
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Hero: each piece rises into place one after another when the page opens. */
+  document.querySelectorAll(".hero .wrap > div > *, .hero img").forEach(function(el, i){
+    el.classList.add("hero-in");
+    el.style.setProperty("--d", (i * 120) + "ms");
+  });
+
+  /* Everything else fades in and rises as it scrolls into view. */
+  var els = document.querySelectorAll("section h2, section .sub, .card, .sponsors li, .cta p, .cta .btn");
+  els.forEach(function(el){
+    el.classList.add("rv");
+    if (el.matches(".sponsors li")) el.classList.add("pop");
+    var pos = Array.prototype.indexOf.call(el.parentElement.children, el);
+    el.style.setProperty("--d", (pos * 110) + "ms");
+  });
+  if (!("IntersectionObserver" in window) || reduce){
+    els.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Thin gold bar across the top that fills as you scroll down the page. */
+  var bar = document.createElement("div");
+  bar.className = "progress";
+  bar.setAttribute("aria-hidden", "true");
+  document.body.appendChild(bar);
+  var ticking = false;
+  function update(){
+    var max = root.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.pageYOffset / max) : 0) + ")";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if (!ticking){ ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+</script>
 </body>
 </html>
