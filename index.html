@@ -585,6 +585,30 @@ html.apply-open{overflow:hidden}
 .apply-modal-body{flex:1;min-height:0;padding:14px clamp(8px,3vw,28px) 0}
 .apply-modal-body iframe{display:block;width:100%;height:100%;border:0;background:transparent}
 @media(max-width:640px){.apply-modal{padding:0}.apply-modal-box{height:100%;border-radius:0}}
+
+/* Get involved: two clear choices, and a prominent Join Us block */
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:0 0 34px}
+.choice-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;font:inherit;color:inherit;background:#fff;border:2px solid var(--line);border-radius:16px;padding:26px 28px;text-decoration:none;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.choice-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -26px rgba(14,37,71,.55);border-color:var(--blue-bright)}
+.choice-card:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.choice-card strong{font-family:var(--display);font-size:clamp(21px,2.4vw,27px);line-height:1.2;color:var(--navy-900)}
+.choice-card>span{color:var(--ink-soft);font-size:16px}
+.choice-card>.choice-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.choice-card>.choice-go{margin-top:6px;font-weight:700;color:var(--navy-900);background:var(--gold);padding:10px 18px;border-radius:8px}
+.choice-join>.choice-go{background:var(--navy-900);color:#fff}
+.choice-apply{border-color:var(--gold)}
+.join-wrap{margin-top:64px;padding:46px clamp(20px,4vw,48px);background:var(--navy-900);border-radius:20px;color:#fff;scroll-margin-top:90px}
+.join-wrap .eyebrow{color:#F0D9A6}
+.join-wrap h2{color:#fff;font-size:clamp(32px,4.2vw,46px);margin:0}
+.join-wrap .lede{color:#CFDCF0}
+.join-wrap .sec-head{margin-bottom:30px}
+.join-cards{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.join-cards .card{padding:28px 24px;border-top:5px solid var(--gold)}
+.join-cards .card h3{font-size:21px}
+.join-cards .card-link{display:inline-block;margin-top:16px;background:var(--navy-900);color:#fff;padding:10px 18px;border-radius:8px;font-size:15px}
+.join-cards .card-link:hover{background:var(--blue);color:#fff}
+@media(max-width:700px){.choice{grid-template-columns:1fr}}
+#involvedTabs{scroll-margin-top:96px}
 </style>
 </head>
 <body>
@@ -647,19 +671,33 @@ html.apply-open{overflow:hidden}
         <h2 data-i18n="involved.h2">Enroll your student</h2>
         <p class="lede" data-i18n="involved.lede">Applications come straight to our records, so nothing is lost in an inbox.</p>
       </div>
+      <div class="choice" id="involveChoice">
+        <button type="button" class="choice-card choice-apply" data-apply-open="auto">
+          <span class="choice-kicker" data-i18n="choice.apply.k">Students and families</span>
+          <strong data-i18n="choice.apply.t">Apply to the program</strong>
+          <span data-i18n="choice.apply.d">Enroll your student for 2026-2027. The application opens in a window.</span>
+          <span class="choice-go" data-i18n="choice.apply.go">Start the application &rarr;</span>
+        </button>
+        <a class="choice-card choice-join" href="#joinus">
+          <span class="choice-kicker" data-i18n="choice.join.k">Volunteers, partners and supporters</span>
+          <strong data-i18n="choice.join.t">See ways to join us</strong>
+          <span data-i18n="choice.join.d">Tutor, work with us, sponsor or partner with Aspire High.</span>
+          <span class="choice-go" data-i18n="choice.join.go">Explore ways to help &rarr;</span>
+        </a>
+      </div>
       <div id="applyBanner"></div>
 
       <div class="apply-grid">
         <div>
           <div class="tabs" id="involvedTabs" role="tablist" aria-label="Application forms"></div>
           <div id="involvedPanel"></div>
-          <div id="involveLinks"></div>
         </div>
         <aside class="apply-side">
           <div id="applyFlyer"></div>
           <div id="applySide"></div>
         </aside>
       </div>
+      <div id="involveLinks"></div>
     </div>
   </section>
 
@@ -2241,7 +2279,15 @@ const ES = {
   "apply.sub":"Entre diez y quince minutos, y funciona desde el tel\u00e9fono. Todos los programas son gratuitos.",
   "apply.note":"Cada pregunta demogr\u00e1fica incluye \u201cPrefiero no responder\u201d, y ninguna respuesta afecta el lugar de su hijo/a. Nos permiten mostrar a los financiadores a qui\u00e9n servimos, que es lo que mantiene los programas gratuitos.",
   "apply.help":"\u00bfDudas?",
-  "involve.h3":"Otras formas de unirte",
+  "involve.h3":"\u00danete",
+  "join.lede":"Sea tutor, trabaje con nosotros, patrocine o forme alianza con Aspire High. Elija la forma que mejor le quede.",
+  "choice.apply.k":"Estudiantes y familias", "choice.apply.t":"Solicitar al programa",
+  "choice.apply.d":"Inscriba a su estudiante para 2026-2027. La solicitud se abre en una ventana.",
+  "choice.apply.go":"Comenzar la solicitud \u2192",
+  "choice.join.k":"Voluntarios, socios y aliados", "choice.join.t":"Ver formas de unirse",
+  "choice.join.d":"Sea tutor, trabaje con nosotros, patrocine o forme alianza con Aspire High.",
+  "choice.join.go":"Explorar formas de ayudar \u2192",
+  "nav.apply":"Solicitud", "nav.join":"\u00danete",
   "team.h3":"El equipo",
   "about.aboutus":"Sobre nosotros",
   "about.vision":"Nuestra visi\u00f3n",
@@ -3250,7 +3296,10 @@ const NAV_PUBLIC = [
   { href:"#home",     label:"Home", key:"nav.home", view:"home" },
   { href:"#about",    label:"About", key:"nav.about" },
   { href:"#programs", label:"Programs", key:"nav.programs" },
-  { href:"#involved", label:"Get involved", key:"nav.involved" },
+  { label:"Get involved", key:"nav.involved", children:[
+      { href:"#involvedTabs", label:"Student application", key:"nav.apply" },
+      { href:"#joinus",   label:"Join Us", key:"nav.join" }
+    ]},
   { label:"Resources", key:"nav.resources", children:[
       { href:"#calendar", label:"Calendar", key:"nav.calendar" },
       { href:"#library",  label:"Documents", key:"nav.library" },
@@ -3311,7 +3360,7 @@ function applyPortal(){
           <svg viewBox="0 0 24 24" class="caret" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <ul class="dropdown" id="menu-${i}">${n.children.map(c =>
-          `<li><a href="${c.href}"${c.view ? ` data-view="${c.view}"` : ""}>${esc(t(c.key, c.label))}</a></li>`).join("")}</ul>
+          `<li><a href="${c.href}"${c.view ? ` data-view="${c.view}"` : ""}${c.apply ? ` data-apply-open="auto"` : ""}>${esc(t(c.key, c.label))}</a></li>`).join("")}</ul>
       </li>`;
     }
     return `<li><a class="nav-top" href="${n.href}"${n.view ? ` data-view="${n.view}"` : ""}>${esc(t(n.key, n.label))}</a></li>`;
@@ -3623,7 +3672,10 @@ function ensureApplyModal(){
   return m;
 }
 function openApply(i){
-  const f = (CONTENT.publicForms || [])[i];
+  const forms = CONTENT.publicForms || [];
+  /* "auto" = the application in the visitor's language */
+  if (i === "auto") i = Math.max(0, forms.findIndex(f => f.inline && f.lang === (APPLY_LINK || LANG)));
+  const f = forms[Number(i)];
   if (!f || !f.inline) return;
   const m = ensureApplyModal(), frame = m.querySelector("#applyFrame");
   const title = f.title || f.label;
@@ -3645,7 +3697,7 @@ function closeApply(){
 }
 document.addEventListener("click", e => {
   const o = e.target.closest("[data-apply-open]");
-  if (o){ openApply(Number(o.dataset.applyOpen)); return; }
+  if (o){ openApply(o.dataset.applyOpen === "auto" ? "auto" : Number(o.dataset.applyOpen)); return; }
   if (e.target.closest("[data-apply-close]")) closeApply();
 });
 
@@ -3725,12 +3777,18 @@ function renderInvolvementLinks(){
   const links = CONTENT.involvementLinks || [];
   if (!box) return;
   box.innerHTML = links.length ? `
-    <h3 class="sub" style="margin-top:52px">${esc(t("involve.h3","Other ways to join us"))}</h3>
-    <div class="cards">${links.map(l => `<article class="card rv">
-      <h3>${esc(tx(l.label))}</h3>
-      ${l.note ? `<p>${esc(tx(l.note))}</p>` : ""}
-      <a class="card-link" href="${esc(l.url)}">Open &rarr;</a>
-    </article>`).join("")}</div>` : "";
+    <div class="join-wrap" id="joinus">
+      <div class="sec-head">
+        <p class="eyebrow">${esc(t("involved.eyebrow","Get involved"))}</p>
+        <h2>${esc(t("involve.h3","Join Us"))}</h2>
+        <p class="lede">${esc(t("join.lede","Tutor, work with us, sponsor or partner with Aspire High. Pick the way that fits you."))}</p>
+      </div>
+      <div class="cards join-cards">${links.map(l => `<article class="card rv">
+        <h3>${esc(tx(l.label))}</h3>
+        ${l.note ? `<p>${esc(tx(l.note))}</p>` : ""}
+        <a class="card-link" href="${esc(l.url)}">Open &rarr;</a>
+      </article>`).join("")}</div>
+    </div>` : "";
 }
 
 function renderApplySide(){
