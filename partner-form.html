@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Community Partnership Application | Aspire High</title>
+<style>
+:root{--navy:#0B2D5B;--navy-light:#123a73;--maroon:#800020;--white:#fff;--bg:#F5F7FA;--line:#DCE2EA;--text:#0B2D5B;--muted:#5b6b82}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);font-family:'Segoe UI',Arial,sans-serif;color:var(--text)}
+.page{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+.topbar{display:flex;justify-content:flex-end;margin:0 0 10px}
+.topbar a{font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;border:1px solid var(--line);background:var(--white);padding:6px 14px;border-radius:20px}
+.banner{background:linear-gradient(135deg,var(--navy) 60%,var(--navy-light) 100%);border-radius:10px;padding:28px 32px;position:relative;overflow:hidden;color:var(--white);margin-bottom:22px}
+.banner::after{content:"";position:absolute;right:-60px;top:-40px;bottom:-40px;width:220px;background:var(--maroon);transform:rotate(18deg);opacity:.9}
+.banner-inner{position:relative;z-index:2}
+.brand-name{font-size:28px;font-weight:800;letter-spacing:1px;margin:0}
+.brand-sub{font-size:13px;letter-spacing:2px;margin:2px 0 6px;opacity:.9}
+.brand-tag{font-style:italic;font-size:14px;opacity:.9;margin:0 0 14px}
+.form-title{font-size:20px;font-weight:700;margin:0}
+.intro-card{background:var(--white);border-radius:8px;padding:20px 24px;margin-bottom:24px;border:1px solid var(--line);border-top:4px solid var(--maroon)}
+.intro-card p{margin:6px 0;font-size:14px;color:var(--muted);line-height:1.5}
+.intro-card .est{font-weight:600;color:var(--navy)}
+.section{background:var(--white);border-radius:8px;border:1px solid var(--line);margin-bottom:20px;overflow:hidden}
+.section-header{background:var(--navy);color:var(--white);padding:12px 20px;font-size:16px;font-weight:700;border-bottom:4px solid var(--maroon)}
+.section-desc{font-size:13px;color:var(--muted);padding:14px 20px 0;line-height:1.5}
+.q{padding:16px 20px;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:none}
+.q-label{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--navy)}
+.req{color:var(--maroon)}
+.q-hint{font-size:12px;color:var(--muted);font-weight:400;margin:-4px 0 8px;line-height:1.5}
+.field{display:block;width:100%;max-width:420px;border:1px solid var(--line);border-radius:5px;padding:9px 12px;font-family:inherit;font-size:13px;color:var(--text);background:#fbfcfd}
+.field::placeholder{color:#9aa5b5;opacity:1}
+.field:focus{outline:2px solid var(--maroon);outline-offset:1px;border-color:var(--maroon)}
+.field.wide{max-width:100%}
+textarea.field{min-height:96px;resize:vertical;line-height:1.5}
+select.field{color:#9aa5b5}
+select.field.has-value{color:var(--text)}
+.opt-row{display:flex;align-items:flex-start;gap:8px;font-size:13px;margin:6px 0;cursor:pointer;line-height:1.4}
+.opt-row input{accent-color:var(--maroon);margin-top:2px}
+.q.invalid{background:#fff7f8}
+.err{display:none;color:var(--maroon);font-size:12px;font-weight:600;margin-top:6px}
+.q.invalid .err{display:block}
+.submit-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px}
+.submit-btn,.back-btn{border:none;padding:11px 26px;border-radius:5px;font-weight:700;font-size:14px;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.submit-btn{background:var(--maroon);color:#fff}
+.submit-btn:hover{background:#6b001b}
+.back-btn{background:var(--white);color:var(--navy);border:1px solid var(--line)}
+.footer-note{font-size:12px;color:var(--muted)}
+.form-status{display:none;margin-top:12px;padding:12px 16px;border-radius:6px;font-size:13px;line-height:1.5}
+.form-status.show{display:block}
+.form-status.error{background:#fff7f8;border:1px solid var(--maroon);color:var(--maroon)}
+.thanks{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--maroon);border-radius:8px;padding:24px;margin-bottom:20px}
+.thanks h2{margin:0 0 10px;font-size:20px}
+.thanks p{font-size:14px;color:var(--muted);line-height:1.5}
+.intro-card ul{margin:6px 0 6px 20px;padding:0;font-size:14px;color:var(--muted);line-height:1.6}
+.field.other{display:inline-block;width:240px;max-width:100%;margin-left:6px;padding:5px 8px}
+.opt-other{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:13px;margin:6px 0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.page-footer{text-align:center;background:var(--navy);color:#cdd7e6;font-size:12px;padding:14px;border-radius:8px;margin-top:10px}
+@media(max-width:640px){.banner{padding:22px 20px}.banner::after{width:120px;right:-50px}.field{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><a href="partner.html">&larr; Partner information</a></div>
+  <div class="banner"><div class="banner-inner">
+    <p class="brand-name">ASPIRE HIGH</p>
+    <p class="brand-sub">YOUTH DEVELOPMENT INC.</p>
+    <p class="brand-tag">Building Futures. Changing Generations.</p>
+    <p class="form-title">Community Partnership Application</p>
+  </div></div>
+
+  <div class="thanks" id="thanks" role="status" aria-live="polite" tabindex="-1" hidden>
+    <h2>Thank you - we received your partnership application.</h2>
+    <p>A member of the Aspire High team will reach out using the contact details you gave us.</p>
+    <p>Questions in the meantime? Email <a href="mailto:information@aspirehighyouth.org">information@aspirehighyouth.org</a></p>
+    <a class="submit-btn" href="index.html">Back to Aspire High</a>
+  </div>
+
+  <form id="partnerForm" novalidate>
+    <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="website_hp" tabindex="-1" autocomplete="off"></label></div>
+
+    <div class="intro-card">
+      <p><strong>Thank you for your interest in partnering with Aspire High Youth!</strong></p>
+      <p>We are committed to empowering students through mentorship, access to opportunities, and community engagement.</p>
+      <p>As a community partner, your organization will:</p>
+      <ul><li>Host Aspire High events at your location</li><li>Showcase opportunities offered by your organization</li><li>Help connect students with mentors and volunteers</li></ul>
+      <p>Please complete this application so we can learn more about your organization and how we can collaborate.</p>
+      <p class="est">* Indicates required question</p>
+    </div>
+
+    <div class="section"><div class="section-header">Section 1: Organization Information</div><div class="q"><div class="q-label"><label for="org_name">Organization Name</label> <span class="req">*</span></div><input class="field" type="text" id="org_name" name="org_name" placeholder="Your answer" data-req><div class="err">This question is required.</div></div><div class="q" data-req-group><div class="q-label">Organization Type <span class="req">*</span></div><label class="opt-row"><input type="radio" name="org_type" value="Nonprofit"> Nonprofit</label><label class="opt-row"><input type="radio" name="org_type" value="School/Educational Institution"> School/Educational Institution</label><label class="opt-row"><input type="radio" name="org_type" value="Business/Corporate"> Business/Corporate</label><label class="opt-row"><input type="radio" name="org_type" value="Community Center"> Community Center</label><div class="opt-other"><label class="opt-row" style="margin:0"><input type="radio" name="org_type" value="Other"> Other:</label><input class="field other" type="text" name="org_type_other" aria-label="Other, please specify"></div><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="website">Website or Social Media Links</label> <span class="req">*</span></div><input class="field" type="text" id="website" name="website" placeholder="Your answer" data-req><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="address">Organization Address</label> <span class="req">*</span></div><input class="field" type="text" id="address" name="address" placeholder="Your answer" data-req autocomplete="street-address"><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="contact_name">Primary Contact Name</label> <span class="req">*</span></div><input class="field" type="text" id="contact_name" name="contact_name" placeholder="Your answer" data-req autocomplete="name"><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="contact_email">Contact Email</label> <span class="req">*</span></div><input class="field" type="email" id="contact_email" name="contact_email" placeholder="Your answer" data-req><div class="err">Please enter a valid email.</div></div><div class="q"><div class="q-label"><label for="contact_phone">Contact Phone Number</label> <span class="req">*</span></div><input class="field" type="tel" id="contact_phone" name="contact_phone" placeholder="Your answer" data-req autocomplete="tel"><div class="err">This question is required.</div></div></div>
+    <div class="section"><div class="section-header">Section 2: Partnership Interest</div><div class="q"><div class="q-label"><label for="why_partner">Why are you interested in partnering with Aspire High Youth?</label> <span class="req">*</span></div><textarea class="field wide" id="why_partner" name="why_partner" placeholder="Your answer" data-req></textarea><div class="err">This question is required.</div></div><div class="q" data-req-group><div class="q-label">Which partnership roles are you most interested in? <span class="req">*</span></div><label class="opt-row"><input type="checkbox" name="roles" value="Hosting Aspire High events at our location"> Hosting Aspire High events at our location</label><label class="opt-row"><input type="checkbox" name="roles" value="Showcasing programs, internships, or opportunities"> Showcasing programs, internships, or opportunities</label><label class="opt-row"><input type="checkbox" name="roles" value="Connecting students with mentors/volunteers"> Connecting students with mentors/volunteers</label><label class="opt-row"><input type="checkbox" name="roles" value="Supporting workshops or educational programming"> Supporting workshops or educational programming</label><div class="opt-other"><label class="opt-row" style="margin:0"><input type="checkbox" name="roles" value="Other"> Other:</label><input class="field other" type="text" name="roles_other" aria-label="Other, please specify"></div><div class="err">This question is required.</div></div></div>
+    <div class="section"><div class="section-header">Section 3: Event Hosting</div><div class="q" data-req-group><div class="q-label">Are you able to host events at your location? <span class="req">*</span></div><label class="opt-row"><input type="radio" name="can_host" value="Yes"> Yes</label><label class="opt-row"><input type="radio" name="can_host" value="No"> No</label><label class="opt-row"><input type="radio" name="can_host" value="Maybe (need more information)"> Maybe (need more information)</label><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="space_capacity">If yes, describe your available space and capacity</label> <span class="req">*</span></div><textarea class="field wide" id="space_capacity" name="space_capacity" placeholder="Your answer" data-req data-req-unless="can_host:No"></textarea><div class="err">This question is required.</div></div><div class="q" data-req-group><div class="q-label">What types of events would you be interested in hosting? <span class="req">*</span></div><label class="opt-row"><input type="checkbox" name="event_types" value="Workshops"> Workshops</label><label class="opt-row"><input type="checkbox" name="event_types" value="Networking events"> Networking events</label><label class="opt-row"><input type="checkbox" name="event_types" value="Career panels"> Career panels</label><label class="opt-row"><input type="checkbox" name="event_types" value="College prep sessions"> College prep sessions</label><label class="opt-row"><input type="checkbox" name="event_types" value="Community service events"> Community service events</label><div class="opt-other"><label class="opt-row" style="margin:0"><input type="checkbox" name="event_types" value="Other"> Other:</label><input class="field other" type="text" name="event_types_other" aria-label="Other, please specify"></div><div class="err">This question is required.</div></div></div>
+    <div class="section"><div class="section-header">Section 4: Opportunities for Students</div><div class="q" data-req-group><div class="q-label">What opportunities can your organization provide to students? <span class="req">*</span></div><label class="opt-row"><input type="checkbox" name="opportunities" value="Internships"> Internships</label><label class="opt-row"><input type="checkbox" name="opportunities" value="Volunteer opportunities"> Volunteer opportunities</label><label class="opt-row"><input type="checkbox" name="opportunities" value="Job shadowing"> Job shadowing</label><label class="opt-row"><input type="checkbox" name="opportunities" value="Mentorship programs"> Mentorship programs</label><label class="opt-row"><input type="checkbox" name="opportunities" value="Scholarships or financial support"> Scholarships or financial support</label><label class="opt-row"><input type="checkbox" name="opportunities" value="Skill-building workshops"> Skill-building workshops</label><div class="opt-other"><label class="opt-row" style="margin:0"><input type="checkbox" name="opportunities" value="Other"> Other:</label><input class="field other" type="text" name="opportunities_other" aria-label="Other, please specify"></div><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="opportunity_details">Please describe these opportunities in more detail</label> <span class="req">*</span></div><textarea class="field wide" id="opportunity_details" name="opportunity_details" placeholder="Your answer" data-req></textarea><div class="err">This question is required.</div></div></div>
+    <div class="section"><div class="section-header">Section 5: Mentorship &amp; Support</div><div class="q" data-req-group><div class="q-label">Are members of your organization willing to serve as mentors? <span class="req">*</span></div><label class="opt-row"><input type="radio" name="willing_mentors" value="Yes"> Yes</label><label class="opt-row"><input type="radio" name="willing_mentors" value="No"> No</label><label class="opt-row"><input type="radio" name="willing_mentors" value="Maybe"> Maybe</label><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="mentor_areas">If yes, what areas could mentors support students in?</label></div><textarea class="field wide" id="mentor_areas" name="mentor_areas" placeholder="Your answer"></textarea><div class="err">This question is required.</div></div></div>
+    <div class="section"><div class="section-header">Section 6: Logistics &amp; Collaboration</div><div class="q" data-req-group><div class="q-label">Preferred method of communication <span class="req">*</span></div><label class="opt-row"><input type="radio" name="contact_method" value="Email"> Email</label><label class="opt-row"><input type="radio" name="contact_method" value="Phone"> Phone</label><label class="opt-row"><input type="radio" name="contact_method" value="Virtual meetings (Zoom, Google Meet, etc.)"> Virtual meetings (Zoom, Google Meet, etc.)</label><div class="err">This question is required.</div></div><div class="q" data-req-group><div class="q-label">Availability for partnership meetings <span class="req">*</span></div><label class="opt-row"><input type="checkbox" name="availability" value="Weekdays (morning)"> Weekdays (morning)</label><label class="opt-row"><input type="checkbox" name="availability" value="Weekdays (afternoon)"> Weekdays (afternoon)</label><label class="opt-row"><input type="checkbox" name="availability" value="Evenings"> Evenings</label><label class="opt-row"><input type="checkbox" name="availability" value="Weekends"> Weekends</label><div class="err">This question is required.</div></div><div class="q"><div class="q-label"><label for="anything_else">Is there anything else you would like us to know about your organization?</label> <span class="req">*</span></div><textarea class="field wide" id="anything_else" name="anything_else" placeholder="Your answer" data-req></textarea><div class="err">This question is required.</div></div></div>
+    <div class="section"><div class="section-header">Section 7: Agreement</div><div class="q" data-req-group><div class="q-label">Check the box to agree to our terms. <span class="req">*</span></div><label class="opt-row"><input type="checkbox" name="agreement" value="Agreed"> &ldquo;I understand that community partners are expected to support Aspire High Youth by hosting events, sharing opportunities, and helping connect students with mentors and volunteers.&rdquo;</label><div class="err">This question is required.</div></div></div>
+
+    <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+    <div class="submit-row"><span class="footer-note">Never submit passwords through this form.</span><button type="submit" class="submit-btn" id="submitBtn">Submit</button></div>
+  </form>
+  <div class="page-footer">Aspire High Youth Development Inc.</div>
+</div>
+<script>
+(function(){
+  /* Paste your Google Apps Script Web app URL (it ends in /exec) between the quotes. */
+  var ENDPOINT = "";
+
+  var form = document.getElementById("partnerForm") || document.getElementById("sponsorForm");
+  var submit = document.getElementById("submitBtn"), status = document.getElementById("formStatus"), thanks = document.getElementById("thanks");
+  var REQUIRED = "Please complete the required (*) questions highlighted above.";
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function show(msg){ status.textContent = msg; status.className = "form-status show error"; }
+  function mark(q, ok){ q.classList.toggle("invalid", !ok); }
+  function validate(){
+    var bad = null;
+    form.querySelectorAll("[data-req]").forEach(function(el){
+      var ok = el.value.trim() !== "";
+      var skip = el.getAttribute("data-req-unless");
+      if (!ok && skip){
+        var p = skip.split(":"), pick = form.querySelector('input[name="' + p[0] + '"]:checked');
+        if (pick && pick.value === p[1]) ok = true;
+      }
+      if (ok && el.type === "email") ok = EMAIL.test(el.value.trim());
+      mark(el.closest(".q"), ok);
+      if (!ok && !bad) bad = el;
+    });
+    form.querySelectorAll("[data-req-group]").forEach(function(g){
+      var ok = !!g.querySelector("input:checked");
+      mark(g, ok);
+      if (!ok && !bad) bad = g.querySelector("input");
+    });
+    return bad;
+  }
+  function done(){
+    form.reset(); form.hidden = true; thanks.hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" }); thanks.focus();
+  }
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var trap = form.querySelector('input[name="website_hp"]');
+    if (trap && trap.value){ done(); return; }          /* hidden field filled in: a bot */
+    var bad = validate();
+    if (bad){ show(REQUIRED); bad.focus(); return; }
+    if (!ENDPOINT){
+      show("Online submission isn't switched on yet, so this form was not sent. Please email information@aspirehighyouth.org and we will help you.");
+      return;
+    }
+    submit.disabled = true; submit.textContent = "Sending...";
+    fetch(ENDPOINT, { method: "POST", body: new URLSearchParams(new FormData(form)) })
+      .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json().catch(function(){ return { ok: true }; }); })
+      .then(function(res){ if (res && res.ok === false) throw new Error(res.error || "rejected"); done(); })
+      .catch(function(){ show("Something went wrong and your form was not sent. Please try again, or email information@aspirehighyouth.org."); })
+      .then(function(){ submit.disabled = false; submit.textContent = "Submit"; });
+  });
+})();
+</script>
+</body>
+</html>
