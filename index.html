@@ -609,6 +609,7 @@ html.apply-open{overflow:hidden}
 .join-cards .card-link:hover{background:var(--blue);color:#fff}
 @media(max-width:700px){.choice{grid-template-columns:1fr}}
 #involvedTabs{scroll-margin-top:96px}
+html.locked #nav,html.locked #menuBtn,html.locked #headActions,html.locked footer{display:none!important}
 </style>
 </head>
 <body>
@@ -835,8 +836,7 @@ html.apply-open{overflow:hidden}
       <div class="sec-head rv">
         <p class="eyebrow" data-i18n="directory.eyebrow">Staff</p>
         <h2 data-i18n="directory.h2">Staff directory</h2>
-        <p class="lede" data-i18n="directory.lede">Everyone with an Aspire High staff account, plus anyone in the Airtable
-          Staff table. A new colleague appears here as soon as they sign up — nobody has to edit the site.</p>
+        <p class="lede" data-i18n="directory.lede">Everyone with an Aspire High staff login, plus anyone in the Airtable Staff table.</p>
       </div>
       <div id="dirPanel"></div>
     </div>
@@ -992,9 +992,9 @@ html.apply-open{overflow:hidden}
       <div class="rv">
         <p class="eyebrow" data-i18n="contact.eyebrow">Get in touch</p>
         <h2 data-i18n="contact.h2">Partner with us, or enroll a student</h2>
-        <p class="lede" data-i18n="contact.lede">Families, schools, funders and volunteers are all welcome. Create an account to reach your hub, or contact the team through the main organization site.</p>
+        <p class="lede" data-i18n="contact.lede">Families, schools, funders and volunteers are all welcome. Staff, tutors, mentors, parents and students can log in to reach their hub, or contact the team through the main organization site.</p>
         <div class="hero-cta">
-          <button class="btn btn-primary" data-view="signup">Create an account</button>
+          <button class="btn btn-primary" data-view="login">Log in</button>
           <a class="btn btn-ghost" href="https://aspirehighyouth.org">Go to aspirehighyouth.org</a>
         </div>
       </div>
@@ -1014,76 +1014,23 @@ html.apply-open{overflow:hidden}
   <div class="wrap auth-grid">
     <section class="auth-card">
       <img class="auth-crest" src="data:image/webp;base64,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" alt="Aspire High crest">
-      <h1>Log in</h1>
-      <p class="muted">Your hub shows only the records that belong to you.</p>
+      <h1 data-i18n="login.h1">Log in</h1>
+      <p class="muted" data-i18n="login.sub">Log in with the email and password Aspire High gave you.</p>
       <form id="loginForm" novalidate>
-        <label for="li-email">Email</label>
+        <label for="li-email" data-i18n="login.email">Email</label>
         <input id="li-email" type="email" autocomplete="email" required>
-        <label for="li-pw">Password</label>
+        <label for="li-pw" data-i18n="login.password">Password</label>
         <div class="pw">
           <input id="li-pw" type="password" autocomplete="current-password" required>
           <button type="button" class="pw-toggle" data-for="li-pw">Show</button>
         </div>
-        <button class="btn btn-gold wide" type="submit">Log in</button>
+        <button class="btn btn-gold wide" type="submit" data-i18n="btn.login">Log in</button>
       </form>
-      <p class="alt">New here? <button class="linkish" data-view="signup">Create an account</button></p>
+      <p class="alt" data-i18n="login.noaccount">Logins are set up by Aspire High. Need access? Email <a href="mailto:information@aspirehighyouth.org">information@aspirehighyouth.org</a>.</p>
     </section>
     <aside class="auth-aside">
       <h2>Inspiring youth. Empowering futures.</h2>
       <p>Free online tutoring and mentorship that helps students grow academically and personally.</p>
-      <ul class="ticks">
-        <li>Parents follow their own children's progress, attendance and payments</li>
-        <li>Students see upcoming sessions, assignments and resources</li>
-        <li>Tutors and mentors manage their own roster and session log</li>
-        <li>Staff hold the full admin view across every program</li>
-      </ul>
-      <div class="demo">
-        <b>Demo accounts</b>
-        <p>parent@aspirehigh.test · student@aspirehigh.test · tutor@aspirehigh.test · mentor@aspirehigh.test · staff@aspirehighyouth.org</p>
-        <p>Password for all: <code>Aspire2026!</code></p>
-      </div>
-      <div class="note warn" style="margin-top:18px">
-        <span><b>Demo sign-in.</b> This single-file version keeps accounts in your own browser only, so it is fine for showing the site but not for real student or family data. Use the Flask version for that.</span>
-      </div>
-    </aside>
-  </div>
-</main>
-
-<!-- ============================ SIGNUP ============================ -->
-<main id="view-signup" class="auth" hidden>
-  <div class="wrap auth-grid">
-    <section class="auth-card">
-      <img class="auth-crest" src="data:image/webp;base64,UklGRg4eAABXRUJQVlA4WAoAAAAQAAAAlQAAlQAAQUxQSBAIAAARsEf8/y3V3ufta7GWsYwZw4whkzOUoRi7SLKTc0nOPdmKjC2d61aca0dObEXn0pZI0ZF0fpe0b841aTvKkCQdKbGNshNJY5hthrGsxfL9/HFuM2vW+t0vETEBVO0AIP4oAJCHQ/VHYg1tL6eGRifuzM4vLCwszE1/fvujt2483xSvCfkEPAZC89e29QxP/enR4dlVrlAyLNuWv2pbplF8mr3M7HwzPzbQ1Rj2KYAHAMJfd31g6tv9J3lLSskVlNIuXR6n/zTy6rWoCsC1AKiRptQXDw+yhiXZsdIsPtla+qirLiAAF4LQEz0T6+cFm6vSyB0uDbVHVLgLRLBp8E9HeZurWZrn6ckXn1EBdwBEIDl096Rkswtaue2Z12s0oPqEv2Xk29MSu6ed25vrrVVRVVDjfcsZQ7LL2rntT9sCAlUC6E1j6ac2u7J5+pe+GoFqEKEX5zImu7fM/zTcoMFhELX9Dy9sdndZOphq0wHnQKl7b7vIXmifL3UG4BCI2K3dEnulfbncocMBQHRwq8heKs9mWzVUCAinNoqSPdY+nW5RUQn4nl3Jsxdbxx/ERPkQnzyT7NGljW5f2bQZg71bXrSXTb/LXm68+jfKy//33//99y9VvhVPK71YvmXpZYXOsmmznpZtL5s67mlnzWUTw7aXHdaXDX2ml21FykYdOQ+TK1r5EkceZo6L8gU3PKzQi/IpM7Z3nScrgL6Cd62HqQKJE8+yJ5QKUGBVelXudVRCDBtetRejijafeJR9R6uMviy96epZVEb0FLxpPUSVRU3ak4wPRIVIjJledJxEpZA88iBrXKOKa7ct7zlOonJoPPQcc1wjB6ojJa/Za4ATULshvaXwpkKOFD1XniLvhuEMBOZtL7nsAjkUzRkPsWZ056hDec+Qm/UgxyK4aHnF2YuCnCpUoGFbekNxRAMpKhxR+0Ec4tUzT7CWw4DW3yUc0XayHIb2Xt4D5E4jSBk4nVAd0ZEtTejwz5rul+kE8OyJNeNzRNs5X3YL1H5ru93VgEKI/SCtCdURdbssN6JAMi3d7emID6QMF9kYEI7wzdv8NCVIXN+VblacDAKIbUvONMMRePac5aKO0LVnD6V7GbOhmoRAd46taR85Q58yOV0bml2vez0j3cpYrFE+3bqufGLxXhLOIMR/sI4bB54Wb6g3MtKdzOUYomn7bmhKnvUo5EgAIrGwmVyVckpTe46lGxmLMaDjkk+bx9M9GgBH1PYNdDYkIo9YfhuA0nkg3ac0FwGh3+RseyzR2j9wXXFEx4mVSw+17zOvBTVVdB1ItylORwBdDFhcHOhcPjWKn/ucQL5PCsylc5PlXPi9G4rSsW27S24iBNRNNnblWF5mbZaP6uEIhKaK/Mtsd9f5Th1E07eGm1y85we0seJ0fF0yM9vbrSBnIvTpqSVldjz4hSx9JAg10wXXkEd9KoDGYz6ofXbfkjL/MCnIKfC1T6ws9Ae0BZbfhokQGs+6hLXZoRAR3i7yk7homVydT0VBzgXUcEgT6pTk44QvAuiDGekGpZVGAehRddrmwxgUf0QHnERK69jizEDzrOTTaz1LcUB9fsuuvtxkFCBteD6yIPmo48XbizP9AZCT1bcvpV08zzNvN64a8wEikVjIV5n9c0oHkXj97PzZMZOts5wpzYc1zkJgNMu/NL94Js1X3QAhNJSR1VRabVEAosiaLPW1P+FfWmtNwlkE/daRxWxtNIQfsb2k6SFAfXbDrJ7L21EQtIjozHP+dd9YTrLMLtaBHA6o10ZX744loM3a/HO0e7kehPhsrkqsvV4fAN/QXPgjm48aEehbejjzehBUhVBCkUh9XfSDEmcaJ82VKAiB1LZZBfJqNqmAoL59+TgxbfNmXW0iFgn7AKpK+AfXjw53TiUfJ6alMe4TOkTdnZzjrN0bOqBpuH7Cp40TNhd29493p+pBVYr6HZt/KX8IDll80hae6FDh7982HSWvZhsFEBt/MbBoczrSW+JfvRoU1UJK+w9FycxXKdF8yuZo/dHjfg2ifupCOsfc6tFBSNx9OtSSYWtUjW3YzGw/Hg6iaoBIamX/aC2lC33ZlncTe3w+qBK0zvt56Qz7eKxWgNCwbhdSvUU+bRHi2tz+0aPbTQqomoUeT4QiHYMf7Ui5Fluw+XEriBB5c9d0gLz6qlUFEfkXLM5cu2lw9s6tnnigNhFWQdUO0fyXi6Ip2V7yd16ydUclIiiJyRO7UqX17gCIiPD8BVvTvpfzzFYptzuoA+SCwQWDf5nvF/4Fm/ei9Ev4OlayshLmwUcxAfqlMm7xcRLP/CSZme2jNpAbKi3TB3nTOJ8M+WKjBuf6NICICKHeb3KyXObxZFIFERGgxLclp5NB9cW9olk8f5gKuAOgxntGPugItN7ZyUuWj2eG3xwc6H85LhDsXXsqy2FlPk+qQLC99+bg4K2xdYPZzNxNhesHR99qDQDkloAQSteBzcx8dXfz0jCNUjb9ogIRvblR+EP2yXSLBkLsq7OCYRiFw7sHkpll/vOgEAIgd42uWczMVx/4o91LZyazXIsQQURv/lSQv8c6nWn1gYjEmwaznd98r1Fv27aZWV68SC7se3V6bX//m5QOIHB9dDW9ectHRAQllrp/Yf+KNH6ebNUBIiI0391Zm+mJKYBont0+2PrTrZgbAUooHg8ARESAryaq4BdEQODZ+cemlLlHQ/UK6NeBYCykAEREUGN1UQ1wowrD1zSysdwTVUB/Y0IJ+0F/7wJWUDgg2BUAALBQAJ0BKpYAlgA+USCNRCOiIZc7ZlA4BQS2AGk0L8Sv6fzWbM/hvxr+TnLXWP5rvQfny/yfqR/UP/I9wD9UvPA9TH7jeoD+gf4D9lfeS/2f6b+6H/FeoB/WP871k3oAfs56Zv7o/B9/Wv9x+2/wN/sz/+PYA9ADhZf7x6CvDf9R4f+Kr1Z7hfj78e+WPr31MvkH4E/Wf3X9z/Z/wD/JP4H/feoR+Qf0T/L/mTxT1sfQO91/qn/F/M//Eemh/l+nPzK+4D+tn+f+3D2nPC89B9gn+jf2r/yezF/f/+3/XehL88/0v/k/zvwHfzX+1f9PgfHBDkEvQHnf/4zoEF3+XYDVKmoOB/cxkN27fzyPI0I8L1ADWqPwxy4XSWuol7vE0Tc+8fmAzG28BplkU3Af1RV9JQK2x9nDrdazoCqrg/yC10t//8dRp5XqljVkplxOc3X9BNtrhzbQN8ME6u1cXCNqAuVbsDlWH8LFejR59F9s4AA5UHPpv3RWFk8LqihKcHf+QBwjDbPV4574BCKH2oNYYV2c5puHVZWcOxiz45APAxwqloTAfaq5DindbGstxMmzOPuOZkg1fMvqfSQTsM+UyyuX9sD55iSKpzukTPEt+uSwfbjBCgjd8yPMsgeX5g6NUdLg9ajtJeirhrRlV2p6mlDVdeA26KYPBycIis3TELSWcSOmoFLQeWfRUr0qwjxlUTXBiQw8kvj05LxIDLIyUvR7n1MfO1ywiL3QpgSmVPbLGC/mDvnFzRZdZHZ6NvsJd5HrPz0MdS+no9zw/4zrNLjsF4HmlAP/JW77pOItL2UtJPfuqqHWOxRbhzCT2yenK63TW8eitbyZNzDLLAMsOAzrltt60HrkM4nG4AD+/w1pcWo+XZgcHWQEwendM2z5Y4Anfqvdpq0PrnenxkPgyb7wDrStBhLuz9/aLkhmEa+KOTonhtP0zoH+MALj2e1r1/vSoJ0kRC8+f9UAYYPV8qWAdxYGasZaLZcHqk8xaNnvlSb2/nn558JTHccRygm5NSVTVBG3CyD1+mdw1AA5ejD+6RD8lI7jHpfJwvJtdWlPBl5P64pRqvCqmhUs8HMKA6+e6DL/DI8pXgwCXDXGRkrl70NTA3/9eYVQ3iV4eKDOBLW2mDxA46MvlFvT/w9apRNrHqlHCk9Q68TpBIF4V7weNh7f3R5hktaO/NicX8nLC92KerdfvDWunDw2Q1BSi7HbX8+Ft0s38lnhMkn7tBfzF8EnPi+evWSsBYe37sD7xzfwKvlITm2Xq3OhJNcZqyOD3EnIC8v+BzMzrFgFEZ3pgadLWd+Xv4EIx/WRrcWhdL5/sB9BTRf4Gs4COLvdBkWfNLS6zfhlJMFR2YQexOL17vtLZhNX4fw3ruhF+mfsQ0b/hLS0YftTuqbWDj/qgSDaZHOj/ioPE+qaLvVSppCzmBk/aQIKV49BCEFJlAnWQgQXJdB7OlX2dAi/e83q2pXmR/twkaeZOyZo5bmPESc8c2OQMrjgUHlBz9hLYNN7Cua9YZ9SrdGeLIxHbjoAfDexxph85xGTrn+VSPMdtWu9/v/YlpWFhTgX7oFytilqM4CGmP7Z7/uNWZ/L2EKDa8IKtrLOWQv2Eb8d8JZB6MLlmrjvB7MujHKDPxXHl0fvWPUl/SkaVAsfzeHeHGpfX5WW+ZmL1nRgdkUvYxqvzH67k3WK28T97RegsEbI/2MAb9uRejzboOfpse/+AfHKlnHxaA4fHY+i3Su1uJd+PRaVZGPOkQzMOaIY63jKoJtLhFToN+YMcI8uN9IItMFdYzukJs/uXyVsUqpqwgyXOz+yWxMCfL7ezp7NUcboEX5K8NbhB586j299c2Klnp3mnvU5Y7lnVSuGeXps8Xf4Jn/Vp6a4VEp6UNz4XHw+I81qz+e61eOgug6NwFh6DPe/m9//ZDB+BCY0WV3dMtYAz8irgRV/shvd5r0HXyDoWLefhHS78Onq7gAv2r50YRsbVFIy18vWmz3yckgj/IEn6B718X0esx51zPXakk9obzsD0jpTBenIBa3fMSPTa5HH5Eu6k1dBy/fAQAL6tET/AlIF9Oef5A0M86i8UJoeKJEVslaL71t+IJrFsnrMuWMr1aFi0+4SdIJAWV4aUcamxDarDNFe2HZ++hgmzzIvwENiUe6RjOttBH2bYeI6Ih9+mRV4IBTV0clK9L0smifhtwq5i4EZrY5Lr1hUmjcbQd/wjpTlciMuqBpWHf9LXoNg8dViZfDJ0MMrUli+PcBPuOK75P0ANOqm2yPwWB7ZFVPYVXIBi0gnwIFU4GZAn0soKDlkIRvFqACgFpUmeqEO3C/42WC8LV2A/pgkmcTNsa4ICSWfLJSuCeJJDqNf/GMIaGHXf4ASJOWzP4rNrQ8/XHChMwfw9X+2p9kmejvBpNnaBXLsQeKecaDGxISyjQZQsiNExlO53JgEDL4VgmjW5nudV3/NinfnBfFa7FBrjKBmzGUnOTtJoVt20C36OWzyUrPVkVIqjeJ218I7Cj9I1QoOUkgmcqzjM3YTzKWyDMBvaejYovK4WXfzpdagnnvlV0Yj0cIsmp1NUBRCRCT71oekAmDUg6rlD3b2c46fOGFdd2/O+FfrRPFhjfZvWkNLYTcgr/tXhk/lBXgbcz8xWdCVdcPFM3gwbpp+RNja/eCpeUY+xv/RIrwdGjafeW7MnZh5YraOHWA0KEvFtkMVJcOhyfnl0Bub7pST1DVVl7uSaigNzNC2Wc3kj1iji+BIEcAD+cgNS8oDRK64gPJG3eVjK5C1lmCzROsCXKZ0uwDLknboVmhivfT09e44uEsjz3fuJWBNmK8N4aVEgmeUwZiJMSYDJR0kqRAU4uZz5cw0g95aqoSroLro9/hqzhXfo6VVGSfEYFJYCJs8panCGa4cmUjGi39AFNMJ8gHQi55ETbhu5nfE5shl6NLx9DR4UzugZWT0AaM29bjVhtWHhCi8b6qgfKdD7U0JieGrCyEMGEHL0Js79VWIuR40BKNN5iHyyTXYfy0c8jJxZmoEZptnffij91T4ZgQ6AHrpxnzQASXQnGYEDuJdFav7L1SYOzTZ4fzlD6gOfl/sYdbAtw9F5E5C8GcjfvNFdTozmXh8Osd3OI0sur6JE09069/oAOJgS62Gn+j2jzd8qzwi/1hJRHL/xflYuWysZrZMy/rImkpdXXe8u+2B+8VYi/IgKYlupxF9ykvzRLDNZm4f7/ejSr5Om5hLyrdJyyycpoe1FfG3Jvh+HTDtTxYXQLk/D72zDjudjXD1BIAk7eRKZFjVxsaWQAUdQ0S40csLHNahta67oZaeSq+rqKKSSGRjtZjfzYhEepy6kEyOG0TXAX3WFCN3vEL4bmbZ4j1g+NhGZKW/iJ0GxIhohPMbkHwAXXIIXP8t/G+3IZaySu492JL2Lu46G8iJz4g+LugqrTSORu72vuYnhwKb5EcU37Q/AGqrZKzAN7N+vcZsDeQSGsETC0w7KrnTURSJllcXplGuKF1wnqKxw0SnLWrl4ZQB/n7wwr5TYtCzVEMSSBQj7IoHhfAWWee7MdXw6EJLcA++uw7HRSPZFSGiGGj0ykhSZgRqqIQ1NVHOxaupbrAXxuTGED3GUmNrf8m0YyDMBlEXaxHWyivcfQETgNb8qq4OMjuIXSRjqYTPg6DSN/DRW7RurXC6lDNd0POjR+g10JKYnjpl0yZ9J7In5MiDbMRepKmWCBbGvauKfEBm5UlAN1AH3RSN8mYFj55prLerrWp3soPbS6WhNl388A0ZvQKvyT7/uWF3+q3mfa7ERnxXygBYge78yDpKARVElPN6c0QGU1z8KvtHxDMu/kP2IbBqPQu/HD+Sak2uqVzA66Jpi3FjmCen30npjGsWMKnTZxZBxj98ycvv1OGnpA1M3uv+pLUE7n/lKFmHmligQGJfxtH/GR0Bx0XywXrGDrx1fuXsNQ0j1i5WCNMCDTn0K8Q+Rv2dmYzS3PRgeg6tjxAwpxHoFj6+bywFkr3d/BzBc4RJj+zpoZpiMu0U1pFFy/34rn1oLJWKvpxYN6OM65aadUS+Xe3ZX+SpgBI0JqtXUtAOSnb3FpskIg4ENZBxS/dwUito1ocJB5jmUO8tzAk8vwaai+ThKhzHZkoD0/jPJ4qF7G8qbgVZCDPWiGZ7CBmHy3Nhui0rWsR63P7jGeL2CScXGEG6Mtw5hjVinSg/I2Jk5m7C1CGLGnkOPIEwchZDAv7E+3FOfkgyaIcFfYzOZQCidf/+rgk+8m1Al9VeCNlnaiFHz+z1RWFyphHa1KjKj4gk7hmDPNOTFghAQCJsq8VnkiBzKDzHEokw+k3o1D74FzuAPCaKxEykKc7n11XCkcZFA/I1VuwsIuyZPZNu0mw4Rlfq8a5Fgq/NVzYaPCZx0/f5lR3cBmv46PEKKtgipaWkhLXDZAv8luQHwQVJqEqt3Ylah186oHSSaiMSiwqg3d22mS2c6++AutcBVSg+YfrcSwlbr2f73B6R6H4t4iWWn6K862F6oxv27zEfTOI/bAx6Xc1SS0wDlvsocxWAsfHn/axkGaXjf9w1HuTeMsl+JJNKu6EkqSWFqYFdeQQ5UaexqsKrxP4fcL9DB2lnLvY4QCrcBA9eq0PkeZXxtWtIAbbRJO1rQK2EuvBF992P7QdhXZaMZyYd6rPEZFEHAUEqOLc9UnP4Dcd/4PfIci2zdvVrvvGzGuvNkt0vijd9dXQywJnuPPcOufvYedzhuUnrspjrJKqCgSpWNTRjV1Q3XNGtMTOWV7dfMXxSl3HfAEBsE9M1Lk+W0tcw2odNjEZtNR3aqcKiurCjPx3XD2JMMi+hLsyQc+4Cri4EotsxQ63m8zQsYSYNCtPIQqfPLeXew6zlqSGmfklJE1x31wpMid6zn7DVShlR+p5z8Lx7JFIPxmQqSvsRg1Ff5BRPXew7zB5tszcthVlrA3jO4bc1dpFHmijvCwAB4Ly4UvOYG9+CD/91+6u7GNFJDS8RXF7E+/cs9I04BGzhYCvTtSMTQ374hc/MYkweGsTGxwoYUDwaBaWFb9w0G9+uapUJBcgbRu3QdNpnpqkt1KtODdihk7RDUtJSRZtbMVcfNxvkhVXJ1MQaXzeHcoYlafWmfnW4MdDbrLT26QTEIiS7lhOoTGWPUnuIKzzVYL/yrfA0hsn7I1E/RSBI5zSVVrgubiE5cHZj0OFZhuFbXBsf++I+XYWSv8l4CrDaMh2LRxMp/OSmdtQLcb+5dUfOvD61/N6SD6Cck1qpHN+F8hYOxcvkglxotm8LPeN0X9XUwCiHIAIS2e9/+CFDevlLY53/k+p81vzfFUw63DFS+LnvrN/6wqeZpmGVJYElcmKI7s3GA6QcLJV2p5LPzIk1JjGtVJrrFvo8bzZ+1nRm3re9optRcKz7mXLKjhS8t51D3RBTTr5cmmkgGIdDh6M7Uy0jqhlx6X82j/PUZftmeXXVYT2waSSmXMputu3169ZycsgGGAy/4On2rAeQ26NfRSfV3Jp9QACi5MaEeNRjlYqwUw4boJodWkJ8gthn6WPF/g9L/FQ8lamYXao9wzLOD2N9n2+ZIB0/PKLm80S10fDGW1i37t1alSXfUUSPfJvXOc3ZHcT7YQpKjphNEg+vyf+h5UOdAXp58xa44mwgzruuVA/JKLhQ0JyDiLPtflg+G4Xq67AQVD6+8G+hSTYpbhFbtSnZ62pOq6LNVCCzTaaFYbYFpgVqZtlCZ4C5KT/h19fzNYe90kki+HzJLp2K185c2FErdRx/acXG1jneYeFS1NH//QcpevH/apYDtSHA4b5N/6X0a6Bd193jIHg88oSWfgCE94/J0m79pgTm5TO6KjcjRBWpCcBcnPgvTazFm3vXLFeSxbyg10PSVcE3mME07mcc4hsFu/v7foC0uj3w2bBYM5dJp6MtALc5vjKO3Jwx84Ifdx9s/HyCXCDaroTsundcUbvMDtOTqIiJ5DPKXnvis/Q6So3v2PtnusISN9Xi1/H12RURWhXziqUj8boAQEzSAuE1zXcJNm5SC1eUF18jVQ6WP1aUUMNGi6t1Jx0MqLOUvxVp9fm5aHWcRL/jhe0O2/1aBG4Ptg2IU5o3entyJ1e5avI+dSlHk/usBpexL5HrSPcGIJobqB7P19zMKesijI+QVQ1Eof+rGROYPkeWhlfmoUFWYdBWEW1LDcPRo7R0ORwItvBTYHkHjUMRsF7Mbpf+i8LHzGZ2GVtLUg2JDU93LTmlJokaOEyNuUyrVXH91YOHvfWqdgWq7yHOyFcfeApc/En5HXZm2gO2lQdZqcz6Gvg679idKz1fjoko+91/6ZEJ92dw+6D3AZNMTZm/wcOmwOEYv2ofmCXTTPdcN3QCtplPEPetZyxktvAMj7aPgb6M79MH0LURyOtRv/CVj/QoR4bVusTjNhlcfkHY7GywfWpKY4F9SbMbH+Iz1qYd2/SO+WiVfVrNUZw91v+fl5KwGSW59tKYJPKqHeuE7OL5onRK9IuiT32QZ2Y4qI36e1hAIt1uaFh/yRQZFWIU5VkaVPE7Am3E9VOd3slSwWEt9rLY8f33E4RfWdhCfhfreibC2trGbPPezW+kJvPEuLIc/qYJbLciKuUs+Zjx3QO6xukUGx/xMC++3RYofK0aIyVaaW0ACJAEi2EkpntIYs9f+VcPLamxf5YXmhFkZ2E9lEElxMoFXIBRdTPCNzpYfKezodIpjwdRlRi163fEmxB/fRXc/XkuMbXyPT9dBUlHvyQ5pNFhAaGt6J18aGL6cX5ltiKh+NGXwdRIpamCr2PHkds7L1TFol2Gy5OZNH9/hE6QDWyxtz0ynW4o68H9lfmr2zDYA28f7ZgpQgJ8u/tk6maK2DarFpRlzo3iF92gDVhZjhFcXq9i0+4FUGmADC5jHj9/sgX/VDLxJlRBbCMZmWimyp0m2mRqnlQQc7MKb63bh6ooSZ3a/KYkEz3vJHRsq4GIzBGi1AShmOyk4J+SAiQdBgGyISnhvYANK+8KlQwmZ+wNeyAe2lJ0jAuwYjYVZMESNo1X18dV1eZFtKpfC++OkOy2cR4gqyiYYwmyrpw/xtbEMze20xmAvLUl/SWTRq4GeInFP9R/va/i2C7y1n4je701sFjZoUBF/tbwhm6C93qxKZq7YrdRsUN5Fa4KFPGmBQ+xg1QJC+K3sHAUOSyreNaCKhfrU4trco0sP6eMCGnT6+gvLzRmVIm5gQoHEeNx5dAKem0vOS+CjCDvmcUgbQ/MyRplCAm+a7Zly17dkcc7AWQPUpiiRQtozCAFM//92gke43LWCHWUA71Y0y+7XkF4iwJfvZFJwc4UuofZbiGjQJsZCx43gpo1KYECsbxyro3yZVBBcCZGrp/1gQPR5WlaJz3P1yb//dn1GGpQGlZDwebtwH+oTZJ+IbEzo5Rke9uy7htKwY3MZOL9K7//8nSHaCWUsgKzoAAAAA==" alt="Aspire High crest">
-      <h1>Create an account</h1>
-      <p class="muted">Pick the role that describes you. It decides which hub you land in.</p>
-      <form id="signupForm" novalidate>
-        <label for="su-name">Full name</label>
-        <input id="su-name" type="text" autocomplete="name" required>
-        <label for="su-email">Email</label>
-        <input id="su-email" type="email" autocomplete="email" required>
-        <label>I am a</label>
-        <div class="role-picker" id="rolePicker"></div>
-        <p class="hint" id="roleHint"></p>
-        <label for="su-pw">Password</label>
-        <div class="pw">
-          <input id="su-pw" type="password" autocomplete="new-password" minlength="8" required>
-          <button type="button" class="pw-toggle" data-for="su-pw">Show</button>
-        </div>
-        <p class="hint">At least 8 characters.</p>
-        <label for="su-confirm">Confirm password</label>
-        <input id="su-confirm" type="password" autocomplete="new-password" required>
-        <button class="btn btn-gold wide" type="submit">Create account</button>
-      </form>
-      <p class="alt">Already have an account? <button class="linkish" data-view="login">Log in</button></p>
-    </section>
-    <aside class="auth-aside">
-      <h2>What happens after you sign up</h2>
-      <ul class="ticks">
-        <li>Your password is hashed with SHA-256 and a per-account salt before it is stored</li>
-        <li>You land in the hub for your role, and no other role's hub is reachable</li>
-        <li>Staff can preview any hub for support</li>
-      </ul>
-      <div class="demo"><b>Note on the figures</b><p class="sample-note"></p></div>
     </aside>
   </div>
 </main>
@@ -1179,12 +1126,8 @@ html.apply-open{overflow:hidden}
       </form>
 
       <h2 style="margin-top:44px">Accounts</h2>
-      <p class="muted">The site ships with five demonstration accounts so the hubs can be tried out.
-        Remove them before sharing the site with anyone outside the team.</p>
+      <p class="muted">There is no sign-up. Aspire High creates every login and lists it in the page's code. The accounts marked "demo" are placeholders: replace them with real logins made in make-login.html.</p>
       <div id="accountList"></div>
-      <div class="panel-actions">
-        <button class="btn btn-ghost" id="killDemo">Delete the five demo accounts</button>
-      </div>
 
 
 
@@ -2216,7 +2159,7 @@ const ES = {
   "faq.h2": "Preguntas frecuentes",
   "contact.eyebrow": "Cont\u00e1ctanos",
   "contact.h2": "Colabora con nosotros o inscribe a un estudiante",
-  "contact.lede": "Familias, escuelas, financiadores y voluntarios son bienvenidos. Crea una cuenta para entrar a tu portal o comun\u00edcate con el equipo desde el sitio principal.",
+  "contact.lede": "Familias, escuelas, financiadores y voluntarios son bienvenidos. El personal, los tutores, los mentores, los padres y los estudiantes pueden iniciar sesi\u00f3n para entrar a su portal, o comun\u00edquese con el equipo desde el sitio principal.",
 
   "sites.h3": "Sitios internos",
   "forms.h3": "Formularios y respuestas de los talleres",
@@ -2227,7 +2170,7 @@ const ES = {
   "files.lede": "Hojas de Google en vivo dentro del portal del personal. Los archivos quedan en Drive, as\u00ed que el acceso lo decide Google.",
   "directory.eyebrow": "Personal",
   "directory.h2": "Directorio del personal",
-  "directory.lede": "Todas las personas con cuenta de personal de Aspire High, m\u00e1s quienes est\u00e9n en la tabla Staff de Airtable.",
+  "directory.lede": "Todas las personas con acceso de personal de Aspire High, m\u00e1s quienes est\u00e9n en la tabla Staff de Airtable.",
   "nav.files": "Archivos", "nav.directory": "Directorio",
   "attendance.eyebrow": "Registro",
   "attendance.h2": "Tomar asistencia",
@@ -2304,9 +2247,9 @@ const ES = {
   "hub.attendance":"Asistencia", "hub.gpa":"Promedio (GPA)",
   "hub.documents":"Mis documentos",
   "hub.back":"Volver al sitio",
-  "login.h1":"Iniciar sesi\u00f3n", "login.sub":"Tu portal muestra s\u00f3lo los registros que te corresponden.",
+  "login.h1":"Iniciar sesi\u00f3n", "login.sub":"Inicie sesi\u00f3n con el correo y la contrase\u00f1a que le dio Aspire High.",
   "login.email":"Correo electr\u00f3nico", "login.password":"Contrase\u00f1a",
-  "login.new":"\u00bfEres nuevo?", "login.create":"Crear una cuenta",
+  "login.noaccount":"Aspire High crea los accesos. \u00bfNecesita acceso? Escriba a information@aspirehighyouth.org.",
   "signup.h1":"Crear una cuenta",
   "signup.sub":"Elige el rol que te describe. Determina a qu\u00e9 portal entras.",
   "signup.name":"Nombre completo", "signup.role":"Soy", "signup.confirm":"Confirmar contrase\u00f1a",
@@ -2599,34 +2542,41 @@ function flash(msg, kind){
 }
 
 /* ===================== accounts (browser-only) ===================== */
-const STORE = "aspirehigh.users", SESSION = "aspirehigh.session";
+/* ===================== accounts =====================
+   There is no sign-up and there are no roles. Aspire High creates every login
+   and lists it below; anyone with a login can open the whole website. A
+   password is never stored, only a salted hash (PBKDF2-SHA-256, 210,000
+   rounds). To add or change a login, open make-login.html on your computer and
+   paste the line it prints into ACCOUNTS.
+   NOTE: this is a sign-in screen on a static website. It keeps casual visitors
+   out of the members-only screens, but the page's code is public, so it is not
+   a substitute for a server when real student or family records are involved. */
+const SESSION = "aspirehigh.session";
 const read = k => { try { return JSON.parse(localStorage.getItem(k)) || null; } catch(e){ return null; } };
 const write = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
 
-async function hash(password, salt){
-  const bytes = new TextEncoder().encode(salt + "::" + password);
-  const digest = await crypto.subtle.digest("SHA-256", bytes);
-  return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,"0")).join("");
-}
-const newSalt = () => Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,"0")).join("");
+const ACCOUNTS = [
+  { name:"Aspire High login", email:"login@aspirehigh.test", salt:"9e52d9412f188274840c318edb86f1ec", hash:"7b405135f57b9024e9d17c31d4c09bb7604b2afed5c8dff421e1bf2054d86640" }
+];
 
-async function seed(){
-  if (read(STORE)) return;
-  const demo = [["Priya Parent","parent@aspirehigh.test","parent"],["Sam Student","student@aspirehigh.test","student"],
-                ["Tara Tutor","tutor@aspirehigh.test","tutor"],["Marco Mentor","mentor@aspirehigh.test","mentor"],
-                ["Sana Staff","staff@aspirehighyouth.org","staff"]];
-  const users = [];
-  for (const [name,email,role] of demo){
-    const salt = newSalt();
-    users.push({ name, email, role, salt, hash: await hash("Aspire2026!", salt) });
-  }
-  write(STORE, users);
+async function hash(password, salt){
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits({ name:"PBKDF2", hash:"SHA-256", salt:new TextEncoder().encode(salt), iterations:210000 }, key, 256);
+  return Array.from(new Uint8Array(bits)).map(b=>b.toString(16).padStart(2,"0")).join("");
 }
-const users = () => read(STORE) || [];
+/* Browsers that used the old version still hold its accounts: clear them. */
+async function seed(){ try { localStorage.removeItem("aspirehigh.users"); } catch(e){} }
+const users = () => ACCOUNTS;
 const SERVER = (typeof window !== "undefined" && window.ASPIRE && window.ASPIRE.server) ? window.ASPIRE : null;
 /* Served by the Flask app, the signed-in user comes from the server session,
    not from this browser — which is what makes the staff portal real. */
-const session = () => SERVER ? (SERVER.user || null) : read(SESSION);
+const session = () => {
+  if (SERVER) return SERVER.user || null;
+  const s0 = read(SESSION);
+  const a0 = s0 && ACCOUNTS.find(a => a.email === s0.email);
+  /* No roles: every login gets the full-access level, which the code names "staff". */
+  return a0 ? { name:a0.name, email:a0.email, role:"staff" } : null;
+};
 
 /* ===================== render home ===================== */
 $$(".sample-note").forEach(el => el.textContent = CONTENT.sampleNote);
@@ -2656,23 +2606,10 @@ fill("#schemaGrid", CONTENT.schema.map(t=>`<div class="table-card rv"><h4>${esc(
 fill("#buildSteps", CONTENT.build.map(s=>`<div class="step rv"><div><h4>${esc(s.h)}</h4><p>${esc(s.p)}</p></div></div>`).join(""));
 const hubFrame = $("#hubDriveFrame");
 if (hubFrame) hubFrame.src = `https://drive.google.com/embeddedfolderview?id=${CONTENT.driveFolderId}#grid`;
-const roleHint = () => {
-  const el = $("#roleHint");
-  if (!el) return;
-  const picked = document.querySelector('input[name="role"]:checked');
-  const domain = CONTENT.staffEmailDomain;
-  el.textContent = (picked && picked.value === "staff" && domain)
-    ? `Staff accounts must use an @${domain} address.`
-    : "";
-};
-document.addEventListener("change", e => { if (e.target.name === "role") roleHint(); });
   try { if (hubTabs) renderPublicHub(0); } catch(e){ /* tabs not built yet on first pass */ }
   if (typeof renderAbout === "function") renderAbout();
 }
 renderContentBlocks();
-
-$("#rolePicker").innerHTML = CONTENT.roleOrder.map((k,i)=>`<label class="role-opt">
-  <input type="radio" name="role" value="${k}" ${i===1?"checked":""}><span>${esc(CONTENT.roles[k].name)}</span></label>`).join("");
 
 /* public hub tabs */
 const hubTabs = $("#hubTabs");
@@ -2715,19 +2652,21 @@ wireDash($("#dashTabs"), $("#dashFrame"), $("#dashLabel"), $("#dashOpen"));
 wireDash($("#hubDashTabs"), $("#hubDashFrame"), $("#hubDashLabel"), null);
 
 /* ===================== views ===================== */
-const VIEWS = ["home","login","signup","hub","manage"];
+const VIEWS = ["home","login","hub","manage"];
 function show(view, opts){
   opts = opts || {};
   const s0 = session();
+  /* The site is private: until someone has logged in, the login page is the only page. */
+  if (!s0 && !SERVER) view = "login";
   if (view === "hub" && !s0){ view = "login"; }
   if (view === "manage"){
     if (!s0) view = "login";
     else if (s0.role !== "staff"){ flash("The Manage page is limited to staff accounts.", "error"); view = "hub"; }
   }
   VIEWS.forEach(v => { $("#view-" + v).hidden = (v !== view); });
+  document.documentElement.classList.toggle("locked", !s0 && !SERVER);
   if (view === "hub") renderHub(opts.roleKey);
   if (view === "manage") renderManage();
-  if (view === "signup") roleHint();
   if (view === "home") refreshDataSection();
   renderHeader();
   applyPortal();
@@ -2777,7 +2716,7 @@ function renderHeader(){
     : `<button class="login" data-view="login">${esc(t("btn.login","Log in"))}</button>`;
   $("#heroCta").innerHTML = s
     ? `<button class="btn btn-gold" data-view="hub">${esc(t("btn.openhub","Open my hub"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`
-    : `<button class="btn btn-gold" data-view="signup">${esc(t("btn.getstarted","Get started"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`;
+    : `<a class="btn btn-gold" href="#involved">${esc(t("btn.getstarted","Get started"))}</a><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`;
   const lo = $("#btnLogout");
   if (lo) lo.addEventListener("click", logout);
 }
@@ -2861,37 +2800,6 @@ document.addEventListener("click", e=>{
 });
 
 /* ===================== auth forms ===================== */
-$("#signupForm").addEventListener("submit", async e=>{
-  e.preventDefault();
-  const name = $("#su-name").value.trim();
-  const email = $("#su-email").value.trim().toLowerCase();
-  const roleEl = document.querySelector('input[name="role"]:checked');
-  const pw = $("#su-pw").value, confirm = $("#su-confirm").value;
-
-  if (name.length < 2) return flash("Enter your full name.", "error");
-  if (!/^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,}$/.test(email)) return flash("Enter a valid email address.", "error");
-  if (!roleEl) return flash("Choose the role that describes you.", "error");
-
-  /* Staff accounts are limited to organization addresses. Everyone else can
-     sign up with any email. */
-  const domain = (CONTENT.staffEmailDomain || "").toLowerCase();
-  if (roleEl.value === "staff" && domain && !email.endsWith("@" + domain)){
-    return flash(`Staff accounts need an @${domain} address. Use your Aspire High email, or choose a different role.`, "error");
-  }
-  if (pw.length < 8) return flash("Use a password of at least 8 characters.", "error");
-  if (pw !== confirm) return flash("Both passwords must match.", "error");
-  const all = users();
-  if (all.some(u => u.email === email)) return flash("That email already has an account. Log in instead.", "error");
-
-  const salt = newSalt();
-  all.push({ name, email, role: roleEl.value, salt, hash: await hash(pw, salt) });
-  write(STORE, all);
-  write(SESSION, { name, email, role: roleEl.value });
-  e.target.reset();
-  flash("Welcome to Aspire High, " + name.split(" ")[0] + ".", "success");
-  show("hub");
-});
-
 $("#loginForm").addEventListener("submit", async e=>{
   e.preventDefault();
   const email = $("#li-email").value.trim().toLowerCase();
@@ -2904,9 +2812,12 @@ $("#loginForm").addEventListener("submit", async e=>{
   if (u.role === "staff" && dom && !u.email.toLowerCase().endsWith("@" + dom)){
     return flash(`Staff access is limited to @${dom} addresses. Contact the team if this is your account.`, "error");
   }
-  write(SESSION, { name:u.name, email:u.email, role:u.role });
+  write(SESSION, { name:u.name, email:u.email });
   e.target.reset();
-  show("hub");
+  let next = "";
+  try { next = sessionStorage.getItem("aspirehigh.next") || ""; sessionStorage.removeItem("aspirehigh.next"); } catch(err){}
+  history.replaceState(null, "", next || "#home");
+  location.reload();
 });
 
 $$(".pw-toggle").forEach(btn=>{
@@ -4555,8 +4466,7 @@ async function renderDirectory(){
 
   const domain = (CONTENT.staffEmailDomain || "").toLowerCase();
   const accounts = users()
-    .filter(u => u.role === "staff")
-    .map(u => ({ name:u.name, email:u.email, role:"Staff account", source:"Signed up here" }));
+    .map(u => ({ name:u.name, email:u.email, role:"Login", source:"Aspire High login" }));
 
   let fromBase = [];
   if (atReady()){
@@ -6263,9 +6173,8 @@ function renderManage(){
   const all = users();
   const demo = all.filter(u => /@aspirehigh\.test$/i.test(u.email));
   $("#accountList").innerHTML = `<table class="data-table">
-    <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Type</th></tr></thead><tbody>${
+    <thead><tr><th>Name</th><th>Email</th><th>Type</th></tr></thead><tbody>${
     all.map(u => `<tr><td>${esc(u.name)}</td><td class="small-cell">${esc(u.email)}</td>
-      <td><span class="pill">${esc(u.role)}</span></td>
       <td>${/@aspirehigh\.test$/i.test(u.email) ? '<span class="pill pill-staff">demo</span>' : "real"}</td></tr>`).join("")
     }</tbody></table>${demo.length ? "" : '<p class="muted" style="margin-top:12px">No demo accounts remain.</p>'}`;
 
@@ -6508,17 +6417,6 @@ $("#contactForm").addEventListener("submit", e => {
   reloadAfterSave("Contact details saved.");
 });
 
-$("#killDemo").addEventListener("click", () => {
-  const remaining = users().filter(u => !/@aspirehigh\.test$/i.test(u.email));
-  if (remaining.length === users().length) return flash("There are no demo accounts left.", "info");
-  if (!confirm("Delete all five demo accounts?\n\nIf you are signed in as one of them you will be logged out. Make a real staff account first."))
-    return;
-  write(STORE, remaining);
-  const s0 = session();
-  if (s0 && /@aspirehigh\.test$/i.test(s0.email)) localStorage.removeItem(SESSION);
-  reloadAfterSave("Demo accounts deleted.");
-});
-
 document.addEventListener("click", e => {
   const flip = e.target.closest("[data-flip]");
   if (!flip) return;
@@ -6682,9 +6580,12 @@ $("#resetSite").addEventListener("click", () => {
 /* ===================== start ===================== */
 seed().then(()=>{
   const start = (location.hash || "").slice(1);
-  show(VIEWS.includes(start) ? start : "home");
+  if (!session() && !SERVER && start && start !== "login" && start !== "home"){
+    try { sessionStorage.setItem("aspirehigh.next", "#" + start); } catch(err){}
+  }
+  show(start === "login" && session() ? "home" : (VIEWS.includes(start) ? start : "home"));
   refreshDataSection();
-  if (APPLY_LINK){
+  if (APPLY_LINK && session()){
     const idx = (CONTENT.publicForms || []).findIndex(f => f.inline && f.lang === APPLY_LINK);
     if (idx >= 0) setTimeout(() => openApply(idx), 500);
   }
@@ -6693,7 +6594,7 @@ seed().then(()=>{
   const target = APPLY_LINK ? document.getElementById("involved")
                : (!VIEWS.includes(start) && start && /^[A-Za-z][\w-]*$/.test(start)
                    ? document.getElementById(start) : null);
-  if (target && !target.hidden && typeof target.scrollIntoView === "function")
+  if (target && session() && !target.hidden && typeof target.scrollIntoView === "function")
     setTimeout(() => target.scrollIntoView({ behavior:"smooth", block:"start" }), 150);
 });
 </script>
