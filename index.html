@@ -610,6 +610,41 @@ html.apply-open{overflow:hidden}
 @media(max-width:700px){.choice{grid-template-columns:1fr}}
 #involvedTabs{scroll-margin-top:96px}
 html.locked #nav,html.locked #menuBtn,html.locked #headActions,html.locked footer{display:none!important}
+
+/* Student hub */
+html.student-only #nav,html.student-only #menuBtn,html.student-only footer{display:none!important}
+.stu{padding:40px 0 70px}
+.stu h2{font-size:26px;margin:46px 0 12px}
+.stu-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:6px}
+.stu-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.stu-card.soon{background:var(--sky)}
+.stu-card h3{margin:0;font-size:19px}
+.stu-card p{margin:0;color:var(--ink-soft)}
+.stu-ann{display:grid;gap:12px}
+.stu-ann article{background:#fff;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:10px;padding:16px 20px}
+.stu-ann h3{margin:0 0 4px;font-size:18px}
+.stu-ann time{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+.stu-ann p{margin:8px 0 0;white-space:pre-line}
+.stu-empty{color:var(--ink-soft);background:var(--sky);border:1px dashed var(--line);border-radius:10px;padding:16px 18px}
+.stu-ws{display:grid;gap:10px}
+.stu-ws article{display:grid;grid-template-columns:170px 1fr auto;gap:8px 18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.stu-ws article.past{opacity:.55}
+.stu-ws .when{font-family:var(--mono);font-size:13px;color:var(--navy-900)}
+.stu-ws h3{margin:0;font-size:17px}
+.stu-ws p{margin:2px 0 0;color:var(--ink-soft);font-size:14.5px}
+.stu-check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.stu-check label{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;cursor:pointer}
+.stu-check input{margin-top:4px;width:18px;height:18px;accent-color:var(--navy-900)}
+.stu-check .done span{text-decoration:line-through;color:var(--ink-soft)}
+.stu-check small{display:block;color:var(--ink-soft)}
+.stu-form{display:grid;gap:12px;max-width:560px}
+.stu-form label{font-weight:600;font-size:14px;display:grid;gap:6px}
+.stu-form textarea,.stu-form select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+.stu-form .hp{position:absolute;left:-9999px;width:1px;height:1px}
+.stu-post{margin-top:18px;padding:20px 22px;background:var(--sky);border:1px solid var(--line);border-radius:12px}
+.stu-post h3{margin:0}
+.stu-note{background:#FFF6DC;border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin-bottom:22px}
+@media(max-width:700px){.stu-ws article{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1036,6 +1071,53 @@ html.locked #nav,html.locked #menuBtn,html.locked #headActions,html.locked foote
 </main>
 
 <!-- ============================ HUB ============================ -->
+<main id="view-student" hidden>
+  <section class="hub-banner"><div class="wrap">
+    <p class="eyebrow light" id="stuLabel">Student hub</p>
+    <h1 id="stuGreeting">Welcome</h1>
+    <p>Announcements, workshops, tutoring and your senior checklist, all in one place.</p>
+  </div></section>
+  <section class="stu"><div class="wrap">
+    <div class="stu-note" id="stuStatus" hidden></div>
+    <div class="stu-quick" id="stuQuick"></div>
+
+    <h2>Announcements</h2>
+    <div class="stu-ann" id="stuAnn"></div>
+    <form class="stu-form stu-post" id="stuPostForm" hidden>
+      <h3>Post an announcement (staff)</h3>
+      <label>Who is it for?<select name="audience"><option value="All">All students</option><option value="Seniors">Seniors only</option></select></label>
+      <label>Title<input type="text" name="title" required maxlength="120"></label>
+      <label>Message<textarea name="message" rows="4" required maxlength="1500"></textarea></label>
+      <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
+      <label>Staff key<input type="password" name="key" required autocomplete="off"></label>
+      <div><button class="btn btn-gold" type="submit">Post announcement</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
+    </form>
+
+    <h2>Workshops</h2>
+    <p class="muted">Life skills, freshman, sophomore, junior and senior workshops, and after-school workshops. Pick a group to see its schedule.</p>
+    <div class="tabs" id="stuTabs" role="tablist" aria-label="Workshop groups"></div>
+    <div class="stu-ws" id="stuWorkshops"></div>
+
+    <h2>Virtual mentorship program</h2>
+    <p class="muted">Want a mentor? Sign up and a coordinator will be in touch.</p>
+    <form class="stu-form" id="stuMentorForm">
+      <input class="hp" type="text" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label>Your name<input type="text" name="name" required maxlength="120"></label>
+      <label>Email<input type="email" name="email" required maxlength="160"></label>
+      <label>Grade<select name="grade"><option value="">Choose</option><option>9th</option><option>10th</option><option>11th</option><option>12th</option></select></label>
+      <label>What would you like from a mentor?<textarea name="goals" rows="3" maxlength="1500"></textarea></label>
+      <div><button class="btn btn-gold" type="submit">Sign up for mentorship</button> <span class="muted" id="stuMentorMsg" role="status"></span></div>
+    </form>
+
+    <h2 id="seniors">Seniors platform</h2>
+    <p class="muted">For seniors: your checklist (saved on this device) and senior announcements.</p>
+    <p><strong id="stuCheckCount"></strong></p>
+    <ul class="stu-check" id="stuChecklist"></ul>
+    <h3 style="margin-top:28px">Senior announcements</h3>
+    <div class="stu-ann" id="stuSeniorAnn"></div>
+  </div></section>
+</main>
+
 <main id="view-hub" hidden>
   <section class="hub-banner">
     <div class="wrap">
@@ -1552,6 +1634,10 @@ const DEFAULTS = {
      English and the Spanish form. Left empty, the forms still load and check
      answers, but tell the family online submission is not open yet and give
      the phone number and email instead. */
+  /* The student hub reads announcements, workshops, links and the senior checklist from a
+     Google Sheet. Paste the Web app URL of Student-Portal-Code.gs here (it ends in /exec). */
+  studentPortalEndpoint: "",
+
   applicationEndpoint: "https://script.google.com/macros/s/AKfycbzmdvGm25is4UNoc4FBzfm1MO4z-Faao6yPf4hnUU2-zwmKihaGJrnM-KGVYu4DOy-3/exec",
 
   /* The student application, in English and Spanish. Both live inside this
@@ -2543,8 +2629,9 @@ function flash(msg, kind){
 
 /* ===================== accounts (browser-only) ===================== */
 /* ===================== accounts =====================
-   There is no sign-up and there are no roles. Aspire High creates every login
-   and lists it below; anyone with a login can open the whole website. A
+   There is no sign-up. Aspire High creates every login and lists it below.
+   A login with  role:"student"  only opens the student hub; a login with no
+   role opens the whole website (staff). A
    password is never stored, only a salted hash (PBKDF2-SHA-256, 210,000
    rounds). To add or change a login, open make-login.html on your computer and
    paste the line it prints into ACCOUNTS.
@@ -2556,7 +2643,8 @@ const read = k => { try { return JSON.parse(localStorage.getItem(k)) || null; } 
 const write = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
 
 const ACCOUNTS = [
-    { name:"Students", email:"student@aspirehighyouth.org", salt:"6f50b38ce53fd5060c7efa52f8a8dc15", hash:"a16b67649a4ecb06b3f25fea1a5810c6c7ef2a24eb256da01d06cc1ae95c5f96" },
+  { name:"Students", email:"student@aspirehighyouth.org", role:"student", salt:"6f50b38ce53fd5060c7efa52f8a8dc15", hash:"a16b67649a4ecb06b3f25fea1a5810c6c7ef2a24eb256da01d06cc1ae95c5f96" },
+  { name:"After-school coordinators", email:"coordinators@aspirehighyouth.org", salt:"bcee0e5c9e21ad4034472785c0cb3e98", hash:"caab246f4a026e59e102eac969b3ea10579812bdada8176afbbd505ac004bc39" }
 ];
 
 async function hash(password, salt){
@@ -2574,8 +2662,8 @@ const session = () => {
   if (SERVER) return SERVER.user || null;
   const s0 = read(SESSION);
   const a0 = s0 && ACCOUNTS.find(a => a.email === s0.email);
-  /* No roles: every login gets the full-access level, which the code names "staff". */
-  return a0 ? { name:a0.name, email:a0.email, role:"staff" } : null;
+  /* role:"student" = student hub only. Any other login = everything (the code names that "staff"). */
+  return a0 ? { name:a0.name, email:a0.email, role:(a0.role === "student" ? "student" : "staff") } : null;
 };
 
 /* ===================== render home ===================== */
@@ -2652,12 +2740,13 @@ wireDash($("#dashTabs"), $("#dashFrame"), $("#dashLabel"), $("#dashOpen"));
 wireDash($("#hubDashTabs"), $("#hubDashFrame"), $("#hubDashLabel"), null);
 
 /* ===================== views ===================== */
-const VIEWS = ["home","login","hub","manage"];
+const VIEWS = ["home","login","hub","manage","student"];
 function show(view, opts){
   opts = opts || {};
   const s0 = session();
   /* The site is private: until someone has logged in, the login page is the only page. */
   if (!s0 && !SERVER) view = "login";
+  if (s0 && s0.role === "student" && view !== "login") view = "student";   /* students only ever see their hub */
   if (view === "hub" && !s0){ view = "login"; }
   if (view === "manage"){
     if (!s0) view = "login";
@@ -2665,6 +2754,8 @@ function show(view, opts){
   }
   VIEWS.forEach(v => { $("#view-" + v).hidden = (v !== view); });
   document.documentElement.classList.toggle("locked", !s0 && !SERVER);
+  document.documentElement.classList.toggle("student-only", !!(s0 && s0.role === "student"));
+  if (view === "student") renderStudentHub();
   if (view === "hub") renderHub(opts.roleKey);
   if (view === "manage") renderManage();
   if (view === "home") refreshDataSection();
@@ -2711,8 +2802,8 @@ function show(view, opts){
 function renderHeader(){
   const s = session();
   $("#headActions").innerHTML = s
-    ? `${s.role === "staff" ? `<button class="login ghost" data-view="manage">${esc(t("nav.manage","Manage"))}</button>` : ""}` +
-      `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button><button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`
+    ? (s.role === "student" ? `<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>` : `${s.role === "staff" ? `<button class="login ghost" data-view="manage">${esc(t("nav.manage","Manage"))}</button><button class="login ghost" data-view="student">Student hub</button>` : ""}` +
+      `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button><button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`)
     : `<button class="login" data-view="login">${esc(t("btn.login","Log in"))}</button>`;
   $("#heroCta").innerHTML = s
     ? `<button class="btn btn-gold" data-view="hub">${esc(t("btn.openhub","Open my hub"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`
@@ -2720,6 +2811,99 @@ function renderHeader(){
   const lo = $("#btnLogout");
   if (lo) lo.addEventListener("click", logout);
 }
+
+/* ===================== Student hub =====================
+   Announcements, workshops, links and the senior checklist come from a Google
+   Sheet (Student-Portal-Code.gs). Staff change them by editing that sheet, or
+   post announcements from the form on this page. */
+const STU = { data:null, error:"", at:0, track:"All" };
+const TRACKS = ["All","Life Skills","Freshman","Sophomore","Junior","Senior","After School"];
+const DEFAULT_CHECKLIST = ["Finish and submit your college applications","Complete the FAFSA or state financial aid form","Apply for scholarships","Ask teachers for recommendation letters","Send your final transcript to your college","Choose your college and pay the deposit","Sign up for housing and orientation","Update your resume"].map(item => ({ item, details:"" }));
+const stuEndpoint = () => String(CONTENT.studentPortalEndpoint || "").trim();
+const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
+const checkKey = () => "aspirehigh.checklist." + ((session() || {}).email || "");
+
+async function loadStudentData(){
+  const url = stuEndpoint();
+  if (!url){ STU.data = null; STU.error = "off"; return; }
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    if (!d || d.ok === false) throw new Error("bad");
+    STU.data = d; STU.error = ""; STU.at = Date.now();
+  } catch(err){ STU.data = null; STU.error = "fail"; }
+}
+function renderStudentHub(){
+  const s = session(); if (!s) return;
+  const staff = s.role === "staff";
+  $("#stuLabel").textContent = staff ? "Student hub \u2014 staff view" : "Student hub";
+  $("#stuGreeting").textContent = staff ? "What students see" : "Welcome, students";
+  $("#stuPostForm").hidden = !staff;
+  if (staff){ try { const k = localStorage.getItem("aspirehigh.staffkey"); if (k && !$("#stuPostForm").key.value) $("#stuPostForm").key.value = k; } catch(err){} }
+  drawStudentHub();
+  if (!STU.at || Date.now() - STU.at > 60000) loadStudentData().then(drawStudentHub);
+}
+function drawStudentHub(){
+  const d = STU.data || {}, staff = isStaff();
+  const st = $("#stuStatus");
+  st.hidden = !STU.error;
+  st.textContent = STU.error === "off"
+    ? (staff ? "The student hub is not connected to its Google Sheet yet. Paste the Web app link of Student-Portal-Code.gs into studentPortalEndpoint in index.html." : "Announcements and schedules are coming soon.")
+    : (STU.error ? "We could not load the latest updates. Please try again in a minute." : "");
+  const L = d.links || {};
+  $("#stuQuick").innerHTML = [["tutoring_booking","Book tutoring","Pick a time with a tutor.","Tutoring link coming soon"],["virtual_meeting","Virtual meetings","Join your mentor or workshop online.","Meeting link coming soon"]].map(([k,title,sub,soon]) => {
+    const l = L[k] || {}, u = safeUrl(l.url), name = l.label || title;
+    return `<div class="stu-card${u ? "" : " soon"}"><h3>${esc(name)}</h3><p>${esc(sub)}</p>${u ? `<a class="btn btn-gold" href="${esc(u)}" target="_blank" rel="noopener">${esc(name)} &rarr;</a>` : `<span class="pill">${esc(soon)}</span>`}</div>`;
+  }).join("");
+  const annHtml = list => list.length ? list.map(a => `<article><h3>${esc(a.title || "Announcement")}</h3><time>${esc(a.when || "")}${a.by ? " \u00b7 " + esc(a.by) : ""}</time><p>${esc(a.message || "")}</p>${safeUrl(a.link) ? `<a class="card-link" href="${esc(safeUrl(a.link))}" target="_blank" rel="noopener">Open link &rarr;</a>` : ""}</article>`).join("") : `<div class="stu-empty">No announcements yet.</div>`;
+  const anns = d.announcements || [];
+  $("#stuAnn").innerHTML = annHtml(anns.filter(a => (a.audience || "All") !== "Seniors"));
+  $("#stuSeniorAnn").innerHTML = annHtml(anns.filter(a => a.audience === "Seniors"));
+  $("#stuTabs").innerHTML = TRACKS.map(tr => `<button type="button" class="tab" role="tab" aria-selected="${tr === STU.track}" data-track="${esc(tr)}">${esc(tr)}</button>`).join("");
+  const today = new Date().toISOString().slice(0,10);
+  const ws = (d.workshops || []).filter(w => STU.track === "All" || w.track === STU.track)
+    .sort((a,b) => (a.date || "9999").localeCompare(b.date || "9999") || (a.time || "").localeCompare(b.time || ""));
+  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([w.track, w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">Open</a>` : "<span></span>"}</article>`).join("")
+    : `<div class="stu-empty">No workshops listed${STU.track === "All" ? "" : " for " + esc(STU.track)} yet.</div>`;
+  const items = (d.checklist && d.checklist.length) ? d.checklist : DEFAULT_CHECKLIST;
+  const done = read(checkKey()) || {};
+  $("#stuChecklist").innerHTML = items.map((c,i) => `<li><label class="${done[c.item] ? "done" : ""}"><input type="checkbox" data-item="${esc(c.item)}"${done[c.item] ? " checked" : ""}><span>${esc(c.item)}${c.details ? `<small>${esc(c.details)}</small>` : ""}</span></label></li>`).join("");
+  $("#stuCheckCount").textContent = items.filter(c => done[c.item]).length + " of " + items.length + " done";
+}
+$("#stuTabs").addEventListener("click", e => { const b = e.target.closest("[data-track]"); if (b){ STU.track = b.dataset.track; drawStudentHub(); } });
+$("#stuChecklist").addEventListener("change", e => {
+  const c = e.target.closest("input[data-item]"); if (!c) return;
+  const done = read(checkKey()) || {}; if (c.checked) done[c.dataset.item] = true; else delete done[c.dataset.item];
+  write(checkKey(), done); drawStudentHub();
+});
+async function postStudent(params){
+  const r = await fetch(stuEndpoint(), { method:"POST", body:new URLSearchParams(params) });
+  const d = await r.json().catch(() => ({ ok:true }));
+  if (d.ok === false) throw new Error(d.error || "failed");
+}
+$("#stuPostForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, msg = $("#stuPostMsg");
+  if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
+  msg.textContent = "Posting...";
+  try {
+    await postStudent({ action:"announce", key:f.key.value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" });
+    try { localStorage.setItem("aspirehigh.staffkey", f.key.value); } catch(err){}
+    f.title.value = ""; f.message.value = ""; f.link.value = "";
+    msg.textContent = "Posted."; STU.at = 0; renderStudentHub();
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not post. Please try again."; }
+});
+$("#stuMentorForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, msg = $("#stuMentorMsg");
+  if (f.website_hp.value){ msg.textContent = "Thank you!"; return; }
+  if (!stuEndpoint()){ msg.textContent = "Sign-up is not switched on yet. Please ask a coordinator."; return; }
+  msg.textContent = "Sending...";
+  try {
+    await postStudent({ action:"mentorship", name:f.name.value, email:f.email.value, grade:f.grade.value, goals:f.goals.value });
+    f.reset(); msg.textContent = "Thank you! A coordinator will be in touch.";
+  } catch(err){ msg.textContent = "Something went wrong. Please try again."; }
+});
 
 function renderHub(roleKeyOverride){
   const s = session();
@@ -6585,7 +6769,7 @@ seed().then(()=>{
   }
   show(start === "login" && session() ? "home" : (VIEWS.includes(start) ? start : "home"));
   refreshDataSection();
-  if (APPLY_LINK && session()){
+  if (APPLY_LINK && isStaff()){
     const idx = (CONTENT.publicForms || []).findIndex(f => f.inline && f.lang === APPLY_LINK);
     if (idx >= 0) setTimeout(() => openApply(idx), 500);
   }
@@ -6594,7 +6778,7 @@ seed().then(()=>{
   const target = APPLY_LINK ? document.getElementById("involved")
                : (!VIEWS.includes(start) && start && /^[A-Za-z][\w-]*$/.test(start)
                    ? document.getElementById(start) : null);
-  if (target && session() && !target.hidden && typeof target.scrollIntoView === "function")
+  if (target && isStaff() && !target.hidden && typeof target.scrollIntoView === "function")
     setTimeout(() => target.scrollIntoView({ behavior:"smooth", block:"start" }), 150);
 });
 </script>
