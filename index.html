@@ -2556,7 +2556,7 @@ const read = k => { try { return JSON.parse(localStorage.getItem(k)) || null; } 
 const write = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
 
 const ACCOUNTS = [
-  { name:"Aspire High login", email:"login@aspirehigh.test", salt:"9e52d9412f188274840c318edb86f1ec", hash:"7b405135f57b9024e9d17c31d4c09bb7604b2afed5c8dff421e1bf2054d86640" }
+    { name:"Students", email:"student@aspirehighyouth.org", salt:"6f50b38ce53fd5060c7efa52f8a8dc15", hash:"a16b67649a4ecb06b3f25fea1a5810c6c7ef2a24eb256da01d06cc1ae95c5f96" },
 ];
 
 async function hash(password, salt){
