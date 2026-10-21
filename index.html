@@ -664,6 +664,7 @@ html.staff-mode #langBtn{display:none!important}
 .stu-sched article.cancelled,.stu-sched article.moved{opacity:.7}
 .stu-sched article.cancelled h3,.stu-sched article.moved h3{text-decoration:line-through}
 .stu-sched .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.stu-ws .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:700px){.stu-ws .acts{justify-content:flex-start}}
 .badge{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
 .badge.bad{background:#fde7ea;color:#800020}.badge.warn{background:#FFF1CC;color:#7a5600}.badge.ok{background:#DDF3E3;color:#14602b}
 @media(max-width:700px){.stu-sched article{grid-template-columns:1fr}.stu-sched .acts{justify-content:flex-start}}
@@ -1143,12 +1144,12 @@ html.staff-mode #langBtn{display:none!important}
     </form>
 
     <h2>Workshops</h2>
-    <p class="muted">Life skills, freshman, sophomore, junior and senior workshops, and after-school workshops. Pick a group to see its schedule.</p>
+    <p class="muted">Life skills, freshman/sophomore, junior and senior workshops, and after-school workshops. Pick a group to see its schedule.</p>
     <div class="tabs" id="stuTabs" role="tablist" aria-label="Workshop groups"></div>
     <div class="stu-ws" id="stuWorkshops"></div>
     <form class="stu-form stu-post" id="stuWsForm" hidden>
       <h3>Add a workshop to the schedule (staff)</h3>
-      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option><option>After School</option></select></label>
+      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman/Sophomore</option><option>Junior</option><option>Senior</option><option>After School</option></select></label>
       <label>Workshop name<input type="text" name="title" required maxlength="120"></label>
       <label>Date<input type="date" name="date" required></label>
       <label>Time<input type="time" name="time"></label>
@@ -2690,7 +2691,7 @@ function flash(msg, kind){
 /* ===================== accounts (browser-only) ===================== */
 /* ===================== accounts =====================
    There is no sign-up. Aspire High creates every login and lists it below.
-   A login with  role:"student"  only opens the student hub; a login with no
+   A login with  noHub:true  (the coordinators) can use everything except "My hub" and lands in the Student Service Hub; a login with  role:"student"  only opens the student hub; a login with no
    role opens the whole website (staff). A
    password is never stored, only a salted hash (PBKDF2-SHA-256, 210,000
    rounds). To add or change a login, open make-login.html on your computer and
@@ -2704,7 +2705,7 @@ const write = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } cat
 
 const ACCOUNTS = [
   { name:"Students", email:"student@aspirehighyouth.org", role:"student", salt:"6f50b38ce53fd5060c7efa52f8a8dc15", hash:"a16b67649a4ecb06b3f25fea1a5810c6c7ef2a24eb256da01d06cc1ae95c5f96" },
-  { name:"After-school coordinators", email:"coordinators@aspirehighyouth.org", salt:"bcee0e5c9e21ad4034472785c0cb3e98", hash:"caab246f4a026e59e102eac969b3ea10579812bdada8176afbbd505ac004bc39" }
+  { name:"After-school coordinators", email:"coordinators@aspirehighyouth.org", noHub:true, salt:"bcee0e5c9e21ad4034472785c0cb3e98", hash:"caab246f4a026e59e102eac969b3ea10579812bdada8176afbbd505ac004bc39" }
 ];
 
 async function hash(password, salt){
@@ -2723,7 +2724,7 @@ const session = () => {
   const s0 = read(SESSION);
   const a0 = s0 && ACCOUNTS.find(a => a.email === s0.email);
   /* role:"student" = student hub only. Any other login = everything (the code names that "staff"). */
-  return a0 ? { name:a0.name, email:a0.email, role:(a0.role === "student" ? "student" : "staff") } : null;
+  return a0 ? { name:a0.name, email:a0.email, role:(a0.role === "student" ? "student" : "staff"), noHub:!!a0.noHub } : null;
 };
 
 /* ===================== render home ===================== */
@@ -2808,9 +2809,10 @@ function show(view, opts){
   if (!s0 && !SERVER) view = "login";
   if (s0 && s0.role === "student" && view !== "login") view = "student";   /* students only ever see their hub */
   if (view === "hub" && !s0){ view = "login"; }
+  if (view === "hub" && s0 && s0.noHub) view = "student";   /* coordinators have no "My hub": send them to the Student Service Hub */
   if (view === "manage"){
     if (!s0) view = "login";
-    else if (s0.role !== "staff"){ flash("The Manage page is limited to staff accounts.", "error"); view = "hub"; }
+    else if (s0.role !== "staff"){ flash("The Manage page is limited to staff accounts.", "error"); view = s0.noHub ? "student" : "hub"; }
   }
   VIEWS.forEach(v => { $("#view-" + v).hidden = (v !== view); });
   document.documentElement.classList.toggle("locked", !s0 && !SERVER);
@@ -2865,10 +2867,10 @@ function renderHeader(){
   const s = session();
   $("#headActions").innerHTML = s
     ? (s.role === "student" ? `<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>` : `${s.role === "staff" ? `<button class="login ghost" data-view="student">Student Service Hub</button>` : ""}` +
-      `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button><button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`)
+      `${s.noHub ? "" : `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button>`}<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`)
     : `<button class="login" data-view="login">${esc(t("btn.login","Log in"))}</button>`;
   $("#heroCta").innerHTML = s
-    ? `<button class="btn btn-gold" data-view="hub">${esc(t("btn.openhub","Open my hub"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`
+    ? `<button class="btn btn-gold" data-view="${s.noHub ? "student" : "hub"}">${s.noHub ? "Open Student Service Hub" : esc(t("btn.openhub","Open my hub"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`
     : `<a class="btn btn-gold" href="#involved">${esc(t("btn.getstarted","Get started"))}</a><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`;
   const lo = $("#btnLogout");
   if (lo) lo.addEventListener("click", logout);
@@ -2879,12 +2881,22 @@ function renderHeader(){
    Sheet (Student-Portal-Code.gs). Staff change them by editing that sheet, or
    post announcements from the form on this page. */
 const STU = { data:null, error:"", at:0, track:"All", days:45 };
-const TRACKS = ["All","Life Skills","Freshman","Sophomore","Junior","Senior","After School"];
+const TRACKS = ["All","Life Skills","Freshman/Sophomore","Junior","Senior","After School"];
+/* Freshmen and sophomores share the same workshops, so older rows saved as "Freshman" or "Sophomore" show under one group. */
+const normTrack = t => /^(freshman|freshmen|sophomore|sophomores|freshman\s*\/\s*sophomores?)$/i.test(String(t || "").trim()) ? "Freshman/Sophomore" : String(t || "").trim();
 const DEFAULT_CHECKLIST = ["Finish and submit your college applications","Complete the FAFSA or state financial aid form","Apply for scholarships","Ask teachers for recommendation letters","Send your final transcript to your college","Choose your college and pay the deposit","Sign up for housing and orientation","Update your resume"].map(item => ({ item, details:"" }));
 const stuEndpoint = () => String(CONTENT.studentPortalEndpoint || "").trim();
 const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
 const checkKey = () => "aspirehigh.checklist." + ((session() || {}).email || "");
 
+/* Button text for a workshop link: "Open in Canva", "Open slides", ... */
+function wsLinkLabel(u){
+  let h = ""; try { h = new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch(err){}
+  const known = [["canva.com","Open in Canva"],["docs.google.com/presentation","Open slides"],["docs.google.com","Open document"],["drive.google.com","Open in Drive"],["youtube.com","Watch video"],["youtu.be","Watch video"],["zoom.us","Join on Zoom"],["forms.gle","Open form"]];
+  const full = String(u).toLowerCase();
+  for (const [k,l] of known) if (h === k || h.endsWith("." + k) || full.includes(k)) return l;
+  return "Open";
+}
 async function loadStudentData(){
   const url = stuEndpoint();
   if (!url){ STU.data = null; STU.error = "off"; return; }
@@ -2923,9 +2935,9 @@ function drawStudentHub(){
   $("#stuSeniorAnn").innerHTML = annHtml(anns.filter(a => a.audience === "Seniors"));
   $("#stuTabs").innerHTML = TRACKS.map(tr => `<button type="button" class="tab" role="tab" aria-selected="${tr === STU.track}" data-track="${esc(tr)}">${esc(tr)}</button>`).join("");
   const today = new Date().toISOString().slice(0,10);
-  const ws = (d.workshops || []).filter(w => STU.track === "All" || w.track === STU.track)
+  const ws = (d.workshops || []).filter(w => STU.track === "All" || normTrack(w.track) === STU.track)
     .sort((a,b) => (a.date || "9999").localeCompare(b.date || "9999") || (a.time || "").localeCompare(b.time || ""));
-  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([w.track, w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">Open</a>` : "<span></span>"}${staff && w.id ? `<button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button>` : ""}</article>`).join("")
+  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([normTrack(w.track), w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">${esc(wsLinkLabel(w.link))}</a>` : "<span></span>"}${staff && w.id ? `<div class="acts"><button type="button" class="btn btn-ghost" data-link="${esc(w.id)}" data-title="${esc(w.title || "")}" data-url="${esc(safeUrl(w.link))}">${safeUrl(w.link) ? "Edit link" : "Add link"}</button><button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button></div>` : ""}</article>`).join("")
     : `<div class="stu-empty">No workshops listed${STU.track === "All" ? "" : " for " + esc(STU.track)} yet.</div>`;
   drawSchedule(staff, d.changes || []);
   const items = (d.checklist && d.checklist.length) ? d.checklist : DEFAULT_CHECKLIST;
@@ -2979,6 +2991,16 @@ $("#stuWsForm").addEventListener("submit", e => {
   stuSave($("#stuWsMsg"), { action:"addworkshop", track:f.track.value, title:f.title.value, date:f.date.value, time:f.time.value, where:f.where.value, description:f.description.value, link:f.link.value }, () => f.reset());
 });
 $("#stuWorkshops").addEventListener("click", e => {
+  const lk = e.target.closest("[data-link]");
+  if (lk){
+    const cur = lk.dataset.url || "";
+    const v = prompt("Paste the link for \"" + lk.dataset.title + "\" (Canva, Google Slides, Drive, YouTube, ...).\nLeave it empty to remove the link.", cur);
+    if (v === null) return;
+    const url = v.trim();
+    if (url && !safeUrl(url)){ $("#stuWsMsg").textContent = "That link must start with http:// or https://"; return; }
+    stuSave($("#stuWsMsg"), { action:"setworkshoplink", id:lk.dataset.link, title:lk.dataset.title, link:url });
+    return;
+  }
   const b = e.target.closest("[data-remove]"); if (!b) return;
   if (!confirm("Remove \"" + b.dataset.title + "\" from the schedule?")) return;
   stuSave($("#stuWsMsg"), { action:"removeworkshop", id:b.dataset.remove, title:b.dataset.title });
