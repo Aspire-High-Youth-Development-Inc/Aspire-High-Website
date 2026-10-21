@@ -645,6 +645,14 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
 .stu-post h3{margin:0}
 .stu-note{background:#FFF6DC;border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin-bottom:22px}
 @media(max-width:700px){.stu-ws article{grid-template-columns:1fr}}
+html.staff-mode #langBtn{display:none!important}
+.stu-tools{background:var(--sky);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:22px}
+.stu-tools h3{margin:0 0 4px}
+.stu-key{display:grid;gap:6px;font-weight:600;font-size:14px;max-width:420px}
+.stu-key input{padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit}
+.stu-ws article{grid-template-columns:170px 1fr auto auto}
+.stu-form input[type=text],.stu-form input[type=email],.stu-form input[type=date],.stu-form input[type=time]{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+@media(max-width:700px){.stu-ws article{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -806,7 +814,7 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
     </div>
   </section>
 
-<section id="data" data-staff>
+<section id="data" hidden>
     <div class="wrap">
       <div class="sec-head rv">
         <p class="eyebrow" data-i18n="data.eyebrow">Airtable</p>
@@ -1073,13 +1081,24 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
 <!-- ============================ HUB ============================ -->
 <main id="view-student" hidden>
   <section class="hub-banner"><div class="wrap">
-    <p class="eyebrow light" id="stuLabel">Student hub</p>
+    <p class="eyebrow light" id="stuLabel">Student Service Hub</p>
     <h1 id="stuGreeting">Welcome</h1>
     <p>Announcements, workshops, tutoring and your senior checklist, all in one place.</p>
   </div></section>
   <section class="stu"><div class="wrap">
     <div class="stu-note" id="stuStatus" hidden></div>
+    <div class="stu-tools" id="stuTools" hidden>
+      <h3>Coordinator tools</h3>
+      <p class="muted">Only coordinators see these boxes. Changes save to the Google Sheet and show for students within a minute.</p>
+      <label class="stu-key">Staff key (needed to save any change)<input type="password" id="stuKey" autocomplete="off"></label>
+    </div>
     <div class="stu-quick" id="stuQuick"></div>
+    <form class="stu-form stu-post" id="stuLinksForm" hidden>
+      <h3>Update the links (staff)</h3>
+      <label>Tutoring booking link<input type="text" name="tutoring_booking" placeholder="https://"></label>
+      <label>Zoom / virtual meeting link<input type="text" name="virtual_meeting" placeholder="https://"></label>
+      <div><button class="btn btn-gold" type="submit">Save links</button> <span class="muted" id="stuLinksMsg" role="status"></span></div>
+    </form>
 
     <h2>Announcements</h2>
     <div class="stu-ann" id="stuAnn"></div>
@@ -1089,7 +1108,6 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
       <label>Title<input type="text" name="title" required maxlength="120"></label>
       <label>Message<textarea name="message" rows="4" required maxlength="1500"></textarea></label>
       <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
-      <label>Staff key<input type="password" name="key" required autocomplete="off"></label>
       <div><button class="btn btn-gold" type="submit">Post announcement</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
     </form>
 
@@ -1097,6 +1115,17 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
     <p class="muted">Life skills, freshman, sophomore, junior and senior workshops, and after-school workshops. Pick a group to see its schedule.</p>
     <div class="tabs" id="stuTabs" role="tablist" aria-label="Workshop groups"></div>
     <div class="stu-ws" id="stuWorkshops"></div>
+    <form class="stu-form stu-post" id="stuWsForm" hidden>
+      <h3>Add a workshop to the schedule (staff)</h3>
+      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option><option>After School</option></select></label>
+      <label>Workshop name<input type="text" name="title" required maxlength="120"></label>
+      <label>Date<input type="date" name="date" required></label>
+      <label>Time<input type="time" name="time"></label>
+      <label>Where (room or Zoom)<input type="text" name="where" maxlength="160"></label>
+      <label>What it is about (optional)<textarea name="description" rows="2" maxlength="500"></textarea></label>
+      <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
+      <div><button class="btn btn-gold" type="submit">Add to the schedule</button> <span class="muted" id="stuWsMsg" role="status"></span></div>
+    </form>
 
     <h2>Virtual mentorship program</h2>
     <p class="muted">Want a mentor? Sign up and a coordinator will be in touch.</p>
@@ -2755,6 +2784,8 @@ function show(view, opts){
   VIEWS.forEach(v => { $("#view-" + v).hidden = (v !== view); });
   document.documentElement.classList.toggle("locked", !s0 && !SERVER);
   document.documentElement.classList.toggle("student-only", !!(s0 && s0.role === "student"));
+  document.documentElement.classList.toggle("staff-mode", !!(s0 && s0.role === "staff"));
+  if (s0 && s0.role === "staff" && LANG === "es"){ LANG = "en"; try { localStorage.setItem(LANG_KEY, "en"); } catch(err){} applyLang(); }
   if (view === "student") renderStudentHub();
   if (view === "hub") renderHub(opts.roleKey);
   if (view === "manage") renderManage();
@@ -2802,7 +2833,7 @@ function show(view, opts){
 function renderHeader(){
   const s = session();
   $("#headActions").innerHTML = s
-    ? (s.role === "student" ? `<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>` : `${s.role === "staff" ? `<button class="login ghost" data-view="manage">${esc(t("nav.manage","Manage"))}</button><button class="login ghost" data-view="student">Student hub</button>` : ""}` +
+    ? (s.role === "student" ? `<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>` : `${s.role === "staff" ? `<button class="login ghost" data-view="student">Student Service Hub</button>` : ""}` +
       `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button><button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`)
     : `<button class="login" data-view="login">${esc(t("btn.login","Log in"))}</button>`;
   $("#heroCta").innerHTML = s
@@ -2836,10 +2867,10 @@ async function loadStudentData(){
 function renderStudentHub(){
   const s = session(); if (!s) return;
   const staff = s.role === "staff";
-  $("#stuLabel").textContent = staff ? "Student hub \u2014 staff view" : "Student hub";
+  $("#stuLabel").textContent = staff ? "Student Service Hub \u2014 coordinator view" : "Student Service Hub";
   $("#stuGreeting").textContent = staff ? "What students see" : "Welcome, students";
-  $("#stuPostForm").hidden = !staff;
-  if (staff){ try { const k = localStorage.getItem("aspirehigh.staffkey"); if (k && !$("#stuPostForm").key.value) $("#stuPostForm").key.value = k; } catch(err){} }
+  ["#stuTools","#stuLinksForm","#stuPostForm","#stuWsForm"].forEach(id => { $(id).hidden = !staff; });
+  if (staff){ try { const k = localStorage.getItem("aspirehigh.staffkey"); if (k && !$("#stuKey").value) $("#stuKey").value = k; } catch(err){} }
   drawStudentHub();
   if (!STU.at || Date.now() - STU.at > 60000) loadStudentData().then(drawStudentHub);
 }
@@ -2863,12 +2894,16 @@ function drawStudentHub(){
   const today = new Date().toISOString().slice(0,10);
   const ws = (d.workshops || []).filter(w => STU.track === "All" || w.track === STU.track)
     .sort((a,b) => (a.date || "9999").localeCompare(b.date || "9999") || (a.time || "").localeCompare(b.time || ""));
-  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([w.track, w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">Open</a>` : "<span></span>"}</article>`).join("")
+  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([w.track, w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">Open</a>` : "<span></span>"}${staff && w.id ? `<button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button>` : ""}</article>`).join("")
     : `<div class="stu-empty">No workshops listed${STU.track === "All" ? "" : " for " + esc(STU.track)} yet.</div>`;
   const items = (d.checklist && d.checklist.length) ? d.checklist : DEFAULT_CHECKLIST;
   const done = read(checkKey()) || {};
   $("#stuChecklist").innerHTML = items.map((c,i) => `<li><label class="${done[c.item] ? "done" : ""}"><input type="checkbox" data-item="${esc(c.item)}"${done[c.item] ? " checked" : ""}><span>${esc(c.item)}${c.details ? `<small>${esc(c.details)}</small>` : ""}</span></label></li>`).join("");
   $("#stuCheckCount").textContent = items.filter(c => done[c.item]).length + " of " + items.length + " done";
+  if (staff){   /* show the current links in the coordinators' form (unless they are typing) */
+    const lf = $("#stuLinksForm");
+    if (!lf.contains(document.activeElement)){ lf.tutoring_booking.value = (L.tutoring_booking || {}).url || ""; lf.virtual_meeting.value = (L.virtual_meeting || {}).url || ""; }
+  }
 }
 $("#stuTabs").addEventListener("click", e => { const b = e.target.closest("[data-track]"); if (b){ STU.track = b.dataset.track; drawStudentHub(); } });
 $("#stuChecklist").addEventListener("change", e => {
@@ -2887,11 +2922,34 @@ $("#stuPostForm").addEventListener("submit", async e => {
   if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
   msg.textContent = "Posting...";
   try {
-    await postStudent({ action:"announce", key:f.key.value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" });
-    try { localStorage.setItem("aspirehigh.staffkey", f.key.value); } catch(err){}
+    await postStudent({ action:"announce", key:$("#stuKey").value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" });
+    try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
     f.title.value = ""; f.message.value = ""; f.link.value = "";
     msg.textContent = "Posted."; STU.at = 0; renderStudentHub();
   } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not post. Please try again."; }
+});
+/* Coordinator tools: every change needs the staff key (checked by the Google Sheet script). */
+const stuSave = async (msg, params, done) => {
+  if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
+  msg.textContent = "Saving...";
+  try {
+    await postStudent(Object.assign({ key:$("#stuKey").value }, params));
+    try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
+    msg.textContent = "Saved."; STU.at = 0; if (done) done(); renderStudentHub();
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not save. Please try again."; }
+};
+$("#stuLinksForm").addEventListener("submit", e => {
+  e.preventDefault(); const f = e.target;
+  stuSave($("#stuLinksMsg"), { action:"setlinks", tutoring_booking:f.tutoring_booking.value.trim(), virtual_meeting:f.virtual_meeting.value.trim() });
+});
+$("#stuWsForm").addEventListener("submit", e => {
+  e.preventDefault(); const f = e.target;
+  stuSave($("#stuWsMsg"), { action:"addworkshop", track:f.track.value, title:f.title.value, date:f.date.value, time:f.time.value, where:f.where.value, description:f.description.value, link:f.link.value }, () => f.reset());
+});
+$("#stuWorkshops").addEventListener("click", e => {
+  const b = e.target.closest("[data-remove]"); if (!b) return;
+  if (!confirm("Remove \"" + b.dataset.title + "\" from the schedule?")) return;
+  stuSave($("#stuWsMsg"), { action:"removeworkshop", id:b.dataset.remove, title:b.dataset.title });
 });
 $("#stuMentorForm").addEventListener("submit", async e => {
   e.preventDefault();
@@ -3423,7 +3481,6 @@ const NAV_STAFF = [
       { href:"#build",      label:"Build plan", key:"nav.build" }
     ]},
   { label:"Resources", key:"nav.resources", children:[
-      { href:"#data",     label:"Live data", key:"nav.data" },
       { href:"#library",  label:"Documents", key:"nav.library" },
       { href:"#training", label:"Training", key:"nav.training" },
       { href:"#calendar", label:"Calendar", key:"nav.calendar" },
@@ -5986,7 +6043,8 @@ function refreshDataSection(){
 function renderViewEmbeds(){
   const views = CONTENT.airtableViews || [];
   const tabs = $("#viewTabs"), box = $("#viewEmbed");
-  if (!isStaff()){ tabs.innerHTML = ""; box.innerHTML = ""; return; }
+  /* Live participant data is switched off for everyone. */
+  tabs.innerHTML = ""; box.innerHTML = ""; return;
   if (!views.length){
     tabs.innerHTML = "";
     const staff = session() && session().role === "staff";
