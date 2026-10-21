@@ -653,6 +653,20 @@ html.staff-mode #langBtn{display:none!important}
 .stu-ws article{grid-template-columns:170px 1fr auto auto}
 .stu-form input[type=text],.stu-form input[type=email],.stu-form input[type=date],.stu-form input[type=time]{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
 @media(max-width:700px){.stu-ws article{grid-template-columns:1fr}}
+.stu-sched{display:grid;gap:10px}
+.stu-sched article{display:grid;grid-template-columns:130px 1fr auto;gap:8px 18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.stu-sched .when{display:grid;gap:2px}
+.stu-sched .when b{font-size:15px}
+.stu-sched .when span{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+.stu-sched h3{margin:0;font-size:17px}
+.stu-sched p{margin:2px 0 0;color:var(--ink-soft);font-size:14.5px}
+.stu-sched .note-line{color:var(--navy-900);font-weight:600}
+.stu-sched article.cancelled,.stu-sched article.moved{opacity:.7}
+.stu-sched article.cancelled h3,.stu-sched article.moved h3{text-decoration:line-through}
+.stu-sched .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.badge{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.badge.bad{background:#fde7ea;color:#800020}.badge.warn{background:#FFF1CC;color:#7a5600}.badge.ok{background:#DDF3E3;color:#14602b}
+@media(max-width:700px){.stu-sched article{grid-template-columns:1fr}.stu-sched .acts{justify-content:flex-start}}
 </style>
 </head>
 <body>
@@ -1109,6 +1123,23 @@ html.staff-mode #langBtn{display:none!important}
       <label>Message<textarea name="message" rows="4" required maxlength="1500"></textarea></label>
       <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
       <div><button class="btn btn-gold" type="submit">Post announcement</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
+    </form>
+
+    <h2>Program schedule</h2>
+    <p class="muted">After-school sessions, parent sessions and life skills sessions. If a date is cancelled or moved, it shows here.</p>
+    <div class="stu-sched" id="stuSched"></div>
+    <p><button type="button" class="btn btn-ghost" id="stuSchedMore">Show more dates</button></p>
+    <form class="stu-form stu-post" id="stuEvForm" hidden>
+      <h3 id="stuEvTitle">Change a date (staff)</h3>
+      <input type="hidden" name="date"><input type="hidden" name="event">
+      <label>What would you like to do?<select name="status"><option value="Changed">Change this date</option><option value="Cancelled">Cancel this date</option></select></label>
+      <div id="stuEvChange" class="stu-form">
+        <label>New date<input type="date" name="new_date"></label>
+        <label>New time<input type="time" name="new_time"></label>
+        <label>New place (room or Zoom)<input type="text" name="new_where" maxlength="160"></label>
+      </div>
+      <label>Note for students (optional)<textarea name="note" rows="2" maxlength="300"></textarea></label>
+      <div><button class="btn btn-gold" type="submit">Save</button> <button class="btn btn-ghost" type="button" id="stuEvClose">Close</button> <span class="muted" id="stuEvMsg" role="status"></span></div>
     </form>
 
     <h2>Workshops</h2>
@@ -1665,7 +1696,7 @@ const DEFAULTS = {
      the phone number and email instead. */
   /* The student hub reads announcements, workshops, links and the senior checklist from a
      Google Sheet. Paste the Web app URL of Student-Portal-Code.gs here (it ends in /exec). */
-  studentPortalEndpoint: "https://script.google.com/macros/s/AKfycbwEkObq5uL1LgqgtHCRQrClMsL0SOCtm96GklIuq2GeiTEvgwmROdF6hVfUWIdIJJwz/exec",
+  studentPortalEndpoint: "",
 
   applicationEndpoint: "https://script.google.com/macros/s/AKfycbzmdvGm25is4UNoc4FBzfm1MO4z-Faao6yPf4hnUU2-zwmKihaGJrnM-KGVYu4DOy-3/exec",
 
@@ -2847,7 +2878,7 @@ function renderHeader(){
    Announcements, workshops, links and the senior checklist come from a Google
    Sheet (Student-Portal-Code.gs). Staff change them by editing that sheet, or
    post announcements from the form on this page. */
-const STU = { data:null, error:"", at:0, track:"All" };
+const STU = { data:null, error:"", at:0, track:"All", days:45 };
 const TRACKS = ["All","Life Skills","Freshman","Sophomore","Junior","Senior","After School"];
 const DEFAULT_CHECKLIST = ["Finish and submit your college applications","Complete the FAFSA or state financial aid form","Apply for scholarships","Ask teachers for recommendation letters","Send your final transcript to your college","Choose your college and pay the deposit","Sign up for housing and orientation","Update your resume"].map(item => ({ item, details:"" }));
 const stuEndpoint = () => String(CONTENT.studentPortalEndpoint || "").trim();
@@ -2896,6 +2927,7 @@ function drawStudentHub(){
     .sort((a,b) => (a.date || "9999").localeCompare(b.date || "9999") || (a.time || "").localeCompare(b.time || ""));
   $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([w.track, w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">Open</a>` : "<span></span>"}${staff && w.id ? `<button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button>` : ""}</article>`).join("")
     : `<div class="stu-empty">No workshops listed${STU.track === "All" ? "" : " for " + esc(STU.track)} yet.</div>`;
+  drawSchedule(staff, d.changes || []);
   const items = (d.checklist && d.checklist.length) ? d.checklist : DEFAULT_CHECKLIST;
   const done = read(checkKey()) || {};
   $("#stuChecklist").innerHTML = items.map((c,i) => `<li><label class="${done[c.item] ? "done" : ""}"><input type="checkbox" data-item="${esc(c.item)}"${done[c.item] ? " checked" : ""}><span>${esc(c.item)}${c.details ? `<small>${esc(c.details)}</small>` : ""}</span></label></li>`).join("");
@@ -2951,6 +2983,56 @@ $("#stuWorkshops").addEventListener("click", e => {
   if (!confirm("Remove \"" + b.dataset.title + "\" from the schedule?")) return;
   stuSave($("#stuWsMsg"), { action:"removeworkshop", id:b.dataset.remove, title:b.dataset.title });
 });
+/* Program schedule: the dates come from the website's program calendar; a coordinator's
+   "cancel" or "change" is saved in the Schedule Changes tab and laid over them. */
+const stuTime = t => { const m = /^(\d{1,2}):(\d{2})$/.exec(String(t || "")); if (!m) return String(t || ""); const h = +m[1]; return ((h % 12) || 12) + ":" + m[2] + " " + (h >= 12 ? "PM" : "AM"); };
+const stuDay = d => parseISO(d).toLocaleDateString("en-US", { weekday:"short", month:"short", day:"numeric" });
+function drawSchedule(staff, changes){
+  const box = $("#stuSched"); if (!box) return;
+  const today = iso(new Date()), end = iso(new Date(Date.now() + STU.days * 86400000));
+  const map = {}; changes.forEach(c => { map[c.date + "|" + c.event] = c; });
+  const rows = [];
+  occurrences(today, end).forEach(ev => {
+    const c = map[ev._date + "|" + ev.title], base = { ev, orig:ev._date, c };
+    if (!c) rows.push(Object.assign(base, { date:ev._date, start:ev.start, where:ev.location, kind:"" }));
+    else if (c.status === "Cancelled") rows.push(Object.assign(base, { date:ev._date, start:ev.start, where:ev.location, kind:"cancelled" }));
+    else if (c.newDate && c.newDate !== ev._date){
+      rows.push(Object.assign({}, base, { date:ev._date, start:ev.start, where:ev.location, kind:"moved" }));
+      if (c.newDate >= today && c.newDate <= end) rows.push(Object.assign({}, base, { date:c.newDate, start:c.newTime || ev.start, where:c.newWhere || ev.location, kind:"rescheduled" }));
+    } else rows.push(Object.assign(base, { date:ev._date, start:c.newTime || ev.start, where:c.newWhere || ev.location, kind:"updated" }));
+  });
+  rows.sort((a,b) => (a.date + (a.start || "")).localeCompare(b.date + (b.start || "")));
+  const badge = r => r.kind === "cancelled" ? `<span class="badge bad">Cancelled</span>` : r.kind === "moved" ? `<span class="badge warn">Moved to ${esc(stuDay(r.c.newDate))}</span>` : r.kind === "rescheduled" ? `<span class="badge ok">Moved from ${esc(stuDay(r.orig))}</span>` : r.kind === "updated" ? `<span class="badge warn">Updated</span>` : "";
+  box.innerHTML = rows.length ? rows.map(r => {
+    const at = `data-date="${esc(r.orig)}" data-event="${esc(r.ev.title)}"`;
+    const acts = !staff ? "" : `<div class="acts">${r.kind === "rescheduled" ? "" : `<button type="button" class="btn btn-ghost" data-ev="change" ${at}>Change</button>`}${r.kind === "cancelled" || r.kind === "rescheduled" ? "" : `<button type="button" class="btn btn-ghost" data-ev="cancel" ${at}>Cancel</button>`}${r.c ? `<button type="button" class="btn btn-ghost" data-ev="restore" ${at}>Restore</button>` : ""}</div>`;
+    return `<article class="${esc(r.kind)}"><div class="when"><b>${esc(stuDay(r.date))}</b><span>${esc(stuTime(r.start))}</span></div><div class="what"><h3>${esc(r.ev.title)}</h3><p>${esc([r.where, r.ev.category].filter(Boolean).join(" \u00b7 "))}</p>${badge(r)}${r.c && r.c.note ? `<p class="note-line">${esc(r.c.note)}</p>` : ""}</div>${acts}</article>`;
+  }).join("") : `<div class="stu-empty">No program dates in the next ${STU.days} days.</div>`;
+}
+$("#stuSchedMore").addEventListener("click", () => { STU.days += 60; drawStudentHub(); });
+const stuEvOpen = (status, date, event) => {
+  const f = $("#stuEvForm"), c = ((STU.data || {}).changes || []).find(x => x.date === date && x.event === event) || {};
+  f.date.value = date; f.event.value = event; f.status.value = status;
+  f.new_date.value = c.newDate || ""; f.new_time.value = c.newTime || ""; f.new_where.value = c.newWhere || ""; f.note.value = c.note || "";
+  $("#stuEvTitle").textContent = (status === "Cancelled" ? "Cancel: " : "Change: ") + event + " (" + stuDay(date) + ")";
+  $("#stuEvChange").hidden = status === "Cancelled"; $("#stuEvMsg").textContent = "";
+  f.hidden = false; f.scrollIntoView({ behavior:"smooth", block:"center" });
+};
+$("#stuEvForm").status.addEventListener("change", e => { $("#stuEvChange").hidden = e.target.value === "Cancelled"; });
+$("#stuEvClose").addEventListener("click", () => { $("#stuEvForm").hidden = true; });
+$("#stuSched").addEventListener("click", e => {
+  const b = e.target.closest("[data-ev]"); if (!b) return;
+  const { date, event } = b.dataset;
+  if (b.dataset.ev === "restore"){
+    if (confirm("Put \"" + event + "\" back to its original date?")) stuSave($("#stuEvMsg"), { action:"restoreevent", date, event });
+  } else stuEvOpen(b.dataset.ev === "cancel" ? "Cancelled" : "Changed", date, event);
+});
+$("#stuEvForm").addEventListener("submit", e => {
+  e.preventDefault(); const f = e.target, msg = $("#stuEvMsg");
+  if (f.status.value === "Changed" && !f.new_date.value && !f.new_time.value && !f.new_where.value.trim() && !f.note.value.trim()){ msg.textContent = "Enter a new date, time or place, or a note."; return; }
+  stuSave(msg, { action:"changeevent", date:f.date.value, event:f.event.value, status:f.status.value, new_date:f.new_date.value, new_time:f.new_time.value, new_where:f.new_where.value, note:f.note.value, posted_by:(session() || {}).name || "" }, () => { f.hidden = true; });
+});
+
 $("#stuMentorForm").addEventListener("submit", async e => {
   e.preventDefault();
   const f = e.target, msg = $("#stuMentorMsg");
