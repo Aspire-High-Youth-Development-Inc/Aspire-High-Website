@@ -2967,7 +2967,8 @@ $("#stuChecklist").addEventListener("change", e => {
 });
 async function postStudent(params){
   const r = await fetch(stuEndpoint(), { method:"POST", body:new URLSearchParams(params) });
-  const d = await r.json().catch(() => ({ ok:true }));
+  const d = await r.json().catch(() => null);
+  if (!d) throw new Error("the script did not give a proper answer - it may need to be re-authorized and redeployed");
   if (d.ok === false) throw new Error(d.error || "failed");
 }
 /* Shrink a chosen photo in the browser (max 1400px, JPEG) so it uploads fast. Resolves to {data,type} or null. */
@@ -3007,7 +3008,7 @@ $("#stuPostForm").addEventListener("submit", async e => {
     try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
     stuPostReset();
     msg.textContent = editing ? "Saved." : "Posted."; STU.at = 0; renderStudentHub();
-  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : err.message === "notimage" ? "That file is not a picture. Choose a JPG or PNG." : "Could not " + (editing ? "save" : "post") + ". Please try again."; }
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : err.message === "notimage" ? "That file is not a picture. Choose a JPG or PNG." : "Could not " + (editing ? "save" : "post") + " (" + err.message + "). Please try again."; }
 });
 /* Edit / delete an announcement (coordinators) */
 function stuAnnClick(e){
@@ -3035,7 +3036,7 @@ const stuSave = async (msg, params, done) => {
     await postStudent(Object.assign({ key:$("#stuKey").value }, params));
     try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
     msg.textContent = "Saved."; STU.at = 0; if (done) done(); renderStudentHub();
-  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not save. Please try again."; }
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not save (" + (err.message === "failed" || /fetch|network|json/i.test(err.message) ? "the site could not reach the script \u2014 check it is redeployed as a New version" : err.message) + "). Please try again."; }
 };
 $("#stuLinksForm").addEventListener("submit", e => {
   e.preventDefault(); const f = e.target;
