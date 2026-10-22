@@ -1150,19 +1150,20 @@ html.staff-mode #langBtn{display:none!important}
     </form>
 
     <h2>Workshops</h2>
-    <p class="muted">Life skills, freshman/sophomore, junior and senior workshops, and after-school workshops. Pick a group to see its schedule.</p>
+    <p class="muted">Life skills, freshman/sophomore and junior/senior workshops. Pick a group to see its schedule.</p>
     <div class="tabs" id="stuTabs" role="tablist" aria-label="Workshop groups"></div>
     <div class="stu-ws" id="stuWorkshops"></div>
     <form class="stu-form stu-post" id="stuWsForm" hidden>
-      <h3>Add a workshop to the schedule (staff)</h3>
-      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman/Sophomore</option><option>Junior</option><option>Senior</option><option>After School</option></select></label>
+      <h3 id="stuWsTitle">Add a workshop to the schedule (staff)</h3>
+      <input type="hidden" name="edit_id">
+      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman/Sophomore</option><option>Junior/Senior</option></select></label>
       <label>Workshop name<input type="text" name="title" required maxlength="120"></label>
       <label>Date<input type="date" name="date" required></label>
       <label>Time<input type="time" name="time"></label>
       <label>Where (room or Zoom)<input type="text" name="where" maxlength="160"></label>
       <label>What it is about (optional)<textarea name="description" rows="2" maxlength="500"></textarea></label>
       <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
-      <div><button class="btn btn-gold" type="submit">Add to the schedule</button> <span class="muted" id="stuWsMsg" role="status"></span></div>
+      <div><button class="btn btn-gold" type="submit" id="stuWsBtn">Add to the schedule</button> <button class="btn btn-ghost" type="button" id="stuWsCancel" hidden>Cancel edit</button> <span class="muted" id="stuWsMsg" role="status"></span></div>
     </form>
 
     <h2>Virtual mentorship program</h2>
@@ -2887,9 +2888,12 @@ function renderHeader(){
    Sheet (Student-Portal-Code.gs). Staff change them by editing that sheet, or
    post announcements from the form on this page. */
 const STU = { data:null, error:"", at:0, track:"All", days:45 };
-const TRACKS = ["All","Life Skills","Freshman/Sophomore","Junior","Senior","After School"];
+const TRACKS = ["All","Life Skills","Freshman/Sophomore","Junior/Senior"];
 /* Freshmen and sophomores share the same workshops, so older rows saved as "Freshman" or "Sophomore" show under one group. */
-const normTrack = t => /^(freshman|freshmen|sophomore|sophomores|freshman\s*\/\s*sophomores?)$/i.test(String(t || "").trim()) ? "Freshman/Sophomore" : String(t || "").trim();
+const normTrack = t => { const v = String(t || "").trim();
+  if (/^(freshman|freshmen|sophomore|sophomores|freshman\s*\/\s*sophomores?)$/i.test(v)) return "Freshman/Sophomore";
+  if (/^(junior|juniors|senior|seniors|junior\s*\/\s*seniors?)$/i.test(v)) return "Junior/Senior";
+  return v; };
 const DEFAULT_CHECKLIST = ["Finish and submit your college applications","Complete the FAFSA or state financial aid form","Apply for scholarships","Ask teachers for recommendation letters","Send your final transcript to your college","Choose your college and pay the deposit","Sign up for housing and orientation","Update your resume"].map(item => ({ item, details:"" }));
 const stuEndpoint = () => String(CONTENT.studentPortalEndpoint || "").trim();
 const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
@@ -2943,7 +2947,7 @@ function drawStudentHub(){
   const today = new Date().toISOString().slice(0,10);
   const ws = (d.workshops || []).filter(w => STU.track === "All" || normTrack(w.track) === STU.track)
     .sort((a,b) => (a.date || "9999").localeCompare(b.date || "9999") || (a.time || "").localeCompare(b.time || ""));
-  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([normTrack(w.track), w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">${esc(wsLinkLabel(w.link))}</a>` : "<span></span>"}${staff && w.id ? `<div class="acts"><button type="button" class="btn btn-ghost" data-link="${esc(w.id)}" data-title="${esc(w.title || "")}" data-url="${esc(safeUrl(w.link))}">${safeUrl(w.link) ? "Edit link" : "Add link"}</button><button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button></div>` : ""}</article>`).join("")
+  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([normTrack(w.track), w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">${esc(wsLinkLabel(w.link))}</a>` : "<span></span>"}${staff && w.id ? `<div class="acts"><button type="button" class="btn btn-ghost" data-ws-edit="${esc(w.id)}">Edit</button><button type="button" class="btn btn-ghost" data-link="${esc(w.id)}" data-title="${esc(w.title || "")}" data-url="${esc(safeUrl(w.link))}">${safeUrl(w.link) ? "Edit link" : "Add link"}</button><button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button></div>` : ""}</article>`).join("")
     : `<div class="stu-empty">No workshops listed${STU.track === "All" ? "" : " for " + esc(STU.track)} yet.</div>`;
   drawSchedule(staff, d.changes || []);
   const items = (d.checklist && d.checklist.length) ? d.checklist : DEFAULT_CHECKLIST;
@@ -3037,11 +3041,27 @@ $("#stuLinksForm").addEventListener("submit", e => {
   e.preventDefault(); const f = e.target;
   stuSave($("#stuLinksMsg"), { action:"setlinks", tutoring_booking:f.tutoring_booking.value.trim(), virtual_meeting:f.virtual_meeting.value.trim() });
 });
+function stuWsReset(){
+  const f = $("#stuWsForm"); f.reset(); f.edit_id.value = "";
+  $("#stuWsTitle").textContent = "Add a workshop to the schedule (staff)"; $("#stuWsBtn").textContent = "Add to the schedule"; $("#stuWsCancel").hidden = true;
+}
+const stuTo24 = t => { const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i.exec(String(t || "").trim()); if (!m) return ""; let h = +m[1]; const ap = (m[3] || "").toUpperCase(); if (ap === "PM" && h < 12) h += 12; if (ap === "AM" && h === 12) h = 0; return String(h).padStart(2, "0") + ":" + m[2]; };
+$("#stuWsCancel").addEventListener("click", () => { stuWsReset(); $("#stuWsMsg").textContent = ""; });
 $("#stuWsForm").addEventListener("submit", e => {
-  e.preventDefault(); const f = e.target;
-  stuSave($("#stuWsMsg"), { action:"addworkshop", track:f.track.value, title:f.title.value, date:f.date.value, time:f.time.value, where:f.where.value, description:f.description.value, link:f.link.value }, () => f.reset());
+  e.preventDefault(); const f = e.target, editing = !!f.edit_id.value;
+  stuSave($("#stuWsMsg"), { action: editing ? "editworkshop" : "addworkshop", id:f.edit_id.value, track:f.track.value, title:f.title.value, date:f.date.value, time:f.time.value, where:f.where.value, description:f.description.value, link:f.link.value }, stuWsReset);
 });
 $("#stuWorkshops").addEventListener("click", e => {
+  const we = e.target.closest("[data-ws-edit]");
+  if (we){
+    const w = ((STU.data || {}).workshops || []).find(x => String(x.id) === we.dataset.wsEdit); if (!w) return;
+    const f = $("#stuWsForm");
+    f.edit_id.value = w.id; f.track.value = normTrack(w.track) || "Life Skills"; f.title.value = w.title || ""; f.date.value = w.date || "";
+    f.time.value = stuTo24(w.time); f.where.value = w.where || ""; f.description.value = w.description || ""; f.link.value = w.link || "";
+    $("#stuWsTitle").textContent = "Edit workshop (staff) \u2014 change the date, time or anything else"; $("#stuWsBtn").textContent = "Save changes"; $("#stuWsCancel").hidden = false; $("#stuWsMsg").textContent = "";
+    f.scrollIntoView({ behavior:"smooth", block:"center" });
+    return;
+  }
   const lk = e.target.closest("[data-link]");
   if (lk){
     const cur = lk.dataset.url || "";
