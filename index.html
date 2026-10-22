@@ -625,6 +625,9 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
 .stu-ann h3{margin:0 0 4px;font-size:18px}
 .stu-ann time{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
 .stu-ann p{margin:8px 0 0;white-space:pre-line}
+.stu-ann img.ann-img{display:block;max-width:100%;max-height:520px;height:auto;margin:12px 0 0;border-radius:10px;border:1px solid var(--line)}
+.stu-ann .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.stu-img-prev{max-width:220px;max-height:160px;border-radius:8px;border:1px solid var(--line);display:block;margin-top:6px}
 .stu-empty{color:var(--ink-soft);background:var(--sky);border:1px dashed var(--line);border-radius:10px;padding:16px 18px}
 .stu-ws{display:grid;gap:10px}
 .stu-ws article{display:grid;grid-template-columns:170px 1fr auto;gap:8px 18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
@@ -1118,12 +1121,15 @@ html.staff-mode #langBtn{display:none!important}
     <h2>Announcements</h2>
     <div class="stu-ann" id="stuAnn"></div>
     <form class="stu-form stu-post" id="stuPostForm" hidden>
-      <h3>Post an announcement (staff)</h3>
+      <h3 id="stuPostTitle">Post an announcement (staff)</h3>
+      <input type="hidden" name="edit_id">
       <label>Who is it for?<select name="audience"><option value="All">All students</option><option value="Seniors">Seniors only</option></select></label>
       <label>Title<input type="text" name="title" required maxlength="120"></label>
       <label>Message<textarea name="message" rows="4" required maxlength="1500"></textarea></label>
       <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
-      <div><button class="btn btn-gold" type="submit">Post announcement</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
+      <label>Image (optional) &mdash; students see it right in the announcement<input type="file" name="image" accept="image/*"></label>
+      <div id="stuImgCur" hidden><img class="stu-img-prev" id="stuImgPrev" alt=""><label style="display:flex;gap:8px;align-items:center;font-weight:400;margin-top:6px"><input type="checkbox" name="remove_image"> Remove the current image</label></div>
+      <div><button class="btn btn-gold" type="submit" id="stuPostBtn">Post announcement</button> <button class="btn btn-ghost" type="button" id="stuPostCancel" hidden>Cancel edit</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
     </form>
 
     <h2>Program schedule</h2>
@@ -2929,7 +2935,7 @@ function drawStudentHub(){
     const l = L[k] || {}, u = safeUrl(l.url), name = l.label || title;
     return `<div class="stu-card${u ? "" : " soon"}"><h3>${esc(name)}</h3><p>${esc(sub)}</p>${u ? `<a class="btn btn-gold" href="${esc(u)}" target="_blank" rel="noopener">${esc(name)} &rarr;</a>` : `<span class="pill">${esc(soon)}</span>`}</div>`;
   }).join("");
-  const annHtml = list => list.length ? list.map(a => `<article><h3>${esc(a.title || "Announcement")}</h3><time>${esc(a.when || "")}${a.by ? " \u00b7 " + esc(a.by) : ""}</time><p>${esc(a.message || "")}</p>${safeUrl(a.link) ? `<a class="card-link" href="${esc(safeUrl(a.link))}" target="_blank" rel="noopener">Open link &rarr;</a>` : ""}</article>`).join("") : `<div class="stu-empty">No announcements yet.</div>`;
+  const annHtml = list => list.length ? list.map(a => `<article><h3>${esc(a.title || "Announcement")}</h3><time>${esc(a.when || "")}${a.by ? " \u00b7 " + esc(a.by) : ""}</time><p>${esc(a.message || "")}</p>${safeUrl(a.image) ? `<img class="ann-img" src="${esc(safeUrl(a.image))}" alt="${esc(a.title || "Announcement image")}" loading="lazy">` : ""}${safeUrl(a.link) ? `<a class="card-link" href="${esc(safeUrl(a.link))}" target="_blank" rel="noopener">Open link &rarr;</a>` : ""}${staff && a.id ? `<div class="acts"><button type="button" class="btn btn-ghost" data-ann-edit="${esc(a.id)}">Edit</button><button type="button" class="btn btn-ghost" data-ann-del="${esc(a.id)}" data-title="${esc(a.title || "")}">Delete</button></div>` : ""}</article>`).join("") : `<div class="stu-empty">No announcements yet.</div>`;
   const anns = d.announcements || [];
   $("#stuAnn").innerHTML = annHtml(anns.filter(a => (a.audience || "All") !== "Seniors"));
   $("#stuSeniorAnn").innerHTML = annHtml(anns.filter(a => a.audience === "Seniors"));
@@ -2960,18 +2966,63 @@ async function postStudent(params){
   const d = await r.json().catch(() => ({ ok:true }));
   if (d.ok === false) throw new Error(d.error || "failed");
 }
+/* Shrink a chosen photo in the browser (max 1400px, JPEG) so it uploads fast. Resolves to {data,type} or null. */
+function stuPrepImage(file){
+  return new Promise((resolve, reject) => {
+    if (!file) return resolve(null);
+    if (!/^image\//.test(file.type)) return reject(new Error("notimage"));
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const k = Math.min(1, 1400 / Math.max(img.width, img.height));
+      const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      resolve({ data: c.toDataURL("image/jpeg", 0.82).split(",")[1], type: "image/jpeg" });
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("notimage")); };
+    img.src = url;
+  });
+}
+function stuPostReset(){
+  const f = $("#stuPostForm"); f.reset(); f.edit_id.value = "";
+  $("#stuImgCur").hidden = true; $("#stuPostCancel").hidden = true;
+  $("#stuPostTitle").textContent = "Post an announcement (staff)"; $("#stuPostBtn").textContent = "Post announcement";
+}
+$("#stuPostCancel").addEventListener("click", () => { stuPostReset(); $("#stuPostMsg").textContent = ""; });
 $("#stuPostForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = e.target, msg = $("#stuPostMsg");
+  const f = e.target, msg = $("#stuPostMsg"), editing = !!f.edit_id.value;
   if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
-  msg.textContent = "Posting...";
+  msg.textContent = editing ? "Saving..." : "Posting...";
   try {
-    await postStudent({ action:"announce", key:$("#stuKey").value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" });
+    const im = await stuPrepImage(f.image.files[0]);
+    const params = { action: editing ? "editannouncement" : "announce", key:$("#stuKey").value, id:f.edit_id.value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" };
+    if (im){ params.image_data = im.data; params.image_type = im.type; }
+    if (editing && f.remove_image.checked) params.remove_image = "1";
+    await postStudent(params);
     try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
-    f.title.value = ""; f.message.value = ""; f.link.value = "";
-    msg.textContent = "Posted."; STU.at = 0; renderStudentHub();
-  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not post. Please try again."; }
+    stuPostReset();
+    msg.textContent = editing ? "Saved." : "Posted."; STU.at = 0; renderStudentHub();
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : err.message === "notimage" ? "That file is not a picture. Choose a JPG or PNG." : "Could not " + (editing ? "save" : "post") + ". Please try again."; }
 });
+/* Edit / delete an announcement (coordinators) */
+function stuAnnClick(e){
+  const ed = e.target.closest("[data-ann-edit]"), del = e.target.closest("[data-ann-del]");
+  if (ed){
+    const a = ((STU.data || {}).announcements || []).find(x => String(x.id) === ed.dataset.annEdit); if (!a) return;
+    const f = $("#stuPostForm");
+    f.edit_id.value = a.id; f.audience.value = a.audience === "Seniors" ? "Seniors" : "All";
+    f.title.value = a.title || ""; f.message.value = a.message || ""; f.link.value = a.link || ""; f.image.value = ""; f.remove_image.checked = false;
+    const has = !!safeUrl(a.image); $("#stuImgCur").hidden = !has; if (has) $("#stuImgPrev").src = safeUrl(a.image);
+    $("#stuPostTitle").textContent = "Edit announcement (staff)"; $("#stuPostBtn").textContent = "Save changes"; $("#stuPostCancel").hidden = false; $("#stuPostMsg").textContent = "";
+    f.scrollIntoView({ behavior:"smooth", block:"center" });
+  } else if (del){
+    if (!confirm("Delete the announcement \"" + del.dataset.title + "\"? This cannot be undone.")) return;
+    stuSave($("#stuPostMsg"), { action:"deleteannouncement", id:del.dataset.annDel, title:del.dataset.title });
+  }
+}
+$("#stuAnn").addEventListener("click", stuAnnClick);
+$("#stuSeniorAnn").addEventListener("click", stuAnnClick);
 /* Coordinator tools: every change needs the staff key (checked by the Google Sheet script). */
 const stuSave = async (msg, params, done) => {
   if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
