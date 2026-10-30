@@ -761,8 +761,9 @@
 
             <div class="form-card">
                 <div class="question-number">Question 19</div>
-                <label class="question-title" for="sororityFraternity">If you are in a sorority/fraternity? If yes,
-                    please write the entire name of your org and the chapter:</label>
+                <label class="question-title" for="sororityFraternity">
+                    If you are in a sorority/fraternity, please write the entire name of your organization and the chapter:
+                </label>
                 <textarea id="sororityFraternity" name="sororityFraternity"></textarea>
             </div>
 
@@ -816,6 +817,21 @@
                     <label class="choice">
                         <input type="radio" name="workStudy" value="No" required> No
                     </label>
+                </div>
+                <div id="resumeUploadField" class="conditional-field" hidden>
+                    <label for="resume">
+                        Please upload your updated resume. <span class="required">*</span>
+                    </label>
+                    <span class="help-text">
+                        Upload your most recent resume in PDF, DOC, or DOCX format.
+                    </span>
+                    <input
+                        id="resume"
+                        name="resume"
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        disabled
+                    >
                 </div>
             </div>
 
@@ -1096,6 +1112,36 @@
             "youthAbuseInvestigationDetails"
         );
 
+        // Work-study: require an updated resume when "Yes" is selected.
+        const workStudyRadios = document.querySelectorAll(
+            'input[name="workStudy"]'
+        );
+        
+        const resumeUploadField = document.getElementById("resumeUploadField");
+        const resumeInput = document.getElementById("resume");
+        
+        function updateResumeField() {
+            const selected = document.querySelector(
+                'input[name="workStudy"]:checked'
+            );
+        
+            const shouldShow = selected && selected.value === "Yes";
+        
+            resumeUploadField.hidden = !shouldShow;
+            resumeInput.disabled = !shouldShow;
+            resumeInput.required = Boolean(shouldShow);
+        
+            if (!shouldShow) {
+                resumeInput.value = "";
+            }
+        }
+        
+        workStudyRadios.forEach(radio => {
+            radio.addEventListener("change", updateResumeField);
+        });
+        
+        updateResumeField();
+
         // Handle form submission.
         if (form) {
             form.addEventListener("submit", async function (event) {
@@ -1126,6 +1172,35 @@
                 const getValues = (name) => {
                     return formData.getAll(name).map(value => String(value).trim());
                 };
+
+                // Convert an uploaded file into a base64 string for submission.
+                const getFileData = (file) => {
+                    return new Promise((resolve, reject) => {
+                        if (!file) {
+                            resolve(null);
+                            return;
+                        }
+                
+                        const reader = new FileReader();
+                
+                        reader.onload = () => {
+                            const base64 = reader.result.split(",")[1];
+                
+                            resolve({
+                                fileName: file.name,
+                                mimeType: file.type,
+                                data: base64
+                            });
+                        };
+                
+                        reader.onerror = () => reject(reader.error);
+                
+                        reader.readAsDataURL(file);
+                    });
+                };
+
+                const resumeFile = document.getElementById("resume").files[0];
+                const resumeData = await getFileData(resumeFile);
 
                 // Build the application data object.
                 const payload = {
@@ -1170,6 +1245,7 @@
                     club: getValue("club"),
 
                     workStudy: getValue("workStudy"),
+                    resume: resumeData,
                     skills: getValue("skills"),
 
                     arrestConviction: getValue("arrestConviction"),
