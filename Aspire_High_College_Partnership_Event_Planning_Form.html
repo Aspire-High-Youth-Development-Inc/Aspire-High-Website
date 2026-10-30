@@ -1984,126 +1984,273 @@
 
 
 
-        /* ========================================
-           15. FORM SUBMISSION TO GOOGLE SHEETS
-        ======================================== */
+        
+/* ========================================
+   15. FORM SUBMISSION TO GOOGLE SHEETS
+======================================== */
 
-        form.addEventListener("submit", async event => {
-            event.preventDefault();
+form.addEventListener("submit", async event => {
+    event.preventDefault();
 
-            err.textContent = "";
+    err.textContent = "";
 
-            const status = document.getElementById("status");
-            const submitButton = document.getElementById("submitButton");
+    const status = document.getElementById("status");
+    const submitButton = document.getElementById("submitButton");
 
-            // Validate all required fields.
-            if (!form.checkValidity()) {
-                const firstInvalid = form.querySelector(":invalid");
+    // Validate all required fields.
+    if (!form.checkValidity()) {
+        const firstInvalid = form.querySelector(":invalid");
 
-                err.textContent =
-                    "Please complete: " +
-                    lab(firstInvalid).slice(0, 100) +
-                    ".";
+        err.textContent =
+            "Please complete: " +
+            lab(firstInvalid).slice(0, 100) +
+            ".";
 
-                firstInvalid.scrollIntoView({
-                    block: "center"
-                });
-
-                firstInvalid.focus();
-
-                return;
-            }
-
-            // Resolve the university selection, including "Other".
-            const universitySelect =
-                form.elements["University or college"];
-
-            const university =
-                universitySelect.value === "Other"
-                    ? form.elements["University or college (typed)"].value.trim()
-                    : universitySelect.value;
-
-            // Collect the main application details.
-            const data = {
-                college: university,
-
-                contactName:
-                    form.elements["Primary contact name"].value.trim(),
-
-                position:
-                    form.elements["Your role"].value,
-
-                email:
-                    form.elements["University email"].value.trim(),
-
-                phone:
-                    form.elements["Primary contact phone"].value.trim(),
-
-                location:
-                    form.elements["Campus building / location"].value.trim() +
-                    " — " +
-                    form.elements["Campus address"].value.trim(),
-
-                eventDescription: [
-                    "Program: " + form.elements["Program name"].value,
-                    "Event type: " + form.elements["Event type"].value,
-                    "Expected attendance: " +
-                    form.elements["Expected youth attendance"].value
-                ].join("\n"),
-
-                eventDate:
-                    form.elements["First choice event date"].value,
-
-                // Preserve the complete application, including all
-                // additional team members, responsibilities, agreements,
-                // logistics, and signatures.
-                additionalInfo: getSummary()
-            };
-
-            // Prevent duplicate submissions while sending.
-            submitButton.disabled = true;
-            submitButton.textContent = "Submitting...";
-
-            status.style.display = "block";
-            status.textContent =
-                "Sending your partnership application to Aspire High...";
-
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                status.textContent =
-                    "Your application submission request has been sent. " +
-                    "Please allow a moment for it to appear in the Aspire High " +
-                    "College Partnership Applications spreadsheet.";
-
-                status.style.display = "block";
-
-                status.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-
-            } catch (error) {
-                console.error("Application submission error:", error);
-
-                err.textContent =
-                    "We could not send your application. Please check your " +
-                    "internet connection and try again.";
-
-                status.style.display = "none";
-
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = "Submit Partnership Application";
-            }
+        firstInvalid.scrollIntoView({
+            block: "center"
         });
+
+        firstInvalid.focus();
+        return;
+    }
+
+    // Retrieve a field by its exact name.
+    function getValue(name) {
+        const element = form.elements[name];
+
+        return element
+            ? String(element.value || "").trim()
+            : "";
+    }
+
+    // Retrieve a dropdown selection, including its Other text field.
+    function getChoice(name) {
+        const selected = getValue(name);
+
+        if (selected === "Other") {
+            return getValue(name + " (typed)");
+        }
+
+        return selected;
+    }
+
+    // Retrieve a checkbox's checked state.
+    function isChecked(name) {
+        const element = form.elements[name];
+
+        return Boolean(element && element.checked);
+    }
+
+    // Collect main application details.
+    const application = {
+        university: getChoice("University or college"),
+        organization: getValue("Organization / club / department"),
+        organizationType: getChoice("Organization type"),
+
+        contactName: getValue("Primary contact name"),
+        role: getChoice("Your role"),
+        universityEmail: getValue("University email"),
+        personalEmail: getValue("Personal email"),
+        phone: getValue("Primary contact phone"),
+        website: getValue("Organization website or social page"),
+
+        programName: getChoice("Program name"),
+        eventType: getChoice("Event type"),
+        attendance: getValue("Expected youth attendance"),
+        eventDate: getValue("First choice event date"),
+
+        location: getValue("Campus building / location"),
+        address: getValue("Campus address"),
+
+        advisorName: getValue("Advisor / authorized host contact"),
+        advisorTitle: getValue("Advisor title"),
+        advisorEmail: getValue("Advisor / host contact email"),
+        advisorPhone: getValue("Advisor phone"),
+
+        representativeName:
+            getValue("Authorized host representative name"),
+
+        representativeRole:
+            getValue("Authorized host representative role"),
+
+        representativeEmail:
+            getValue("Authorized host representative email"),
+
+        agreementDate: getValue("Agreement date"),
+        studentSignature:
+            getValue("Student representative signature"),
+
+        finalComments: getValue("Final comments")
+    };
+
+
+    // Collect all additional team members.
+    const teamMembers = [
+        ...document.querySelectorAll("#teamMembers .person-row")
+    ].map(row => ({
+        name: row.querySelector('[name="Team member name"]').value.trim(),
+
+        role: row.querySelector('[name="Team member role"]').value,
+
+        email: row.querySelector('[name="Team member email"]').value.trim(),
+
+        responsibility:
+            row.querySelector(
+                '[name="Team member responsibility"]'
+            ).value
+    })).filter(member =>
+        member.name ||
+        member.role ||
+        member.email ||
+        member.responsibility
+    );
+
+
+    // Collect all eight host responsibilities.
+    const hostResponsibilities = HOST.map(([title]) => ({
+        name: title,
+
+        agreed: isChecked("Host commitment: " + title),
+
+        owner: getValue("Owner: " + title),
+
+        ownerEmail: getValue("Owner email: " + title),
+
+        status: getValue("Status: " + title)
+    }));
+
+
+    // Collect Aspire High responsibility acknowledgments.
+    const aspireResponsibilities = {};
+
+    AH.forEach(([title]) => {
+        aspireResponsibilities[title] =
+            isChecked("Understands Aspire: " + title);
+    });
+
+
+    // Collect final agreement confirmations.
+    const agreements = {
+        hostTasks: isChecked("Agreement: host tasks and duties"),
+
+        programSchedule:
+            isChecked("Agreement: program schedule"),
+
+        hostResponsibilities:
+            isChecked("Agreement: host responsibilities"),
+
+        aspireResponsibilities:
+            isChecked("Agreement: Aspire responsibilities"),
+
+        campusSafety:
+            isChecked("Agreement: campus policies and safety")
+    };
+
+
+    // Collect event logistics.
+    const logistics = {
+        roomReservations: getValue("Status: Room reservations"),
+
+        campusSpeakers:
+            getValue("Status: Campus speakers / departments"),
+
+        mentors:
+            getValue("Status: Mentors / volunteers"),
+
+        lunch:
+            getValue("Status: Lunch / refreshments"),
+
+        transportation:
+            getValue("Status: Transportation (Aspire High)"),
+
+        agenda:
+            getValue("Status: Workshop / event agenda"),
+
+        safety:
+            getValue("Status: Safety / accessibility / permissions"),
+
+        dayOfContact:
+            getValue("Status: Day-of contact assigned"),
+
+        setupTime:
+            getValue("Setup / arrival time"),
+
+        projector:
+            getValue("Projector and screen"),
+
+        accessibility:
+            getValue("Wheelchair accessible"),
+
+        parking:
+            getValue("Parking / bus instructions"),
+
+        emergencyName:
+            getValue("Emergency contact name"),
+
+        emergencyPhone:
+            getValue("Emergency contact phone"),
+
+        openQuestions:
+            getValue("Open questions / outstanding items")
+    };
+
+
+    // Package the complete application.
+    const data = {
+        application,
+        teamMembers,
+        hostResponsibilities,
+        aspireResponsibilities,
+        agreements,
+        logistics
+    };
+
+
+    // Prevent duplicate submissions while sending.
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    status.style.display = "block";
+    status.textContent =
+        "Sending your partnership application to Aspire High...";
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+        });
+
+        status.textContent =
+            "Your application submission request has been sent. " +
+            "Please check with Aspire High to confirm that it appears " +
+            "in the spreadsheet.";
+
+        status.style.display = "block";
+
+        status.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    } catch (error) {
+        console.error("Application submission error:", error);
+
+        err.textContent =
+            "We could not send your application. Please check your " +
+            "internet connection and try again.";
+
+        status.style.display = "none";
+
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Partnership Application";
+    }
+});
+
 
 
 
