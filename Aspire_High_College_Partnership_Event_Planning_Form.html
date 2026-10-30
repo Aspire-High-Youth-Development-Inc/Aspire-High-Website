@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Aspire High | College Partnership & Event Planning Form</title>
+
+    <style>
+        /* ========================================
+           1. GLOBAL STYLES
+        ======================================== */
+
+        :root {
+            --navy: #142a4f;
+            --red: #9e2529;
+            --ink: #202a39;
+            --muted: #657083;
+            --line: #dbe1ea;
+            --paper: #ffffff;
+            --bg: #f3f5f8;
+            --pale: #eef2f8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 16px/1.5 Arial, Helvetica, sans-serif;
+        }
+
+        .wrap {
+            max-width: 980px;
+            margin: auto;
+        }
+
+        /* ========================================
+           2. HEADER
+        ======================================== */
+
+        header {
+            background: var(--navy);
+            color: white;
+            border-bottom: 7px solid var(--red);
+            padding: 30px 18px;
+        }
+
+        .eyebrow {
+            color: #e8c9ca;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 8px 0 12px;
+            font-size: clamp(1.8rem, 4vw, 2.65rem);
+            line-height: 1.12;
+        }
+
+        header p {
+            max-width: 760px;
+            margin: 0;
+            color: #edf1f7;
+        }
+
+        /* ========================================
+           3. MAIN CONTENT AND INTRODUCTION
+        ======================================== */
+
+        main {
+            max-width: 980px;
+            margin: 24px auto;
+            padding: 0 14px 40px;
+        }
+
+        .intro {
+            margin-bottom: 16px;
+            padding: 16px 18px;
+            background: white;
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--red);
+            border-radius: 10px;
+        }
+
+        /* ========================================
+           4. PROGRESS INDICATOR
+        ======================================== */
+
+        .progress {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            margin: 0 0 18px;
+            padding: 8px 0;
+            background: var(--bg);
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .track {
+            height: 7px;
+            margin-top: 6px;
+            overflow: hidden;
+            background: #dfe4ec;
+            border-radius: 20px;
+        }
+
+        .track span {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: var(--red);
+            transition: width 0.2s;
+        }
+
+        /* ========================================
+           5. FORM SECTIONS
+        ======================================== */
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .section {
+            padding: 22px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            box-shadow: 0 3px 12px #142a4f08;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step {
+            display: grid;
+            width: 35px;
+            height: 35px;
+            flex: 0 0 35px;
+            place-items: center;
+            background: var(--red);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+        }
+
+        h2 {
+            margin: 0 0 3px;
+            color: var(--navy);
+            font-size: 1.22rem;
+        }
+
+        h3 {
+            margin: 18px 0 8px;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .help {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.91rem;
+        }
+
+        /* ========================================
+           6. FORM FIELDS
+        ======================================== */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 13px 16px;
+        }
+
+        .field {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            min-height: 43px;
+            padding: 10px 11px;
+            background: white;
+            border: 1px solid #c8d0dc;
+            border-radius: 7px;
+            color: var(--ink);
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 3px solid #9e252927;
+            border-color: var(--red);
+        }
+
+        .req {
+            color: var(--red);
+        }
+
+        .optional {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 400;
+        }
+
+        .other-box {
+            display: none;
+            margin-top: 2px;
+        }
+
+        .other-box input {
+            background: #fff8f8;
+            border-color: var(--red);
+        }
+
+        /* ========================================
+           7. NOTES AND WARNINGS
+        ======================================== */
+
+        .note {
+            margin: 12px 0;
+            padding: 12px 14px;
+            background: var(--pale);
+            border-radius: 8px;
+            color: #36445b;
+            font-size: 0.91rem;
+        }
+
+        .warning {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: #fff8ef;
+            border: 1px solid #ecd8b9;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* ========================================
+           8. TASK CARDS
+        ======================================== */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .task {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--red);
+            border-radius: 9px;
+        }
+
+        .task.aspire {
+            border-top-color: var(--navy);
+        }
+
+        .task h3 {
+            margin: 0 0 6px;
+        }
+
+        .task p {
+            margin: 0 0 10px;
+            color: #4e596a;
+            font-size: 0.9rem;
+        }
+
+        .task .field {
+            margin-top: 10px;
+        }
+
+        .task label {
+            font-size: 0.82rem;
+        }
+
+        .check {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin: 9px 0;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .check input {
+            width: 17px;
+            height: 17px;
+            min-height: 17px;
+            flex: 0 0 auto;
+            margin: 3px 0 0;
+            accent-color: var(--red);
+        }
+
+        /* ========================================
+           9. TEAM MEMBER ROWS
+        ======================================== */
+
+        .person-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.3fr 1.5fr;
+            gap: 9px;
+            margin: 9px 0;
+            padding: 12px;
+            background: #f8f9fb;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .person-row label {
+            font-size: 0.78rem;
+        }
+
+        /* ========================================
+           10. BUTTONS AND ACTIONS
+        ======================================== */
+
+        button {
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+        }
+
+        .primary {
+            background: var(--red);
+            color: white;
+        }
+
+        .secondary {
+            background: #e8edf4;
+            color: var(--navy);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        /* ========================================
+           11. AGREEMENT AND RESPONSIBILITIES
+        ======================================== */
+
+        .agreement {
+            padding: 14px;
+            background: #fffaf4;
+            border: 1px solid #e4d6c4;
+            border-radius: 9px;
+        }
+
+        .agreement .check {
+            font-size: 0.91rem;
+        }
+
+        .duties {
+            padding: 16px 18px;
+            background: #f8faff;
+            border: 2px solid var(--navy);
+            border-radius: 10px;
+        }
+
+        .duties h3 {
+            margin: 0 0 4px;
+            font-size: 1.08rem;
+        }
+
+        .duties ol {
+            margin: 10px 0 12px;
+            padding-left: 22px;
+        }
+
+        .duties li {
+            margin-bottom: 7px;
+            font-size: 0.93rem;
+        }
+
+        .duties li b {
+            color: var(--navy);
+        }
+
+        .sched {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: var(--navy);
+            border-radius: 9px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .sched b {
+            color: #ffd9da;
+        }
+
+        /* ========================================
+           12. STATUS AND ERROR MESSAGES
+        ======================================== */
+
+        .status {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: #eaf5ee;
+            border: 1px solid #bdddc9;
+            border-radius: 8px;
+            color: #236546;
+        }
+
+        .err {
+            margin-top: 10px;
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           13. FOOTER
+        ======================================== */
+
+        footer {
+            padding: 22px;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* ========================================
+           14. RESPONSIVE DESIGN
+        ======================================== */
+
+        @media (max-width: 700px) {
+
+            .grid,
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .person-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section {
+                padding: 16px;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+        }
+
+        /* ========================================
+           15. PRINT STYLES
+        ======================================== */
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .section {
+                break-inside: avoid;
+                box-shadow: none;
+            }
+
+            .actions,
+            .progress {
+                display: none;
+            }
+
+            header {
+                background: white;
+                color: var(--navy);
+            }
+
+            header p,
+            .eyebrow {
+                color: var(--navy);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================
+         HEADER
+    ======================================== -->
+
+    <header>
+        <div class="wrap">
+            <div class="eyebrow">Aspire High Youth Development Inc.</div>
+
+            <h1>College Partnership & Event Planning Form</h1>
+
+            <p>
+                A simple planning form for college student representatives,
+                campus departments, clubs, chapters, and partner organizations.
+                Tell us who you are, review and agree to your tasks and duties,
+                name who is responsible for each one, and confirm the details
+                needed for a successful event.
+            </p>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ========================================
+             INTRODUCTION
+        ======================================== -->
+
+        <div class="intro">
+            <b>How to complete this form</b><br>
+
+            Complete the required fields marked
+            <span class="req">*</span>.
+            Use the dropdowns where available. If your university,
+            organization, or program is not listed, choose
+            <b>Other</b> and type it in the box that appears.
+            For anything not decided yet, select <b>Pending</b>.
+            Please name a person for each host task so everyone knows
+            who is following up.
+        </div>
+
+        <!-- Progress indicator -->
+
+        <div class="progress">
+            <span id="progressText">Required fields completed: 0%</span>
+
+            <div class="track">
+                <span id="progressBar"></span>
+            </div>
+        </div>
+
+        <form id="partnerForm" novalidate>
+
+            <!-- ========================================
+                 SECTION 1: UNIVERSITY AND ORGANIZATION
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">1</span>
+
+                    <div>
+                        <h2>About your university and organization</h2>
+                        <p class="help">
+                            Tell us which campus and group you represent.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <div class="field full">
+                        <label>
+                            University or college
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="University or college" data-list="UNIS"
+                            data-other="Type the name of your university or college" required>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label>
+                            Student organization, chapter, club, or department
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Organization / club / department" required placeholder="Name of your group">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Organization type
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="Organization type" data-list="ORGT" data-other="Type your organization type"
+                            required>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Your role
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="Your role" data-list="ROLE" data-other="Type your role" required>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Your full name
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Primary contact name" required autocomplete="name">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Your university email
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="University email" type="email" required autocomplete="email"
+                            placeholder="name@university.edu">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Your personal email
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Personal email" type="email" required placeholder="name@gmail.com">
+
+                        <span class="optional">
+                            We use this if your school email changes or stops working.
+                        </span>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Phone number
+                            <span class="optional">(optional)</span>
+                        </label>
+
+                        <input name="Primary contact phone" type="tel" placeholder="Include area code">
+                    </div>
+
+                    <div class="field full">
+                        <label>
+                            Organization website or social page
+                            <span class="optional">(optional)</span>
+                        </label>
+
+                        <input name="Organization website or social page" placeholder="https:// or @handle">
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ========================================
+                 SECTION 2: PROGRAM DETAILS AND AGREEMENT
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">2</span>
+
+                    <div>
+                        <h2>Program details and host agreement</h2>
+                        <p class="help">
+                            Choose your program, then read and agree to what
+                            your organization will do.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <div class="field full">
+                        <label>
+                            Program name
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="Program name" data-list="PROG" data-other="Type the program name" required>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Type of event
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="Event type" data-list="EVT" data-other="Type the event type" required>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Expected number of youth / students
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="Expected youth attendance" data-list="ATT" required>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            First choice event date
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="First choice event date" type="date" required>
+                    </div>
+
+                    <!-- Second-choice event date removed -->
+
+                    <div class="field">
+                        <label>
+                            Campus building / proposed location
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Campus building / location" required
+                            placeholder="Building, room, or meeting point">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Campus address
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Campus address" required placeholder="Street, city, state, ZIP"
+                            autocomplete="street-address">
+                    </div>
+
+                </div>
+
+                <!-- Host organization agreement -->
+
+                <div class="duties" style="margin-top: 16px;">
+
+                    <h3>
+                        Hosting Organization Agreement: your tasks and duties
+                        <span class="req">*</span>
+                    </h3>
+
+                    <p class="help">
+                        By checking the box below, your organization agrees
+                        to these duties. You will name the person responsible
+                        for each one in Section 4.
+                    </p>
+
+                    <ol>
+                        <li>
+                            <b>Book 3 conference rooms.</b>
+                            Two for workshops and one for the large group,
+                            where everyone will also eat lunch.
+                        </li>
+
+                        <li>
+                            <b>Obtain university paras.</b>
+                            Work with Admissions, Student Organizations,
+                            Athletics and Community Engagement to get paras
+                            for the youth.
+                        </li>
+
+                        <li>
+                            <b>Recruit mentors and volunteers.</b>
+                            Recruit from clubs and organizations that give
+                            back to the community: speakers, mentors,
+                            photo/video helpers, and department representatives
+                            who will talk to the youth about their services
+                            during lunch.
+                        </li>
+
+                        <li>
+                            <b>Provide food for lunch.</b>
+                            Obtain sponsorships from other organizations,
+                            restaurants or the university cafeteria for the
+                            volunteers and youth. We usually get pizza,
+                            water and a snack.
+                        </li>
+
+                        <li>
+                            <b>Facilitate the event and workshops.</b>
+                            Assign 2 facilitators per workshop (8 in total)
+                            plus a host who keeps everyone on schedule.
+                            Facilitators do not have to be sorority members.
+                        </li>
+
+                        <li>
+                            <b>Schedule and attend 3 virtual planning meetings</b>
+                            with the Aspire High College Coordinator:
+                            orientation with all hosting organizations
+                            (2nd week of August), one-on-one
+                            (3rd week of September), and a final check-in
+                            (3rd week of October).
+                        </li>
+                    </ol>
+
+                    <label class="check">
+                        <input type="checkbox" name="Agreement: host tasks and duties" required>
+
+                        <span>
+                            <b>
+                                We have read the list above. Our organization
+                                understands and agrees to be responsible for
+                                these tasks and duties, and we understand what
+                                Aspire High is responsible for (Section 5).
+                            </b>
+                        </span>
+                    </label>
+
+                </div>
+
+                <div class="sched">
+                    <b>Program schedule:</b>
+                    The program starts at <b>9:00 AM</b> and ends at
+                    <b>2:30 PM</b>. You will confirm this when you sign
+                    in Section 7.
+                </div>
+
+            </section>
+
+            <!-- ========================================
+                 SECTION 3: YOUR TEAM
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">3</span>
+
+                    <div>
+                        <h2>Your team</h2>
+                        <p class="help">
+                            Add the people who will help plan the event.
+                            A name and responsibility make follow-up much easier.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid">
+
+                    <div class="field">
+                        <label>
+                            Faculty / staff advisor or authorized host contact
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Advisor / authorized host contact" required placeholder="Full name">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Advisor title
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Advisor title" required placeholder="Example: Director of Student Life">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Advisor / host contact email
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Advisor / host contact email" type="email" required
+                            placeholder="University or work email">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Advisor phone
+                            <span class="optional">(optional)</span>
+                        </label>
+
+                        <input name="Advisor phone" type="tel">
+                    </div>
+
+                </div>
+
+                <h3>Additional team members</h3>
+
+                <p class="help">
+                    Use “Add another team member” if more people are involved.
+                </p>
+
+                <div id="teamMembers"></div>
+
+                <button class="secondary" type="button" id="addMember">
+                    + Add another team member
+                </button>
+
+                <div class="note">
+                    One person may handle more than one task.
+                    Include a backup contact where possible.
+                </div>
+
+            </section>
+
+            <!-- ========================================
+                 SECTION 4: HOST TASK RESPONSIBILITIES
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">4</span>
+
+                    <div>
+                        <h2>Who is responsible for each host task</h2>
+                        <p class="help">
+                            For each task, name the person responsible,
+                            choose a status, and check the box.
+                            “Pending” is fine while you plan.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cards" id="hostCards"></div>
+
+            </section>
+
+            <!-- ========================================
+                 SECTION 5: ASPIRE HIGH RESPONSIBILITIES
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">5</span>
+
+                    <div>
+                        <h2>What Aspire High will coordinate</h2>
+                        <p class="help">
+                            Review Aspire High’s planned responsibilities
+                            so both teams have the same expectations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cards" id="ahCards"></div>
+
+                <div class="warning">
+                    <b>Please note:</b>
+                    This form records planning commitments. It does not
+                    guarantee room approval, funding, food sponsorship,
+                    transportation availability, or any item that has not
+                    been confirmed in writing.
+                </div>
+
+            </section>
+
+            <!-- ========================================
+                 SECTION 6: EVENT LOGISTICS
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">6</span>
+
+                    <div>
+                        <h2>Event logistics checklist</h2>
+                        <p class="help">
+                            Choose the current status of each item.
+                            “Pending” is fine while you are still planning.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid" id="logi"></div>
+
+            </section>
+
+            <!-- ========================================
+                 SECTION 7: FINAL REVIEW AND SIGNATURE
+            ======================================== -->
+
+            <section class="section">
+
+                <div class="section-head">
+                    <span class="step">7</span>
+
+                    <div>
+                        <h2>Final review and signature of agreement</h2>
+                        <p class="help">
+                            An authorized host representative reviews and signs.
+                            Typing your name works as your signature.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="agreement">
+
+                    <label class="check">
+                        <input type="checkbox" name="Agreement: program schedule" required>
+
+                        <span>
+                            <b>
+                                Program schedule
+                                <span class="req">*</span>
+                            </b>
+                            <br>
+
+                            I agree that the program will
+                            <b>start at 9:00 AM and end at 2:30 PM</b>
+                            on the confirmed event date, and that our
+                            organization will have rooms open, volunteers
+                            on site, and facilitators ready for that
+                            full schedule.
+                        </span>
+                    </label>
+
+                    <label class="check">
+                        <input type="checkbox" name="Agreement: host responsibilities" required>
+
+                        <span>
+                            <b>
+                                Host responsibilities
+                                <span class="req">*</span>
+                            </b>
+                            <br>
+
+                            I have reviewed the host tasks and duties
+                            and understand that our organization is
+                            responsible for the tasks we have agreed
+                            to coordinate. I will make sure each task
+                            has an owner and will tell Aspire High
+                            about any change.
+                        </span>
+                    </label>
+
+                    <label class="check">
+                        <input type="checkbox" name="Agreement: Aspire responsibilities" required>
+
+                        <span>
+                            <b>
+                                Aspire High responsibilities
+                                <span class="req">*</span>
+                            </b>
+                            <br>
+
+                            I have reviewed Aspire High’s planned
+                            responsibilities and understand that
+                            specific deliverables, costs, transportation,
+                            sponsorships, and approvals must be
+                            confirmed in writing.
+                        </span>
+                    </label>
+
+                    <label class="check">
+                        <input type="checkbox" name="Agreement: campus policies and safety" required>
+
+                        <span>
+                            <b>
+                                Campus policies and safety
+                                <span class="req">*</span>
+                            </b>
+                            <br>
+
+                            I agree to coordinate required campus approvals,
+                            youth safety procedures, accessibility
+                            arrangements, emergency information, and
+                            photo / video permissions before the event.
+                        </span>
+                    </label>
+
+                </div>
+
+                <div class="grid" style="margin-top: 15px;">
+
+                    <div class="field">
+                        <label>
+                            Authorized host representative’s full name (signature)
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Authorized host representative name" required>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Title / role
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Authorized host representative role" required>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Representative’s email
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Authorized host representative email" type="email" required>
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Date
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Agreement date" type="date" required>
+                    </div>
+
+                    <div class="field full">
+                        <label>
+                            Student representative (type full name to sign)
+                            <span class="req">*</span>
+                        </label>
+
+                        <input name="Student representative signature" required>
+                    </div>
+
+                    <div class="field full">
+                        <label>
+                            Final comments or requests for support
+                            <span class="optional">(optional)</span>
+                        </label>
+
+                        <textarea name="Final comments" placeholder="Anything else Aspire High should know?"></textarea>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ========================================
+                 FINAL SUBMISSION
+            ======================================== -->
+
+            <section class="section">
+
+                <h2>Ready to send?</h2>
+
+                <p class="help">
+                    Review your entries. You can prepare an email to
+                    Aspire High or download a copy for your records.
+                </p>
+
+                <div class="actions">
+
+                    <button class="primary" type="submit" id="submitButton">
+                        Submit Partnership Application
+                    </button>
+
+                    <button class="secondary" type="button" id="downloadCopy">
+                        Download a copy
+                    </button>
+
+                    <button class="secondary" type="button" onclick="window.print()">
+                        Print / Save as PDF
+                    </button>
+
+                    <button class="secondary" type="reset">
+                        Clear form
+                    </button>
+
+                </div>
+
+                <div class="err" id="err" role="alert"></div>
+
+                <div class="status" id="status" role="status"></div>
+
+                <p class="help" style="margin-top: 12px;">
+                    Email recipient:
+                    <b>humanresources@aspirehighyouth.org</b>
+                </p>
+
+            </section>
+
+        </form>
+
+        <!-- ========================================
+             FOOTER
+        ======================================== -->
+
+        <footer>
+            <b>Aspire High Youth Development Inc.</b>
+            <br>
+            One student. One dashboard. One success plan.
+            <br>
+
+            <a href="https://aspirehighyouth.org" style="color: var(--navy);">
+                aspirehighyouth.org
+            </a>
+        </footer>
+
+    </main>
+
+    <!-- ========================================
+         JAVASCRIPT
+    ======================================== -->
+
+    <script>
+        /* ========================================
+           1. GENERAL SETTINGS
+        ======================================== */
+        const TO = "humanresources@aspirehighyouth.org";
+
+        const SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbyVlEBC05zwEZYL75EOpakuDzLmh6m7FsCGP0MLSfG0vLAE6VRu7q0fW5kubSfVJ4MX/exec";
+
+
+        /* ========================================
+           2. UNIVERSITY OPTIONS
+        ======================================== */
+
+        const UNIS = {
+            "New Jersey (4-year)": [
+                "Berkeley College (New Jersey campuses)",
+                "Bloomfield College of Montclair State University",
+                "Caldwell University",
+                "Centenary University",
+                "Drew University",
+                "Fairleigh Dickinson University – Florham Campus (Madison)",
+                "Fairleigh Dickinson University – Metropolitan Campus (Teaneck)",
+                "Felician University",
+                "Georgian Court University",
+                "Kean Jersey City (formerly New Jersey City University)",
+                "Kean University (Union)",
+                "Monmouth University",
+                "Montclair State University",
+                "New Jersey Institute of Technology (NJIT)",
+                "Pillar College",
+                "Princeton University",
+                "Ramapo College of New Jersey",
+                "Rider University",
+                "Rowan University (Glassboro)",
+                "Rowan University – Camden",
+                "Rutgers University–Camden",
+                "Rutgers University–New Brunswick (College Ave, Busch, Livingston, Cook/Douglass)",
+                "Rutgers University–Newark",
+                "Saint Elizabeth University",
+                "Saint Peter’s University",
+                "Seton Hall University",
+                "Stevens Institute of Technology",
+                "Stockton University",
+                "The College of New Jersey (TCNJ)",
+                "Thomas Edison State University",
+                "William Paterson University"
+            ],
+
+            "Philadelphia, PA (4-year)": [
+                "Chestnut Hill College",
+                "Curtis Institute of Music",
+                "Drexel University",
+                "Holy Family University",
+                "La Salle University",
+                "Moore College of Art & Design",
+                "Pennsylvania Academy of the Fine Arts",
+                "Peirce College",
+                "Saint Joseph’s University",
+                "Temple University",
+                "Thomas Jefferson University",
+                "University of Pennsylvania"
+            ],
+
+            "New York City – Manhattan": [
+                "Barnard College",
+                "Baruch College (CUNY)",
+                "Berkeley College (New York City)",
+                "Boricua College",
+                "City College of New York (CUNY)",
+                "Columbia University",
+                "CUNY School of Professional Studies",
+                "Fashion Institute of Technology (SUNY)",
+                "Fordham University – Lincoln Center",
+                "Hunter College (CUNY)",
+                "John Jay College of Criminal Justice (CUNY)",
+                "LIM College",
+                "Macaulay Honors College (CUNY)",
+                "Manhattan School of Music",
+                "Marymount Manhattan College",
+                "New York Institute of Technology – Manhattan",
+                "New York University (NYU)",
+                "Pace University – New York City",
+                "School of Visual Arts",
+                "The Cooper Union",
+                "The Juilliard School",
+                "The New School (incl. Parsons)",
+                "Touro University – Manhattan",
+                "Yeshiva University"
+            ],
+
+            "New York City – Bronx": [
+                "College of Mount Saint Vincent",
+                "Fordham University – Rose Hill",
+                "Lehman College (CUNY)",
+                "Manhattan University (Riverdale)",
+                "Monroe University",
+                "SUNY Maritime College"
+            ],
+
+            "New York City – Queens": [
+                "Queens College (CUNY)",
+                "St. John’s University",
+                "Vaughn College of Aeronautics and Technology",
+                "York College (CUNY)"
+            ],
+
+            "New York City – Brooklyn": [
+                "Brooklyn College (CUNY)",
+                "Long Island University – Brooklyn",
+                "Medgar Evers College (CUNY)",
+                "New York City College of Technology (CUNY)",
+                "NYU Tandon School of Engineering",
+                "Pratt Institute",
+                "St. Francis College",
+                "St. Joseph’s University – New York (Brooklyn)",
+                "SUNY Downstate Health Sciences University"
+            ],
+
+            "New York City – Staten Island": [
+                "College of Staten Island (CUNY)",
+                "Wagner College"
+            ]
+        };
+
+
+        /* ========================================
+           3. DROPDOWN OPTION LISTS
+        ======================================== */
+
+        const L = {
+            ORGT: [
+                "Student club / organization",
+                "Fraternity / sorority / Greek-letter chapter",
+                "Admissions / enrollment",
+                "Career services / experiential learning",
+                "Student affairs / campus life",
+                "Athletics",
+                "Community engagement / service",
+                "Other university department",
+                "Community organization"
+            ],
+
+            ROLE: [
+                "Student representative",
+                "Club / organization president",
+                "Club / organization officer",
+                "Faculty or staff advisor",
+                "University department representative",
+                "Community partner"
+            ],
+
+            PROG: [
+                "College Mentoring Program",
+                "College Access and Admissions Day",
+                "Career Exploration and Professional Panel",
+                "Girl Power / MPower Leadership Workshop",
+                "Leadership and Character Development Workshop",
+                "Financial Literacy Workshop",
+                "Campus Tour and Educational Trip",
+                "Volunteer and Service Day",
+                "Multiple programs"
+            ],
+
+            EVT: [
+                "College access / admissions event",
+                "Career exploration / professional panel",
+                "Mentorship event",
+                "Workshop / student development",
+                "Campus tour",
+                "Educational trip",
+                "Volunteer / service activity",
+                "Multiple activities"
+            ],
+
+            ATT: [
+                "1–15",
+                "16–30",
+                "31–50",
+                "51–75",
+                "76–100",
+                "More than 100",
+                "Not sure yet"
+            ],
+
+            STAT: [
+                "Pending",
+                "In progress",
+                "Confirmed",
+                "Need Aspire High support"
+            ],
+
+            TIMES: [
+                "7:00 AM",
+                "7:30 AM",
+                "8:00 AM",
+                "8:30 AM",
+                "9:00 AM (program start)"
+            ],
+
+            ROLES2: [
+                "Room reservations",
+                "Campus departments and paras",
+                "Mentor / volunteer recruitment",
+                "Food / sponsorship",
+                "Workshop presenters",
+                "Transportation arrival",
+                "Safety / accessibility",
+                "Event-day check-in",
+                "Backup contact"
+            ]
+        };
+
+
+        /* ========================================
+           4. DROPDOWN GENERATION
+        ======================================== */
+
+        function opt(options, placeholder) {
+            return `
+                <option value="">${placeholder || "Choose one"}</option>
+                ${options.map(option => `<option>${option}</option>`).join("")}
+            `;
+        }
+
+        document.querySelectorAll("select[data-list]").forEach(select => {
+            const key = select.dataset.list;
+
+            if (key === "UNIS") {
+                select.innerHTML = `
+                    <option value="">Choose your university or college</option>
+
+                    ${Object.entries(UNIS).map(([group, universities]) => `
+                        <optgroup label="${group}">
+                            ${universities.map(university => `
+                                <option>${university}</option>
+                            `).join("")}
+                        </optgroup>
+                    `).join("")}
+
+                    <option>Other</option>
+                `;
+            } else {
+                const options = L[key];
+
+                select.innerHTML =
+                    opt(
+                        options,
+                        key === "ATT"
+                            ? "Choose an estimate"
+                            : "Choose one"
+                    ) +
+                    (
+                        options.includes("Not sure yet")
+                            ? ""
+                            : (
+                                select.dataset.other
+                                    ? "<option>Other</option>"
+                                    : ""
+                            )
+                    );
+            }
+        });
+
+
+        /* ========================================
+           5. CONDITIONAL "OTHER" TEXT FIELDS
+        ======================================== */
+
+        document.querySelectorAll("select[data-other]").forEach(select => {
+            const container = document.createElement("div");
+
+            container.className = "other-box";
+
+            container.innerHTML = `
+                <input
+                    name="${select.name} (typed)"
+                    placeholder="${select.dataset.other}"
+                    aria-label="${select.dataset.other}">
+            `;
+
+            select.insertAdjacentElement("afterend", container);
+
+            select.addEventListener("change", () => {
+                const showOther = select.value === "Other";
+                const input = container.firstChild;
+
+                container.style.display = showOther ? "block" : "none";
+                input.required = showOther;
+
+                if (!showOther) {
+                    input.value = "";
+                }
+            });
+        });
+
+
+        /* ========================================
+           6. HOST TASK CARDS
+        ======================================== */
+
+        const HOST = [
+            [
+                "Book 3 conference rooms",
+                "Two workshop rooms and one larger room for the group and lunch. Confirm capacity, setup, access times, and AV equipment.",
+                "Our team will book and confirm the rooms."
+            ],
+            [
+                "Obtain university paras and campus partners",
+                "Invite Admissions, Student Organizations, Athletics, Community Engagement, Career Services, or other offices to obtain paras for the youth.",
+                "Our team will contact the campus departments."
+            ],
+            [
+                "Recruit mentors, volunteers, and speakers",
+                "Identify and confirm mentors, volunteers, speakers, photo/video helpers, and department representatives for lunch. Follow university rules for volunteers working with youth.",
+                "Our team will recruit and confirm participants."
+            ],
+            [
+                "Provide lunch (obtain sponsorships)",
+                "Work with other organizations, restaurants, or university dining. We usually get pizza, water, and a snack. Confirm who pays for each item before purchasing.",
+                "Our team will coordinate the lunch and sponsorships."
+            ],
+            [
+                "Assign facilitators and an event host",
+                "Two facilitators per workshop (8 in total) plus one host who keeps everyone on schedule. Facilitators do not have to be sorority members.",
+                "Our team will assign facilitators and a host."
+            ],
+            [
+                "Schedule and attend 3 planning meetings",
+                "Three virtual meetings with the Aspire High College Coordinator: orientation, one-on-one, and a final check-in. Dates are confirmed together.",
+                "Our team will attend the planning meetings."
+            ],
+            [
+                "Share event-day information",
+                "Provide check-in, parking, public transit, building entry, setup and arrival times, Wi-Fi and AV help, accessibility details, and an on-site contact.",
+                "Our team will share campus and arrival instructions."
+            ],
+            [
+                "Review safety and campus policies",
+                "Confirm emergency procedures, youth visitor rules, required approvals, accessibility arrangements, supervision, and photo / video policies.",
+                "Our team will review the campus requirements."
+            ]
+        ];
+
+        document.getElementById("hostCards").innerHTML = HOST.map(
+            ([title, description, commitment]) => `
+                <div class="task">
+
+                    <h3>${title}</h3>
+
+                    <p>${description}</p>
+
+                    <label class="check">
+                        <input
+                            type="checkbox"
+                            name="Host commitment: ${title}"
+                            required>
+
+                        ${commitment}
+                    </label>
+
+                    <div class="field">
+                        <label>
+                            Person responsible
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            name="Owner: ${title}"
+                            required
+                            placeholder="Full name">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Their email
+                            <span class="optional">(optional)</span>
+                        </label>
+
+                        <input
+                            name="Owner email: ${title}"
+                            type="email"
+                            placeholder="Email address">
+                    </div>
+
+                    <div class="field">
+                        <label>
+                            Status
+                            <span class="req">*</span>
+                        </label>
+
+                        <select name="Status: ${title}" required>
+                            ${opt(L.STAT, "Choose status")}
+                        </select>
+                    </div>
+
+                </div>
+            `
+        ).join("");
+
+
+        /* ========================================
+           7. ASPIRE HIGH RESPONSIBILITY CARDS
+        ======================================== */
+
+        const AH = [
+            [
+                "Workshops and materials",
+                "Aspire High will develop the youth workshops and PowerPoint presentations, give facilitators a session to review them, and bring supplies such as pens, markers, scissors, paper, pencils, erasers, and a camera. For lunch, Aspire High brings paper plates, utensils, and napkins.",
+                "I have reviewed this responsibility."
+            ],
+            [
+                "Transportation",
+                "Aspire High will transport all students to the university. Passenger count, pickup / drop-off times, costs, provider, and day-of contacts are confirmed in writing.",
+                "I understand transportation details are confirmed together."
+            ],
+            [
+                "Recognition and appreciation",
+                "Aspire High will provide letters of recognition and certificates for mentors, volunteers, sponsors, and the hosting chapter, and a Girl Power/MPower T-shirt for the event planner.",
+                "I have reviewed this responsibility."
+            ],
+            [
+                "Flyers and planning documents",
+                "Aspire High will provide flyers, the mentor / volunteer application, mentor survey, mentor orientation PowerPoint, and sponsorship request letters.",
+                "I have reviewed this responsibility."
+            ],
+            [
+                "Event highlight video and social media",
+                "Aspire High will create a highlight video using youth survey responses, share it on our social media and YouTube, and let the hosting chapter use it for recruitment. The event planner gets a shout-out. All permissions and campus policies must be followed.",
+                "I understand photo / video use requires appropriate permissions."
+            ],
+            [
+                "Shared planning and coordination",
+                "Aspire High will work with your team on the event plan, timelines, and agreed deliverables. Both teams promptly communicate changes or barriers.",
+                "I understand the need for shared follow-up."
+            ]
+        ];
+
+        document.getElementById("ahCards").innerHTML = AH.map(
+            ([title, description, acknowledgment]) => `
+                <div class="task aspire">
+
+                    <h3>${title}</h3>
+
+                    <p>${description}</p>
+
+                    <label class="check">
+                        <input
+                            type="checkbox"
+                            name="Understands Aspire: ${title}"
+                            required>
+
+                        ${acknowledgment}
+                    </label>
+
+                </div>
+            `
+        ).join("");
+
+
+        /* ========================================
+           8. EVENT LOGISTICS CHECKLIST
+        ======================================== */
+
+        const LG = [
+            [
+                "Room reservations",
+                ["Pending", "Confirmed", "Not needed", "Need Aspire High support"]
+            ],
+            [
+                "Campus speakers / departments",
+                ["Pending", "Invitations sent", "Confirmed", "Not needed"]
+            ],
+            [
+                "Mentors / volunteers",
+                ["Pending", "Recruiting now", "Confirmed", "Need support"]
+            ],
+            [
+                "Lunch / refreshments",
+                ["Pending", "Sponsor being contacted", "Host dining services", "Confirmed", "Not needed"]
+            ],
+            [
+                "Transportation (Aspire High)",
+                ["Pending", "Aspire High coordinating", "Confirmed", "Not applicable"]
+            ],
+            [
+                "Workshop / event agenda",
+                ["Pending", "Draft shared", "Confirmed"]
+            ],
+            [
+                "Safety / accessibility / permissions",
+                ["Pending", "In progress", "Confirmed", "Need support"]
+            ],
+            [
+                "Day-of contact assigned",
+                ["Pending", "Assigned", "Not needed"]
+            ]
+        ];
+
+        document.getElementById("logi").innerHTML =
+            LG.map(([name, options]) => `
+                <div class="field">
+
+                    <label>${name}</label>
+
+                    <select name="Status: ${name}">
+                        ${opt(options, "Pending")}
+                    </select>
+
+                </div>
+            `).join("") +
+
+            `
+                <div class="field">
+                    <label>Host setup and arrival time</label>
+
+                    <select name="Setup / arrival time">
+                        ${opt(L.TIMES, "Choose a time")}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Projector / screen in the rooms?</label>
+
+                    <select name="Projector and screen">
+                        ${opt(
+                ["Yes, all rooms", "Some rooms", "No", "Not sure yet"],
+                "Choose one"
+            )}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Rooms wheelchair accessible?</label>
+
+                    <select name="Wheelchair accessible">
+                        ${opt(
+                ["Yes", "No", "Need to confirm"],
+                "Choose one"
+            )}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Parking / bus arrival instructions</label>
+
+                    <input
+                        name="Parking / bus instructions"
+                        placeholder="Location or pending">
+                </div>
+
+                <div class="field">
+                    <label>On-site emergency contact name</label>
+
+                    <input name="Emergency contact name">
+                </div>
+
+                <div class="field">
+                    <label>Emergency contact phone</label>
+
+                    <input
+                        name="Emergency contact phone"
+                        type="tel">
+                </div>
+
+                <div class="field full">
+                    <label>
+                        Anything still undecided, including costs or approvals?
+                    </label>
+
+                    <textarea
+                        name="Open questions / outstanding items"
+                        placeholder="Write the item, who will follow up, and the target date."></textarea>
+                </div>
+            `;
+
+
+        /* ========================================
+           9. ADDITIONAL TEAM MEMBERS
+        ======================================== */
+
+        function addTeamMember() {
+            const memberRow = document.createElement("div");
+
+            memberRow.className = "person-row";
+
+            memberRow.innerHTML = `
+                <div class="field">
+                    <label>Full name</label>
+
+                    <input
+                        name="Team member name"
+                        placeholder="Name">
+                </div>
+
+                <div class="field">
+                    <label>Role</label>
+
+                    <select name="Team member role">
+                        ${opt(L.ROLE.concat(["Other"]), "Choose")}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+
+                    <input
+                        name="Team member email"
+                        type="email"
+                        placeholder="Email address">
+                </div>
+
+                <div class="field">
+                    <label>What will this person handle?</label>
+
+                    <select name="Team member responsibility">
+                        ${opt(L.ROLES2, "Choose")}
+                    </select>
+                </div>
+            `;
+
+            document.getElementById("teamMembers").appendChild(memberRow);
+        }
+
+        // Add the first team member row automatically.
+        addTeamMember();
+
+        // Add more team members when requested.
+        document.getElementById("addMember").addEventListener(
+            "click",
+            addTeamMember
+        );
+
+
+        /* ========================================
+           10. FORM ELEMENTS AND INITIAL VALUES
+        ======================================== */
+
+        const form = document.getElementById("partnerForm");
+        const err = document.getElementById("err");
+
+        // Automatically populate the agreement date with today's date.
+        form.elements["Agreement date"].valueAsDate = new Date();
+
+
+        /* ========================================
+           11. FORM LABEL HELPER
+        ======================================== */
+
+        function lab(element) {
+            return (
+                element.closest(".field")?.querySelector("label")?.textContent ||
+                element.closest("label")?.textContent ||
+                element.name
+            )
+                .replace(/\s*\*|\s*\(optional\)|\s*\(if known\)/g, "")
+                .trim();
+        }
+
+
+        /* ========================================
+           12. APPLICATION SUMMARY
+        ======================================== */
+
+        function getSummary() {
+            const rows = [
+                "ASPIRE HIGH YOUTH DEVELOPMENT INC.",
+                "COLLEGE PARTNERSHIP & EVENT PLANNING FORM",
+                "Program schedule: 9:00 AM to 2:30 PM",
+                ""
+            ];
+
+            const groupedValues = {};
+
+            for (const element of [...form.elements]) {
+                if (
+                    !element.name ||
+                    ["button", "submit", "reset"].includes(element.type)
+                ) {
+                    continue;
+                }
+
+                let value = "";
+
+                if (element.type === "checkbox") {
+                    if (!element.checked) {
+                        continue;
+                    }
+
+                    value = "Agreed / checked";
+                } else {
+                    value = (element.value || "").trim();
+
+                    if (!value) {
+                        continue;
+                    }
+                }
+
+                if (!groupedValues[element.name]) {
+                    groupedValues[element.name] = [];
+                }
+
+                groupedValues[element.name].push(value);
+            }
+
+            for (const [name, values] of Object.entries(groupedValues)) {
+                rows.push(name + ": " + values.join(" | "));
+            }
+
+            return rows.join("\n");
+        }
+
+
+        /* ========================================
+           13. REQUIRED-FIELD PROGRESS
+        ======================================== */
+
+        function updateProgress() {
+            const requiredFields = [
+                ...form.querySelectorAll("[required]")
+            ];
+
+            const completedFields = requiredFields.filter(element => {
+                if (element.type === "checkbox") {
+                    return element.checked;
+                }
+
+                return element.value.trim() !== "";
+            });
+
+            const percentage = requiredFields.length
+                ? Math.round(
+                    completedFields.length / requiredFields.length * 100
+                )
+                : 0;
+
+            document.getElementById("progressBar").style.width =
+                percentage + "%";
+
+            document.getElementById("progressText").textContent =
+                "Required fields completed: " + percentage + "%";
+        }
+
+        form.addEventListener("input", updateProgress);
+        form.addEventListener("change", updateProgress);
+
+
+        /* ========================================
+           14. FORM RESET HANDLING
+        ======================================== */
+
+        form.addEventListener("reset", () => {
+            setTimeout(() => {
+                document.querySelectorAll(".other-box").forEach(container => {
+                    container.style.display = "none";
+                    container.firstChild.required = false;
+                });
+
+                updateProgress();
+            }, 0);
+        });
+
+
+
+        /* ========================================
+           15. FORM SUBMISSION TO GOOGLE SHEETS
+        ======================================== */
+
+        form.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            err.textContent = "";
+
+            const status = document.getElementById("status");
+            const submitButton = document.getElementById("submitButton");
+
+            // Validate all required fields.
+            if (!form.checkValidity()) {
+                const firstInvalid = form.querySelector(":invalid");
+
+                err.textContent =
+                    "Please complete: " +
+                    lab(firstInvalid).slice(0, 100) +
+                    ".";
+
+                firstInvalid.scrollIntoView({
+                    block: "center"
+                });
+
+                firstInvalid.focus();
+
+                return;
+            }
+
+            // Resolve the university selection, including "Other".
+            const universitySelect =
+                form.elements["University or college"];
+
+            const university =
+                universitySelect.value === "Other"
+                    ? form.elements["University or college (typed)"].value.trim()
+                    : universitySelect.value;
+
+            // Collect the main application details.
+            const data = {
+                college: university,
+
+                contactName:
+                    form.elements["Primary contact name"].value.trim(),
+
+                position:
+                    form.elements["Your role"].value,
+
+                email:
+                    form.elements["University email"].value.trim(),
+
+                phone:
+                    form.elements["Primary contact phone"].value.trim(),
+
+                location:
+                    form.elements["Campus building / location"].value.trim() +
+                    " — " +
+                    form.elements["Campus address"].value.trim(),
+
+                eventDescription: [
+                    "Program: " + form.elements["Program name"].value,
+                    "Event type: " + form.elements["Event type"].value,
+                    "Expected attendance: " +
+                    form.elements["Expected youth attendance"].value
+                ].join("\n"),
+
+                eventDate:
+                    form.elements["First choice event date"].value,
+
+                // Preserve the complete application, including all
+                // additional team members, responsibilities, agreements,
+                // logistics, and signatures.
+                additionalInfo: getSummary()
+            };
+
+            // Prevent duplicate submissions while sending.
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting...";
+
+            status.style.display = "block";
+            status.textContent =
+                "Sending your partnership application to Aspire High...";
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                status.textContent =
+                    "Your application submission request has been sent. " +
+                    "Please allow a moment for it to appear in the Aspire High " +
+                    "College Partnership Applications spreadsheet.";
+
+                status.style.display = "block";
+
+                status.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            } catch (error) {
+                console.error("Application submission error:", error);
+
+                err.textContent =
+                    "We could not send your application. Please check your " +
+                    "internet connection and try again.";
+
+                status.style.display = "none";
+
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit Partnership Application";
+            }
+        });
+
+
+
+        /* ========================================
+           16. DOWNLOAD APPLICATION COPY
+        ======================================== */
+
+        document.getElementById("downloadCopy").addEventListener(
+            "click",
+            () => {
+                const file = new Blob(
+                    [getSummary()],
+                    {
+                        type: "text/plain;charset=utf-8"
+                    }
+                );
+
+                const url = URL.createObjectURL(file);
+                const link = document.createElement("a");
+
+                link.href = url;
+                link.download =
+                    "Aspire-High-College-Partnership-Application.txt";
+
+                link.click();
+
+                URL.revokeObjectURL(url);
+            }
+        );
+
+
+        /* ========================================
+           17. INITIALIZE FORM
+        ======================================== */
+
+        updateProgress();
+
+    </script>
+
+</body>
+
+</html>
