@@ -11,7 +11,6 @@
         href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
 
-
     <style>
         :root {
             --navy: #0B2D5B;
@@ -381,6 +380,12 @@
             color: var(--maroon);
         }
 
+        #form-message.success {
+            background: #f1f8f3;
+            border: 1px solid #43845a;
+            color: #245c35;
+        }
+
         footer {
             width: min(920px, calc(100% - 32px));
             margin: 10px auto 24px;
@@ -437,7 +442,6 @@
             }
         }
     </style>
-
 </head>
 
 <body>
@@ -502,8 +506,16 @@
 
             <div class="form-card">
                 <div class="question-number">Question 7</div>
-                <label class="question-title" for="zip">Home Address (Zip Code) <span class="required">*</span></label>
-                <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" required>
+                <label class="question-title" for="zip">
+                    Home Address (Zip/Postal Code) <span class="required">*</span>
+                </label>
+                <input
+                    id="zip"
+                    name="zip"
+                    type="text"
+                    autocomplete="postal-code"
+                    required
+                >
             </div>
 
             <div class="form-card">
@@ -547,8 +559,10 @@
 
             <div class="form-card">
                 <div class="question-number">Question 10</div>
-                <label class="question-title" for="volunteerLocation">Please check the box in the event that you will be
-                    volunteering for. <span class="required">*</span></label>
+                <label class="question-title" for="volunteerLocation">
+                    Please select the location where you will be volunteering.
+                    <span class="required">*</span>
+                </label>
                 <select id="volunteerLocation" name="volunteerLocation" required>
                     <option value="">Select a volunteering location</option>
                     <option>Montclair University</option>
@@ -572,7 +586,7 @@
             <div class="form-card">
                 <div class="question-number">Question 11</div>
                 <label class="question-title" for="phone">Phone number <span class="required">*</span></label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
             </div>
 
             <div class="section-card">
@@ -584,23 +598,14 @@
                 <span class="question-title">What is your gender? <span class="required">*</span></span>
 
                 <div class="choices">
-                    <label class="choice">
-                        <input type="radio" name="gender" value="Woman" required> Woman
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gender" value="Man" required> Man
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gender" value="Non-binary" required> Non-binary
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gender" value="A different identity" required>
-                        A different identity
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gender" value="Prefer not to say" required>
-                        Prefer not to say
-                    </label>
+                    <label class="choice"><input type="radio" name="gender" value="Woman" required> Woman</label>
+                    <label class="choice"><input type="radio" name="gender" value="Man" required> Man</label>
+                    <label class="choice"><input type="radio" name="gender" value="Non-binary" required>
+                        Non-binary</label>
+                    <label class="choice"><input type="radio" name="gender" value="A different identity" required> A
+                        different identity</label>
+                    <label class="choice"><input type="radio" name="gender" value="Prefer not to say" required> Prefer
+                        not to say</label>
                 </div>
 
                 <div id="genderOtherField" class="conditional-field" hidden>
@@ -611,7 +616,7 @@
 
             <div class="form-card">
                 <div class="question-number">Question 13</div>
-                <span class="question-title">What is your Nationality?</span>
+                <span class="question-title">What is your nationality?</span>
                 <div class="choices" id="nationalityChoices">
                     <label class="choice"><input type="radio" name="nationality" value="North American/ Canadian"> North
                         American/ Canadian</label>
@@ -664,13 +669,15 @@
                     <label class="choice"><input type="radio" name="nationality" value="India"> India</label>
                     <label class="choice"><input type="radio" name="nationality" value="Korea"> Korea</label>
                     <label class="choice"><input type="radio" name="nationality" value="Australia"> Australia</label>
-                    <label class="choice"><input type="radio" name="nationality" value="Bangladeshi">Bangladeshi</label>
+                    <label class="choice"><input type="radio" name="nationality" value="Bangladeshi">
+                        Bangladeshi</label>
                     <label class="choice"><input type="radio" name="nationality" value="Mexican"> Mexican</label>
                     <label class="choice"><input type="radio" name="nationality" value="Vietnamese"> Vietnamese</label>
                     <label class="choice"><input type="radio" name="nationality" value="Indonesian"> Indonesian</label>
                     <label class="choice"><input type="radio" name="nationality" value="Filipino"> Filipino</label>
                     <label class="choice"><input type="radio" name="nationality" value="Other"> Other</label>
                 </div>
+
                 <div id="nationalityOtherField" class="conditional-field" hidden>
                     <label for="nationalityOther">Please specify your nationality:</label>
                     <input id="nationalityOther" name="nationalityOther" type="text">
@@ -693,7 +700,8 @@
                         <input id="raceOtherCheckbox" type="checkbox" name="race" value="Other">
                         <div>
                             <label for="raceOtherText">Other:</label>
-                            <input id="raceOtherText" name="raceOtherText" type="text" aria-label="Specify other race">
+                            <input id="raceOtherText" name="raceOtherText" type="text" aria-label="Specify other race"
+                                disabled>
                         </div>
                     </div>
                 </div>
@@ -721,29 +729,16 @@
             <div class="form-card">
                 <div class="question-number">Question 17</div>
                 <span class="question-title">Grade level <span class="required">*</span></span>
-
                 <div class="choices">
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="Freshman" required> Freshman
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="Sophomore" required> Sophomore
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="Junior" required> Junior
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="Senior" required> Senior
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="MA" required> MA
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="PHD" required> PHD
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="gradeLevel" value="Other" required> Other
-                    </label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="Freshman" required>
+                        Freshman</label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="Sophomore" required>
+                        Sophomore</label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="Junior" required> Junior</label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="Senior" required> Senior</label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="MA" required> MA</label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="PHD" required> PHD</label>
+                    <label class="choice"><input type="radio" name="gradeLevel" value="Other" required> Other</label>
                 </div>
 
                 <div id="gradeLevelOtherField" class="conditional-field" hidden>
@@ -762,16 +757,15 @@
             <div class="form-card">
                 <div class="question-number">Question 19</div>
                 <label class="question-title" for="sororityFraternity">
-                    If you are in a sorority/fraternity, please write the entire name of your organization and the chapter:
+                    If you are in a sorority/fraternity, please write the entire name of your organization and the
+                    chapter:
                 </label>
                 <textarea id="sororityFraternity" name="sororityFraternity"></textarea>
             </div>
 
             <div class="form-card">
                 <div class="question-number">Question 20</div>
-                <label class="question-title" for="club">
-                    Are you a member of any clubs or organizations?
-                </label>
+                <label class="question-title" for="club">Are you a member of any clubs or organizations?</label>
                 <span class="help-text">
                     If yes, provide the full name of the club or organization. If it has a chapter,
                     include the full chapter name as well.
@@ -811,27 +805,19 @@
                 </span>
 
                 <div class="choices">
-                    <label class="choice">
-                        <input type="radio" name="workStudy" value="Yes" required> Yes
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="workStudy" value="No" required> No
-                    </label>
+                    <label class="choice"><input type="radio" name="workStudy" value="Yes" required> Yes</label>
+                    <label class="choice"><input type="radio" name="workStudy" value="No" required> No</label>
                 </div>
+
                 <div id="resumeUploadField" class="conditional-field" hidden>
                     <label for="resume">
                         Please upload your updated resume. <span class="required">*</span>
                     </label>
                     <span class="help-text">
                         Upload your most recent resume in PDF, DOC, or DOCX format.
+                        A resume is required if you select Yes above.
                     </span>
-                    <input
-                        id="resume"
-                        name="resume"
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        disabled
-                    >
+                    <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx" disabled>
                 </div>
             </div>
 
@@ -857,16 +843,10 @@
                     Have you ever been arrested or convicted of a crime?
                     <span class="required">*</span>
                 </span>
-
                 <div class="choices">
-                    <label class="choice">
-                        <input type="radio" name="arrestConviction" value="Yes" required> Yes
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="arrestConviction" value="No" required> No
-                    </label>
+                    <label class="choice"><input type="radio" name="arrestConviction" value="Yes" required> Yes</label>
+                    <label class="choice"><input type="radio" name="arrestConviction" value="No" required> No</label>
                 </div>
-
                 <div id="arrestConvictionField" class="conditional-field" hidden>
                     <label for="arrestConvictionDetails">Please explain:</label>
                     <textarea id="arrestConvictionDetails" name="arrestConvictionDetails"
@@ -880,16 +860,12 @@
                     Are you currently using any illegal drugs or controlled substances?
                     <span class="required">*</span>
                 </span>
-
                 <div class="choices">
-                    <label class="choice">
-                        <input type="radio" name="controlledSubstances" value="Yes" required> Yes
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="controlledSubstances" value="No" required> No
-                    </label>
+                    <label class="choice"><input type="radio" name="controlledSubstances" value="Yes" required>
+                        Yes</label>
+                    <label class="choice"><input type="radio" name="controlledSubstances" value="No" required>
+                        No</label>
                 </div>
-
                 <div id="controlledSubstancesField" class="conditional-field" hidden>
                     <label for="controlledSubstancesDetails">Please explain or list:</label>
                     <textarea id="controlledSubstancesDetails" name="controlledSubstancesDetails"
@@ -903,16 +879,12 @@
                     Have you ever been investigated or convicted of sexually abusing or molesting a youth 18 or younger?
                     <span class="required">*</span>
                 </span>
-
                 <div class="choices">
-                    <label class="choice">
-                        <input type="radio" name="youthAbuseInvestigation" value="Yes" required> Yes
-                    </label>
-                    <label class="choice">
-                        <input type="radio" name="youthAbuseInvestigation" value="No" required> No
-                    </label>
+                    <label class="choice"><input type="radio" name="youthAbuseInvestigation" value="Yes" required>
+                        Yes</label>
+                    <label class="choice"><input type="radio" name="youthAbuseInvestigation" value="No" required>
+                        No</label>
                 </div>
-
                 <div id="youthAbuseInvestigationField" class="conditional-field" hidden>
                     <label for="youthAbuseInvestigationDetails">Please explain:</label>
                     <textarea id="youthAbuseInvestigationDetails" name="youthAbuseInvestigationDetails"
@@ -936,7 +908,7 @@
                     render transportation and/or medical care deemed necessary in their discretion and in the best
                     interest of the life, health, and well-being of me as the mentor.</p>
                 <label class="question-title" for="emergencyInitials">Initial Below</label>
-                <input id="emergencyInitials" name="emergencyInitials" type="text" autocomplete="off">
+                <input id="emergencyInitials" name="emergencyInitials" type="text" autocomplete="off" required>
             </div>
 
             <div class="section-card">
@@ -950,9 +922,9 @@
                     release, waive, discharge, and covenant not to sue any university, facility, and Aspire High Youth
                     Development Program staff, its officers, employees, and agents from liability for any and all claims
                     resulting in personal injury, accidents or illnesses (including death), and property loss arising
-                    from, but not limited to, myself as a mentor in any Aspire HIgh Youth Development Program event.</p>
+                    from, but not limited to, myself as a mentor in any Aspire High Youth Development Program event.</p>
                 <label class="question-title" for="waiverInitials">Initial Below</label>
-                <input id="waiverInitials" name="waiverInitials" type="text" autocomplete="off">
+                <input id="waiverInitials" name="waiverInitials" type="text" autocomplete="off" required>
             </div>
 
             <div class="form-card">
@@ -962,17 +934,17 @@
                     from any and all claims, actions, suits, procedures, costs, expenses, damages, and liabilities,
                     including attorney's fees brought as a result of my participation in the activity.</p>
                 <label class="question-title" for="indemnificationInitials">Initial Below</label>
-                <input id="indemnificationInitials" name="indemnificationInitials" type="text" autocomplete="off">
+                <input id="indemnificationInitials" name="indemnificationInitials" type="text" autocomplete="off" required>
             </div>
 
             <div class="form-card">
                 <div class="question-number">Question 29</div>
                 <p class="legal-copy">PHOTOGRAPHY RELEASE: I understand I may be photographed while at activities,
                     camps, and programs. I give Aspire High Youth Development Program permission to use the
-                    pictures/videos of my child for the Aspire High Youth Development Program promotional and marketing
+                    pictures/videos of myself for the Aspire High Youth Development Program promotional and marketing
                     materials such as newsletters, a local newspaper, website, social media, and/or brochure</p>
                 <label class="question-title" for="photographyInitials">Initial Below</label>
-                <input id="photographyInitials" name="photographyInitials" type="text" autocomplete="off">
+                <input id="photographyInitials" name="photographyInitials" type="text" autocomplete="off" required>
             </div>
 
             <div class="form-card">
@@ -983,7 +955,7 @@
                     voluntarily, and intend by my signature to be bound by each term of this agreement to the full
                     extent allowed by law.</p>
                 <label class="question-title" for="acknowledgmentInitials">Initial Below</label>
-                <input id="acknowledgmentInitials" name="acknowledgmentInitials" type="text" autocomplete="off">
+                <input id="acknowledgmentInitials" name="acknowledgmentInitials" type="text" autocomplete="off" required>
             </div>
 
             <div class="section-card">
@@ -1009,7 +981,7 @@
                 <button type="reset" class="secondary-button">Clear Form</button>
             </div>
 
-            <div id="form-message" role="status" aria-live="polite"></div>
+            <div id="form-message" role="status" aria-live="polite" aria-atomic="true"></div>
         </form>
     </main>
 
@@ -1017,307 +989,511 @@
         Aspire High Youth Development Program · Application for Mentors/Volunteers
     </footer>
 
-    <script>
-        const SCRIPT_URL =
-            "https://script.google.com/macros/s/AKfycbzE8R_zg1OXx37n610Ec42a9xEOW3ISRBhIXTwkWjimF91cIz4qtWMx6T6bhi-1hikPZQ/exec";
 
-        const form = document.querySelector("form");
+<script>
+    const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbzE8R_zg1OXx37n610Ec42a9xEOW3ISRBhIXTwkWjimF91cIz4qtWMx6T6bhi-1hikPZQ/exec";
 
-        // Show or hide additional fields based on selected answers.
-        function setupConditionalField(radioName, triggerValue, fieldId, inputId) {
-            const radios = document.querySelectorAll(
-                `input[name="${radioName}"]`
+    const form = document.getElementById("mentorApplication");
+    const formMessage = document.getElementById("form-message");
+
+    // Display a message below the form.
+    function showFormMessage(message, type) {
+        if (!formMessage) {
+            console.error(message);
+            return;
+        }
+
+        formMessage.textContent = message;
+        formMessage.className = "show " + type;
+    }
+
+    // Clear the form message.
+    function clearFormMessage() {
+        if (!formMessage) return;
+
+        formMessage.textContent = "";
+        formMessage.className = "";
+    }
+
+    // Show or hide additional fields based on selected radio answers.
+    function setupConditionalField(radioName, triggerValue, fieldId, inputId) {
+        const radios = document.querySelectorAll(
+            `input[name="${radioName}"]`
+        );
+
+        const field = document.getElementById(fieldId);
+        const input = document.getElementById(inputId);
+
+        if (!field || !input || radios.length === 0) {
+            console.error(
+                `Conditional field setup failed for "${radioName}".`
+            );
+            return;
+        }
+
+        function updateField() {
+            const selected = document.querySelector(
+                `input[name="${radioName}"]:checked`
             );
 
-            const field = document.getElementById(fieldId);
-            const input = document.getElementById(inputId);
+            const shouldShow =
+                selected && selected.value === triggerValue;
 
-            // Stop if the expected HTML elements do not exist.
-            if (!field || !input || radios.length === 0) {
-                console.error(
-                    `Conditional field setup failed for "${radioName}". ` +
-                    `Check the field ID, input ID, and radio name in your HTML.`
+            field.hidden = !shouldShow;
+            input.disabled = !shouldShow;
+            input.required = Boolean(shouldShow);
+
+            if (!shouldShow) {
+                input.value = "";
+            }
+        }
+
+        radios.forEach(radio => {
+            radio.addEventListener("change", updateField);
+        });
+
+        updateField();
+    }
+
+    // Gender: show a text field when "A different identity" is selected.
+    setupConditionalField(
+        "gender",
+        "A different identity",
+        "genderOtherField",
+        "genderOther"
+    );
+
+    // Nationality: show a text field when "Other" is selected.
+    setupConditionalField(
+        "nationality",
+        "Other",
+        "nationalityOtherField",
+        "nationalityOther"
+    );
+
+    // Grade level: show a text field when "Other" is selected.
+    setupConditionalField(
+        "gradeLevel",
+        "Other",
+        "gradeLevelOtherField",
+        "gradeLevelOther"
+    );
+
+    // Legal background: show an explanation field when "Yes" is selected.
+    setupConditionalField(
+        "arrestConviction",
+        "Yes",
+        "arrestConvictionField",
+        "arrestConvictionDetails"
+    );
+
+    setupConditionalField(
+        "controlledSubstances",
+        "Yes",
+        "controlledSubstancesField",
+        "controlledSubstancesDetails"
+    );
+
+    setupConditionalField(
+        "youthAbuseInvestigation",
+        "Yes",
+        "youthAbuseInvestigationField",
+        "youthAbuseInvestigationDetails"
+    );
+
+    // Work-study: require a resume when "Yes" is selected.
+    const workStudyRadios = document.querySelectorAll(
+        'input[name="workStudy"]'
+    );
+
+    const resumeUploadField =
+        document.getElementById("resumeUploadField");
+
+    const resumeInput = document.getElementById("resume");
+
+    function updateResumeField() {
+        if (!resumeUploadField || !resumeInput) {
+            console.error("Resume upload elements could not be found.");
+            return;
+        }
+
+        const selected = document.querySelector(
+            'input[name="workStudy"]:checked'
+        );
+
+        const shouldShow =
+            selected && selected.value === "Yes";
+
+        resumeUploadField.hidden = !shouldShow;
+        resumeInput.disabled = !shouldShow;
+        resumeInput.required = Boolean(shouldShow);
+
+        if (!shouldShow) {
+            resumeInput.value = "";
+        }
+    }
+
+    workStudyRadios.forEach(radio => {
+        radio.addEventListener("change", updateResumeField);
+    });
+
+    updateResumeField();
+
+    // Race "Other" option: require a description only when selected.
+    const raceOtherCheckbox =
+        document.getElementById("raceOtherCheckbox");
+
+    const raceOtherText =
+        document.getElementById("raceOtherText");
+
+    function updateRaceOtherField() {
+        if (!raceOtherCheckbox || !raceOtherText) {
+            console.error("Race Other fields could not be found.");
+            return;
+        }
+
+        const shouldShow = raceOtherCheckbox.checked;
+
+        raceOtherText.disabled = !shouldShow;
+        raceOtherText.required = shouldShow;
+
+        if (!shouldShow) {
+            raceOtherText.value = "";
+        }
+    }
+
+    if (raceOtherCheckbox && raceOtherText) {
+        raceOtherCheckbox.addEventListener(
+            "change",
+            updateRaceOtherField
+        );
+
+        updateRaceOtherField();
+    }
+
+    // Validate the required Race question.
+    function validateRace() {
+        const selectedRace = document.querySelector(
+            'input[name="race"]:checked'
+        );
+
+        if (!selectedRace) {
+            showFormMessage(
+                "Please select at least one option for Race.",
+                "error"
+            );
+
+            const raceChoices = document.getElementById("raceChoices");
+
+            if (raceChoices) {
+                raceChoices.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    // Convert an uploaded file into Base64 data.
+    function getFileData(file) {
+        return new Promise((resolve, reject) => {
+            if (!file) {
+                resolve(null);
+                return;
+            }
+
+            const allowedExtensions = /\.(pdf|doc|docx)$/i;
+
+            if (!allowedExtensions.test(file.name)) {
+                reject(
+                    new Error(
+                        "Please upload your resume as a PDF, DOC, or DOCX file."
+                    )
                 );
                 return;
             }
 
-            function updateField() {
-                const selected = document.querySelector(
-                    `input[name="${radioName}"]:checked`
-                );
+            const reader = new FileReader();
 
-                const shouldShow = selected && selected.value === triggerValue;
-
-                field.hidden = !shouldShow;
-                input.disabled = !shouldShow;
-                input.required = Boolean(shouldShow);
-
-                // Clear the value when the field is hidden.
-                if (!shouldShow) {
-                    input.value = "";
-                }
-            }
-
-            radios.forEach(radio => {
-                radio.addEventListener("change", updateField);
-            });
-
-            // Set the correct initial visibility when the page loads.
-            updateField();
-        }
-
-        // Gender: show a text field when "A different identity" is selected.
-        setupConditionalField(
-            "gender",
-            "A different identity",
-            "genderOtherField",
-            "genderOther"
-        );
-
-        // Nationality: show a text field when "Other" is selected.
-        setupConditionalField(
-            "nationality",
-            "Other",
-            "nationalityOtherField",
-            "nationalityOther"
-        );
-
-        // Grade level: show a text field when "Other" is selected.
-        setupConditionalField(
-            "gradeLevel",
-            "Other",
-            "gradeLevelOtherField",
-            "gradeLevelOther"
-        );
-
-        // Legal background: show an explanation field when "Yes" is selected.
-        setupConditionalField(
-            "arrestConviction",
-            "Yes",
-            "arrestConvictionField",
-            "arrestConvictionDetails"
-        );
-
-        setupConditionalField(
-            "controlledSubstances",
-            "Yes",
-            "controlledSubstancesField",
-            "controlledSubstancesDetails"
-        );
-
-        setupConditionalField(
-            "youthAbuseInvestigation",
-            "Yes",
-            "youthAbuseInvestigationField",
-            "youthAbuseInvestigationDetails"
-        );
-
-        // Work-study: require an updated resume when "Yes" is selected.
-        const workStudyRadios = document.querySelectorAll(
-            'input[name="workStudy"]'
-        );
-        
-        const resumeUploadField = document.getElementById("resumeUploadField");
-        const resumeInput = document.getElementById("resume");
-        
-        function updateResumeField() {
-            const selected = document.querySelector(
-                'input[name="workStudy"]:checked'
-            );
-        
-            const shouldShow = selected && selected.value === "Yes";
-        
-            resumeUploadField.hidden = !shouldShow;
-            resumeInput.disabled = !shouldShow;
-            resumeInput.required = Boolean(shouldShow);
-        
-            if (!shouldShow) {
-                resumeInput.value = "";
-            }
-        }
-        
-        workStudyRadios.forEach(radio => {
-            radio.addEventListener("change", updateResumeField);
-        });
-        
-        updateResumeField();
-
-        // Handle form submission.
-        if (form) {
-            form.addEventListener("submit", async function (event) {
-                event.preventDefault();
-
-                // Check required fields before submitting.
-                if (!form.reportValidity()) {
-                    return;
-                }
-
-                const submitButton = form.querySelector(
-                    'button[type="submit"], input[type="submit"]'
-                );
-
-                if (submitButton) {
-                    submitButton.disabled = true;
-                }
-
-                const formData = new FormData(form);
-
-                // Retrieve and trim a single form value.
-                const getValue = (name) => {
-                    const value = formData.get(name);
-                    return value == null ? "" : String(value).trim();
-                };
-
-                // Retrieve all selected checkbox values.
-                const getValues = (name) => {
-                    return formData.getAll(name).map(value => String(value).trim());
-                };
-
-                // Convert an uploaded file into a base64 string for submission.
-                const getFileData = (file) => {
-                    return new Promise((resolve, reject) => {
-                        if (!file) {
-                            resolve(null);
-                            return;
-                        }
-                
-                        const reader = new FileReader();
-                
-                        reader.onload = () => {
-                            const base64 = reader.result.split(",")[1];
-                
-                            resolve({
-                                fileName: file.name,
-                                mimeType: file.type,
-                                data: base64
-                            });
-                        };
-                
-                        reader.onerror = () => reject(reader.error);
-                
-                        reader.readAsDataURL(file);
-                    });
-                };
-
-                const resumeFile = document.getElementById("resume").files[0];
-                const resumeData = await getFileData(resumeFile);
-
-                // Build the application data object.
-                const payload = {
-                    formType: "mentorVolunteerApplication",
-
-                    name: getValue("name"),
-                    birthday: getValue("birthday"),
-
-                    addressStreet1: getValue("addressStreet1"),
-                    addressStreet2: getValue("addressStreet2"),
-                    town: getValue("town"),
-                    state: getValue("state"),
-                    zip: getValue("zip"),
-
-                    university: getValue("university"),
-                    volunteerLocation: getValue("volunteerLocation"),
-                    personalEmail: getValue("personalEmail"),
-                    phone: getValue("phone"),
-
-                    gender: getValue("gender"),
-                    genderOther: getValue("genderOther"),
-
-                    nationality: getValue("nationality"),
-                    nationalityOther: getValue("nationalityOther"),
-
-                    race: getValues("race").map(race => {
-                        if (race === "Other") {
-                            const otherRace = getValue("raceOtherText");
-                            return otherRace ? `Other: ${otherRace}` : "Other";
-                        }
-                        return race;
-                    }),
-
-                    hispanicLatinx: getValue("hispanicLatinx"),
-                    firstGeneration: getValue("firstGeneration"),
-
-                    gradeLevel: getValue("gradeLevel"),
-                    gradeLevelOther: getValue("gradeLevelOther"),
-                    major: getValue("major"),
-
-                    sororityFraternity: getValue("sororityFraternity"),
-                    club: getValue("club"),
-
-                    workStudy: getValue("workStudy"),
-                    resume: resumeData,
-                    skills: getValue("skills"),
-
-                    arrestConviction: getValue("arrestConviction"),
-                    arrestConvictionDetails: getValue("arrestConvictionDetails"),
-
-                    controlledSubstances: getValue("controlledSubstances"),
-                    controlledSubstancesDetails: getValue("controlledSubstancesDetails"),
-
-                    youthAbuseInvestigation: getValue("youthAbuseInvestigation"),
-                    youthAbuseInvestigationDetails: getValue("youthAbuseInvestigationDetails"),
-
-                    emergencyInitials: getValue("emergencyInitials"),
-                    waiverInitials: getValue("waiverInitials"),
-                    indemnificationInitials: getValue("indemnificationInitials"),
-                    photographyInitials: getValue("photographyInitials"),
-                    acknowledgmentInitials: getValue("acknowledgmentInitials"),
-
-                    signature: getValue("signature"),
-                    todayDate: getValue("todayDate")
-                };
-
+            reader.onload = () => {
                 try {
-                    await fetch(SCRIPT_URL, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: {
-                            "Content-Type": "text/plain;charset=utf-8"
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                    const result = reader.result;
 
-                    // no-cors does not allow the browser to read the Apps Script response.
-                    // This confirms the request was sent, not that the spreadsheet saved it.
-                    alert(
-                        "Your application request has been sent. " +
-                        "Please contact Aspire High if you need confirmation."
-                    );
-
-                    // Reset the form after the request is sent.
-                    form.reset();
-
-                    // Refresh conditional fields after resetting the form.
-                    document.querySelectorAll(
-                        'input[name="gender"], ' +
-                        'input[name="nationality"], ' +
-                        'input[name="gradeLevel"], ' +
-                        'input[name="arrestConviction"], ' +
-                        'input[name="controlledSubstances"], ' +
-                        'input[name="youthAbuseInvestigation"]'
-                    ).forEach(radio => {
-                        radio.dispatchEvent(new Event("change"));
-                    });
-
-                } catch (error) {
-                    console.error("Application submission error:", error);
-
-                    alert(
-                        "We could not send your application. Please try again later " +
-                        "or contact Aspire High."
-                    );
-
-                } finally {
-                    if (submitButton) {
-                        submitButton.disabled = false;
+                    if (
+                        typeof result !== "string" ||
+                        !result.includes(",")
+                    ) {
+                        reject(
+                            new Error("The resume file could not be read.")
+                        );
+                        return;
                     }
-                }
-            });
-        } else {
-            console.error("Application form not found.");
-        }
-    </script>
 
+                    const base64 = result.split(",")[1];
+
+                    resolve({
+                        fileName: file.name,
+                        mimeType: file.type || "application/octet-stream",
+                        data: base64
+                    });
+                } catch (error) {
+                    reject(error);
+                }
+            };
+
+            reader.onerror = () => {
+                reject(
+                    new Error("There was a problem reading your resume file.")
+                );
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Retrieve and trim a single form value.
+    function getValue(formData, name) {
+        const value = formData.get(name);
+        return value == null ? "" : String(value).trim();
+    }
+
+    // Retrieve all selected checkbox values.
+    function getValues(formData, name) {
+        return formData.getAll(name).map(value => String(value).trim());
+    }
+
+    // Reapply all conditional field rules after a reset.
+    function refreshConditionalFields() {
+        document.querySelectorAll(
+            'input[name="gender"], ' +
+            'input[name="nationality"], ' +
+            'input[name="gradeLevel"], ' +
+            'input[name="arrestConviction"], ' +
+            'input[name="controlledSubstances"], ' +
+            'input[name="youthAbuseInvestigation"]'
+        ).forEach(radio => {
+            radio.dispatchEvent(new Event("change"));
+        });
+
+        workStudyRadios.forEach(radio => {
+            radio.dispatchEvent(new Event("change"));
+        });
+
+        updateRaceOtherField();
+        clearFormMessage();
+    }
+
+    // Handle manual form resets.
+    form.addEventListener("reset", () => {
+        // The reset event fires before the browser finishes resetting controls.
+        setTimeout(() => {
+            refreshConditionalFields();
+        }, 0);
+    });
+
+    // Handle form submission.
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        clearFormMessage();
+
+        // Check the standard required fields.
+        if (!form.reportValidity()) {
+            return;
+        }
+
+        // Check the required Race question.
+        if (!validateRace()) {
+            return;
+        }
+
+        const submitButton = form.querySelector(
+            'button[type="submit"]'
+        );
+
+        if (!submitButton) {
+            showFormMessage(
+                "The submit button could not be found. Please contact Aspire High.",
+                "error"
+            );
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+
+        try {
+            const formData = new FormData(form);
+
+            // Read the resume inside the try block so errors are handled.
+            const resumeFile = resumeInput.files[0] || null;
+            const resumeData = await getFileData(resumeFile);
+
+            // Build the application data object.
+            const payload = {
+                formType: "mentorVolunteerApplication",
+
+                name: getValue(formData, "name"),
+                birthday: getValue(formData, "birthday"),
+
+                addressStreet1: getValue(formData, "addressStreet1"),
+                addressStreet2: getValue(formData, "addressStreet2"),
+                town: getValue(formData, "town"),
+                state: getValue(formData, "state"),
+                zip: getValue(formData, "zip"),
+
+                university: getValue(formData, "university"),
+                volunteerLocation: getValue(formData, "volunteerLocation"),
+                personalEmail: getValue(formData, "personalEmail"),
+                phone: getValue(formData, "phone"),
+
+                gender: getValue(formData, "gender"),
+                genderOther: getValue(formData, "genderOther"),
+
+                nationality: getValue(formData, "nationality"),
+                nationalityOther: getValue(formData, "nationalityOther"),
+
+                race: getValues(formData, "race").map(race => {
+                    if (race === "Other") {
+                        const otherRace = getValue(
+                            formData,
+                            "raceOtherText"
+                        );
+
+                        return otherRace
+                            ? `Other: ${otherRace}`
+                            : "Other";
+                    }
+
+                    return race;
+                }),
+
+                hispanicLatinx: getValue(formData, "hispanicLatinx"),
+                firstGeneration: getValue(formData, "firstGeneration"),
+
+                gradeLevel: getValue(formData, "gradeLevel"),
+                gradeLevelOther: getValue(formData, "gradeLevelOther"),
+                major: getValue(formData, "major"),
+
+                sororityFraternity: getValue(
+                    formData,
+                    "sororityFraternity"
+                ),
+
+                club: getValue(formData, "club"),
+
+                workStudy: getValue(formData, "workStudy"),
+                resume: resumeData,
+                skills: getValue(formData, "skills"),
+
+                arrestConviction: getValue(
+                    formData,
+                    "arrestConviction"
+                ),
+
+                arrestConvictionDetails: getValue(
+                    formData,
+                    "arrestConvictionDetails"
+                ),
+
+                controlledSubstances: getValue(
+                    formData,
+                    "controlledSubstances"
+                ),
+
+                controlledSubstancesDetails: getValue(
+                    formData,
+                    "controlledSubstancesDetails"
+                ),
+
+                youthAbuseInvestigation: getValue(
+                    formData,
+                    "youthAbuseInvestigation"
+                ),
+
+                youthAbuseInvestigationDetails: getValue(
+                    formData,
+                    "youthAbuseInvestigationDetails"
+                ),
+
+                emergencyInitials: getValue(
+                    formData,
+                    "emergencyInitials"
+                ),
+
+                waiverInitials: getValue(
+                    formData,
+                    "waiverInitials"
+                ),
+
+                indemnificationInitials: getValue(
+                    formData,
+                    "indemnificationInitials"
+                ),
+
+                photographyInitials: getValue(
+                    formData,
+                    "photographyInitials"
+                ),
+
+                acknowledgmentInitials: getValue(
+                    formData,
+                    "acknowledgmentInitials"
+                ),
+
+                signature: getValue(formData, "signature"),
+                todayDate: getValue(formData, "todayDate")
+            };
+
+            // Send the application to Google Apps Script.
+            await fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            /*
+             * IMPORTANT:
+             * Because this request uses no-cors mode, the browser cannot
+             * read the Apps Script response. This means the request was
+             * sent, but the browser cannot confirm that the spreadsheet
+             * successfully saved the application.
+             */
+
+            showFormMessage(
+                "Your application submission request has been sent. " +
+                "The form cannot confirm that your application was successfully saved. " +
+                "Please contact Aspire High if you need confirmation.",
+                "success"
+            );
+
+            // Reset the form and its conditional fields.
+            form.reset();
+            refreshConditionalFields();
+
+        } catch (error) {
+            console.error("Application submission error:", error);
+
+            const errorMessage =
+                error.message ||
+                "We could not send your application. Please try again later or contact Aspire High.";
+
+            showFormMessage(errorMessage, "error");
+
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Application";
+        }
+    });
+</script>
 
 </body>
 
