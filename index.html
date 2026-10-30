@@ -625,9 +625,6 @@ html.student-only #nav,html.student-only #menuBtn,html.student-only footer{displ
 .stu-ann h3{margin:0 0 4px;font-size:18px}
 .stu-ann time{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
 .stu-ann p{margin:8px 0 0;white-space:pre-line}
-.stu-ann img.ann-img{display:block;max-width:100%;max-height:520px;height:auto;margin:12px 0 0;border-radius:10px;border:1px solid var(--line)}
-.stu-ann .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.stu-img-prev{max-width:220px;max-height:160px;border-radius:8px;border:1px solid var(--line);display:block;margin-top:6px}
 .stu-empty{color:var(--ink-soft);background:var(--sky);border:1px dashed var(--line);border-radius:10px;padding:16px 18px}
 .stu-ws{display:grid;gap:10px}
 .stu-ws article{display:grid;grid-template-columns:170px 1fr auto;gap:8px 18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
@@ -667,10 +664,10 @@ html.staff-mode #langBtn{display:none!important}
 .stu-sched article.cancelled,.stu-sched article.moved{opacity:.7}
 .stu-sched article.cancelled h3,.stu-sched article.moved h3{text-decoration:line-through}
 .stu-sched .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.stu-ws .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:700px){.stu-ws .acts{justify-content:flex-start}}
 .badge{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
 .badge.bad{background:#fde7ea;color:#800020}.badge.warn{background:#FFF1CC;color:#7a5600}.badge.ok{background:#DDF3E3;color:#14602b}
 @media(max-width:700px){.stu-sched article{grid-template-columns:1fr}.stu-sched .acts{justify-content:flex-start}}
+html:not(.admin-mode) [data-view="manage"]{display:none!important}
 </style>
 </head>
 <body>
@@ -1121,15 +1118,12 @@ html.staff-mode #langBtn{display:none!important}
     <h2>Announcements</h2>
     <div class="stu-ann" id="stuAnn"></div>
     <form class="stu-form stu-post" id="stuPostForm" hidden>
-      <h3 id="stuPostTitle">Post an announcement (staff)</h3>
-      <input type="hidden" name="edit_id">
+      <h3>Post an announcement (staff)</h3>
       <label>Who is it for?<select name="audience"><option value="All">All students</option><option value="Seniors">Seniors only</option></select></label>
       <label>Title<input type="text" name="title" required maxlength="120"></label>
       <label>Message<textarea name="message" rows="4" required maxlength="1500"></textarea></label>
       <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
-      <label>Image (optional) &mdash; students see it right in the announcement<input type="file" name="image" accept="image/*"></label>
-      <div id="stuImgCur" hidden><img class="stu-img-prev" id="stuImgPrev" alt=""><label style="display:flex;gap:8px;align-items:center;font-weight:400;margin-top:6px"><input type="checkbox" name="remove_image"> Remove the current image</label></div>
-      <div><button class="btn btn-gold" type="submit" id="stuPostBtn">Post announcement</button> <button class="btn btn-ghost" type="button" id="stuPostCancel" hidden>Cancel edit</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
+      <div><button class="btn btn-gold" type="submit">Post announcement</button> <span class="muted" id="stuPostMsg" role="status"></span></div>
     </form>
 
     <h2>Program schedule</h2>
@@ -1150,20 +1144,19 @@ html.staff-mode #langBtn{display:none!important}
     </form>
 
     <h2>Workshops</h2>
-    <p class="muted">Life skills, freshman/sophomore and junior/senior workshops. Pick a group to see its schedule.</p>
+    <p class="muted">Life skills, freshman, sophomore, junior and senior workshops, and after-school workshops. Pick a group to see its schedule.</p>
     <div class="tabs" id="stuTabs" role="tablist" aria-label="Workshop groups"></div>
     <div class="stu-ws" id="stuWorkshops"></div>
     <form class="stu-form stu-post" id="stuWsForm" hidden>
-      <h3 id="stuWsTitle">Add a workshop to the schedule (staff)</h3>
-      <input type="hidden" name="edit_id">
-      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman/Sophomore</option><option>Junior/Senior</option></select></label>
+      <h3>Add a workshop to the schedule (staff)</h3>
+      <label>Group<select name="track" required><option>Life Skills</option><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option><option>After School</option></select></label>
       <label>Workshop name<input type="text" name="title" required maxlength="120"></label>
       <label>Date<input type="date" name="date" required></label>
       <label>Time<input type="time" name="time"></label>
       <label>Where (room or Zoom)<input type="text" name="where" maxlength="160"></label>
       <label>What it is about (optional)<textarea name="description" rows="2" maxlength="500"></textarea></label>
       <label>Link (optional)<input type="text" name="link" placeholder="https://"></label>
-      <div><button class="btn btn-gold" type="submit" id="stuWsBtn">Add to the schedule</button> <button class="btn btn-ghost" type="button" id="stuWsCancel" hidden>Cancel edit</button> <span class="muted" id="stuWsMsg" role="status"></span></div>
+      <div><button class="btn btn-gold" type="submit">Add to the schedule</button> <span class="muted" id="stuWsMsg" role="status"></span></div>
     </form>
 
     <h2>Virtual mentorship program</h2>
@@ -1704,7 +1697,7 @@ const DEFAULTS = {
      the phone number and email instead. */
   /* The student hub reads announcements, workshops, links and the senior checklist from a
      Google Sheet. Paste the Web app URL of Student-Portal-Code.gs here (it ends in /exec). */
-  studentPortalEndpoint: "https://script.google.com/macros/s/AKfycbz-A3BAP6gUlCqkrYuuoWM8SMqqzdI-WvbRXcTQ4EAKwXTEBOTRWszkF-960HTWkY4g/exec",
+  studentPortalEndpoint: "",
 
   applicationEndpoint: "https://script.google.com/macros/s/AKfycbzmdvGm25is4UNoc4FBzfm1MO4z-Faao6yPf4hnUU2-zwmKihaGJrnM-KGVYu4DOy-3/exec",
 
@@ -2698,7 +2691,7 @@ function flash(msg, kind){
 /* ===================== accounts (browser-only) ===================== */
 /* ===================== accounts =====================
    There is no sign-up. Aspire High creates every login and lists it below.
-   A login with  noHub:true  (the coordinators) can use everything except "My hub" and lands in the Student Service Hub; a login with  role:"student"  only opens the student hub; a login with no
+   A login with  role:"student"  only opens the student hub; a login with no
    role opens the whole website (staff). A
    password is never stored, only a salted hash (PBKDF2-SHA-256, 210,000
    rounds). To add or change a login, open make-login.html on your computer and
@@ -2712,7 +2705,7 @@ const write = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } cat
 
 const ACCOUNTS = [
   { name:"Students", email:"student@aspirehighyouth.org", role:"student", salt:"6f50b38ce53fd5060c7efa52f8a8dc15", hash:"a16b67649a4ecb06b3f25fea1a5810c6c7ef2a24eb256da01d06cc1ae95c5f96" },
-  { name:"After-school coordinators", email:"coordinators@aspirehighyouth.org", noHub:true, salt:"bcee0e5c9e21ad4034472785c0cb3e98", hash:"caab246f4a026e59e102eac969b3ea10579812bdada8176afbbd505ac004bc39" }
+  { name:"After-school coordinators", email:"coordinators@aspirehighyouth.org", salt:"bcee0e5c9e21ad4034472785c0cb3e98", hash:"caab246f4a026e59e102eac969b3ea10579812bdada8176afbbd505ac004bc39" }
 ];
 
 async function hash(password, salt){
@@ -2730,8 +2723,9 @@ const session = () => {
   if (SERVER) return SERVER.user || null;
   const s0 = read(SESSION);
   const a0 = s0 && ACCOUNTS.find(a => a.email === s0.email);
-  /* role:"student" = student hub only. Any other login = everything (the code names that "staff"). */
-  return a0 ? { name:a0.name, email:a0.email, role:(a0.role === "student" ? "student" : "staff"), noHub:!!a0.noHub } : null;
+  /* role:"student" = student hub only. role:"admin" = everything, including the Manage page.
+     Any other login (coordinators) = everything except the Manage page (the code names that "staff"). */
+  return a0 ? { name:a0.name, email:a0.email, role:(a0.role === "student" ? "student" : "staff"), admin:(a0.role === "admin") } : null;
 };
 
 /* ===================== render home ===================== */
@@ -2816,15 +2810,15 @@ function show(view, opts){
   if (!s0 && !SERVER) view = "login";
   if (s0 && s0.role === "student" && view !== "login") view = "student";   /* students only ever see their hub */
   if (view === "hub" && !s0){ view = "login"; }
-  if (view === "hub" && s0 && s0.noHub) view = "student";   /* coordinators have no "My hub": send them to the Student Service Hub */
   if (view === "manage"){
     if (!s0) view = "login";
-    else if (s0.role !== "staff"){ flash("The Manage page is limited to staff accounts.", "error"); view = s0.noHub ? "student" : "hub"; }
+    else if (!s0.admin) view = "home";   /* Manage is for admin logins only */
   }
   VIEWS.forEach(v => { $("#view-" + v).hidden = (v !== view); });
   document.documentElement.classList.toggle("locked", !s0 && !SERVER);
   document.documentElement.classList.toggle("student-only", !!(s0 && s0.role === "student"));
   document.documentElement.classList.toggle("staff-mode", !!(s0 && s0.role === "staff"));
+  document.documentElement.classList.toggle("admin-mode", !!(s0 && s0.admin));
   if (s0 && s0.role === "staff" && LANG === "es"){ LANG = "en"; try { localStorage.setItem(LANG_KEY, "en"); } catch(err){} applyLang(); }
   if (view === "student") renderStudentHub();
   if (view === "hub") renderHub(opts.roleKey);
@@ -2874,10 +2868,10 @@ function renderHeader(){
   const s = session();
   $("#headActions").innerHTML = s
     ? (s.role === "student" ? `<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>` : `${s.role === "staff" ? `<button class="login ghost" data-view="student">Student Service Hub</button>` : ""}` +
-      `${s.noHub ? "" : `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button>`}<button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`)
+      `<button class="login" data-view="hub">${esc(t("btn.myhub","My hub"))}</button><button class="login ghost" id="btnLogout">${esc(t("btn.logout","Log out"))}</button>`)
     : `<button class="login" data-view="login">${esc(t("btn.login","Log in"))}</button>`;
   $("#heroCta").innerHTML = s
-    ? `<button class="btn btn-gold" data-view="${s.noHub ? "student" : "hub"}">${s.noHub ? "Open Student Service Hub" : esc(t("btn.openhub","Open my hub"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`
+    ? `<button class="btn btn-gold" data-view="hub">${esc(t("btn.openhub","Open my hub"))}</button><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`
     : `<a class="btn btn-gold" href="#involved">${esc(t("btn.getstarted","Get started"))}</a><a class="btn btn-outline" href="#about">${esc(t("btn.learnmore","Learn more"))}</a>`;
   const lo = $("#btnLogout");
   if (lo) lo.addEventListener("click", logout);
@@ -2888,25 +2882,12 @@ function renderHeader(){
    Sheet (Student-Portal-Code.gs). Staff change them by editing that sheet, or
    post announcements from the form on this page. */
 const STU = { data:null, error:"", at:0, track:"All", days:45 };
-const TRACKS = ["All","Life Skills","Freshman/Sophomore","Junior/Senior"];
-/* Freshmen and sophomores share the same workshops, so older rows saved as "Freshman" or "Sophomore" show under one group. */
-const normTrack = t => { const v = String(t || "").trim();
-  if (/^(freshman|freshmen|sophomore|sophomores|freshman\s*\/\s*sophomores?)$/i.test(v)) return "Freshman/Sophomore";
-  if (/^(junior|juniors|senior|seniors|junior\s*\/\s*seniors?)$/i.test(v)) return "Junior/Senior";
-  return v; };
+const TRACKS = ["All","Life Skills","Freshman","Sophomore","Junior","Senior","After School"];
 const DEFAULT_CHECKLIST = ["Finish and submit your college applications","Complete the FAFSA or state financial aid form","Apply for scholarships","Ask teachers for recommendation letters","Send your final transcript to your college","Choose your college and pay the deposit","Sign up for housing and orientation","Update your resume"].map(item => ({ item, details:"" }));
 const stuEndpoint = () => String(CONTENT.studentPortalEndpoint || "").trim();
 const safeUrl = u => /^https?:\/\//i.test(String(u || "").trim()) ? String(u).trim() : "";
 const checkKey = () => "aspirehigh.checklist." + ((session() || {}).email || "");
 
-/* Button text for a workshop link: "Open in Canva", "Open slides", ... */
-function wsLinkLabel(u){
-  let h = ""; try { h = new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch(err){}
-  const known = [["canva.com","Open in Canva"],["docs.google.com/presentation","Open slides"],["docs.google.com","Open document"],["drive.google.com","Open in Drive"],["youtube.com","Watch video"],["youtu.be","Watch video"],["zoom.us","Join on Zoom"],["forms.gle","Open form"]];
-  const full = String(u).toLowerCase();
-  for (const [k,l] of known) if (h === k || h.endsWith("." + k) || full.includes(k)) return l;
-  return "Open";
-}
 async function loadStudentData(){
   const url = stuEndpoint();
   if (!url){ STU.data = null; STU.error = "off"; return; }
@@ -2939,15 +2920,15 @@ function drawStudentHub(){
     const l = L[k] || {}, u = safeUrl(l.url), name = l.label || title;
     return `<div class="stu-card${u ? "" : " soon"}"><h3>${esc(name)}</h3><p>${esc(sub)}</p>${u ? `<a class="btn btn-gold" href="${esc(u)}" target="_blank" rel="noopener">${esc(name)} &rarr;</a>` : `<span class="pill">${esc(soon)}</span>`}</div>`;
   }).join("");
-  const annHtml = list => list.length ? list.map(a => `<article><h3>${esc(a.title || "Announcement")}</h3><time>${esc(a.when || "")}${a.by ? " \u00b7 " + esc(a.by) : ""}</time><p>${esc(a.message || "")}</p>${safeUrl(a.image) ? `<img class="ann-img" src="${esc(safeUrl(a.image))}" alt="${esc(a.title || "Announcement image")}" loading="lazy">` : ""}${safeUrl(a.link) ? `<a class="card-link" href="${esc(safeUrl(a.link))}" target="_blank" rel="noopener">Open link &rarr;</a>` : ""}${staff && a.id ? `<div class="acts"><button type="button" class="btn btn-ghost" data-ann-edit="${esc(a.id)}">Edit</button><button type="button" class="btn btn-ghost" data-ann-del="${esc(a.id)}" data-title="${esc(a.title || "")}">Delete</button></div>` : ""}</article>`).join("") : `<div class="stu-empty">No announcements yet.</div>`;
+  const annHtml = list => list.length ? list.map(a => `<article><h3>${esc(a.title || "Announcement")}</h3><time>${esc(a.when || "")}${a.by ? " \u00b7 " + esc(a.by) : ""}</time><p>${esc(a.message || "")}</p>${safeUrl(a.link) ? `<a class="card-link" href="${esc(safeUrl(a.link))}" target="_blank" rel="noopener">Open link &rarr;</a>` : ""}</article>`).join("") : `<div class="stu-empty">No announcements yet.</div>`;
   const anns = d.announcements || [];
   $("#stuAnn").innerHTML = annHtml(anns.filter(a => (a.audience || "All") !== "Seniors"));
   $("#stuSeniorAnn").innerHTML = annHtml(anns.filter(a => a.audience === "Seniors"));
   $("#stuTabs").innerHTML = TRACKS.map(tr => `<button type="button" class="tab" role="tab" aria-selected="${tr === STU.track}" data-track="${esc(tr)}">${esc(tr)}</button>`).join("");
   const today = new Date().toISOString().slice(0,10);
-  const ws = (d.workshops || []).filter(w => STU.track === "All" || normTrack(w.track) === STU.track)
+  const ws = (d.workshops || []).filter(w => STU.track === "All" || w.track === STU.track)
     .sort((a,b) => (a.date || "9999").localeCompare(b.date || "9999") || (a.time || "").localeCompare(b.time || ""));
-  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([normTrack(w.track), w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">${esc(wsLinkLabel(w.link))}</a>` : "<span></span>"}${staff && w.id ? `<div class="acts"><button type="button" class="btn btn-ghost" data-ws-edit="${esc(w.id)}">Edit</button><button type="button" class="btn btn-ghost" data-link="${esc(w.id)}" data-title="${esc(w.title || "")}" data-url="${esc(safeUrl(w.link))}">${safeUrl(w.link) ? "Edit link" : "Add link"}</button><button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button></div>` : ""}</article>`).join("")
+  $("#stuWorkshops").innerHTML = ws.length ? ws.map(w => `<article class="${w.date && w.date < today ? "past" : ""}"><div class="when">${esc([w.date, w.time].filter(Boolean).join(" \u00b7 ") || "Date to come")}</div><div><h3>${esc(w.title || "Workshop")}</h3><p>${esc([w.track, w.where].filter(Boolean).join(" \u00b7 "))}${w.description ? " \u2014 " + esc(w.description) : ""}</p></div>${safeUrl(w.link) ? `<a class="btn btn-ghost" href="${esc(safeUrl(w.link))}" target="_blank" rel="noopener">Open</a>` : "<span></span>"}${staff && w.id ? `<button type="button" class="btn btn-ghost" data-remove="${esc(w.id)}" data-title="${esc(w.title || "")}">Remove</button>` : ""}</article>`).join("")
     : `<div class="stu-empty">No workshops listed${STU.track === "All" ? "" : " for " + esc(STU.track)} yet.</div>`;
   drawSchedule(staff, d.changes || []);
   const items = (d.checklist && d.checklist.length) ? d.checklist : DEFAULT_CHECKLIST;
@@ -2967,67 +2948,21 @@ $("#stuChecklist").addEventListener("change", e => {
 });
 async function postStudent(params){
   const r = await fetch(stuEndpoint(), { method:"POST", body:new URLSearchParams(params) });
-  const d = await r.json().catch(() => null);
-  if (!d) throw new Error("the script did not give a proper answer - it may need to be re-authorized and redeployed");
+  const d = await r.json().catch(() => ({ ok:true }));
   if (d.ok === false) throw new Error(d.error || "failed");
 }
-/* Shrink a chosen photo in the browser (max 1400px, JPEG) so it uploads fast. Resolves to {data,type} or null. */
-function stuPrepImage(file){
-  return new Promise((resolve, reject) => {
-    if (!file) return resolve(null);
-    if (!/^image\//.test(file.type)) return reject(new Error("notimage"));
-    const img = new Image(), url = URL.createObjectURL(file);
-    img.onload = () => {
-      const k = Math.min(1, 1400 / Math.max(img.width, img.height));
-      const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
-      const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
-      URL.revokeObjectURL(url);
-      resolve({ data: c.toDataURL("image/jpeg", 0.82).split(",")[1], type: "image/jpeg" });
-    };
-    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("notimage")); };
-    img.src = url;
-  });
-}
-function stuPostReset(){
-  const f = $("#stuPostForm"); f.reset(); f.edit_id.value = "";
-  $("#stuImgCur").hidden = true; $("#stuPostCancel").hidden = true;
-  $("#stuPostTitle").textContent = "Post an announcement (staff)"; $("#stuPostBtn").textContent = "Post announcement";
-}
-$("#stuPostCancel").addEventListener("click", () => { stuPostReset(); $("#stuPostMsg").textContent = ""; });
 $("#stuPostForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = e.target, msg = $("#stuPostMsg"), editing = !!f.edit_id.value;
+  const f = e.target, msg = $("#stuPostMsg");
   if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
-  msg.textContent = editing ? "Saving..." : "Posting...";
+  msg.textContent = "Posting...";
   try {
-    const im = await stuPrepImage(f.image.files[0]);
-    const params = { action: editing ? "editannouncement" : "announce", key:$("#stuKey").value, id:f.edit_id.value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" };
-    if (im){ params.image_data = im.data; params.image_type = im.type; }
-    if (editing && f.remove_image.checked) params.remove_image = "1";
-    await postStudent(params);
+    await postStudent({ action:"announce", key:$("#stuKey").value, audience:f.audience.value, title:f.title.value, message:f.message.value, link:f.link.value, posted_by:(session() || {}).name || "" });
     try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
-    stuPostReset();
-    msg.textContent = editing ? "Saved." : "Posted."; STU.at = 0; renderStudentHub();
-  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : err.message === "notimage" ? "That file is not a picture. Choose a JPG or PNG." : "Could not " + (editing ? "save" : "post") + " (" + err.message + "). Please try again."; }
+    f.title.value = ""; f.message.value = ""; f.link.value = "";
+    msg.textContent = "Posted."; STU.at = 0; renderStudentHub();
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not post. Please try again."; }
 });
-/* Edit / delete an announcement (coordinators) */
-function stuAnnClick(e){
-  const ed = e.target.closest("[data-ann-edit]"), del = e.target.closest("[data-ann-del]");
-  if (ed){
-    const a = ((STU.data || {}).announcements || []).find(x => String(x.id) === ed.dataset.annEdit); if (!a) return;
-    const f = $("#stuPostForm");
-    f.edit_id.value = a.id; f.audience.value = a.audience === "Seniors" ? "Seniors" : "All";
-    f.title.value = a.title || ""; f.message.value = a.message || ""; f.link.value = a.link || ""; f.image.value = ""; f.remove_image.checked = false;
-    const has = !!safeUrl(a.image); $("#stuImgCur").hidden = !has; if (has) $("#stuImgPrev").src = safeUrl(a.image);
-    $("#stuPostTitle").textContent = "Edit announcement (staff)"; $("#stuPostBtn").textContent = "Save changes"; $("#stuPostCancel").hidden = false; $("#stuPostMsg").textContent = "";
-    f.scrollIntoView({ behavior:"smooth", block:"center" });
-  } else if (del){
-    if (!confirm("Delete the announcement \"" + del.dataset.title + "\"? This cannot be undone.")) return;
-    stuSave($("#stuPostMsg"), { action:"deleteannouncement", id:del.dataset.annDel, title:del.dataset.title });
-  }
-}
-$("#stuAnn").addEventListener("click", stuAnnClick);
-$("#stuSeniorAnn").addEventListener("click", stuAnnClick);
 /* Coordinator tools: every change needs the staff key (checked by the Google Sheet script). */
 const stuSave = async (msg, params, done) => {
   if (!stuEndpoint()){ msg.textContent = "Connect the student hub to its Google Sheet first."; return; }
@@ -3036,43 +2971,17 @@ const stuSave = async (msg, params, done) => {
     await postStudent(Object.assign({ key:$("#stuKey").value }, params));
     try { localStorage.setItem("aspirehigh.staffkey", $("#stuKey").value); } catch(err){}
     msg.textContent = "Saved."; STU.at = 0; if (done) done(); renderStudentHub();
-  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not save (" + (err.message === "failed" || /fetch|network|json/i.test(err.message) ? "the site could not reach the script \u2014 check it is redeployed as a New version" : err.message) + "). Please try again."; }
+  } catch(err){ msg.textContent = err.message === "bad key" ? "That staff key is not right." : "Could not save. Please try again."; }
 };
 $("#stuLinksForm").addEventListener("submit", e => {
   e.preventDefault(); const f = e.target;
   stuSave($("#stuLinksMsg"), { action:"setlinks", tutoring_booking:f.tutoring_booking.value.trim(), virtual_meeting:f.virtual_meeting.value.trim() });
 });
-function stuWsReset(){
-  const f = $("#stuWsForm"); f.reset(); f.edit_id.value = "";
-  $("#stuWsTitle").textContent = "Add a workshop to the schedule (staff)"; $("#stuWsBtn").textContent = "Add to the schedule"; $("#stuWsCancel").hidden = true;
-}
-const stuTo24 = t => { const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i.exec(String(t || "").trim()); if (!m) return ""; let h = +m[1]; const ap = (m[3] || "").toUpperCase(); if (ap === "PM" && h < 12) h += 12; if (ap === "AM" && h === 12) h = 0; return String(h).padStart(2, "0") + ":" + m[2]; };
-$("#stuWsCancel").addEventListener("click", () => { stuWsReset(); $("#stuWsMsg").textContent = ""; });
 $("#stuWsForm").addEventListener("submit", e => {
-  e.preventDefault(); const f = e.target, editing = !!f.edit_id.value;
-  stuSave($("#stuWsMsg"), { action: editing ? "editworkshop" : "addworkshop", id:f.edit_id.value, track:f.track.value, title:f.title.value, date:f.date.value, time:f.time.value, where:f.where.value, description:f.description.value, link:f.link.value }, stuWsReset);
+  e.preventDefault(); const f = e.target;
+  stuSave($("#stuWsMsg"), { action:"addworkshop", track:f.track.value, title:f.title.value, date:f.date.value, time:f.time.value, where:f.where.value, description:f.description.value, link:f.link.value }, () => f.reset());
 });
 $("#stuWorkshops").addEventListener("click", e => {
-  const we = e.target.closest("[data-ws-edit]");
-  if (we){
-    const w = ((STU.data || {}).workshops || []).find(x => String(x.id) === we.dataset.wsEdit); if (!w) return;
-    const f = $("#stuWsForm");
-    f.edit_id.value = w.id; f.track.value = normTrack(w.track) || "Life Skills"; f.title.value = w.title || ""; f.date.value = w.date || "";
-    f.time.value = stuTo24(w.time); f.where.value = w.where || ""; f.description.value = w.description || ""; f.link.value = w.link || "";
-    $("#stuWsTitle").textContent = "Edit workshop (staff) \u2014 change the date, time or anything else"; $("#stuWsBtn").textContent = "Save changes"; $("#stuWsCancel").hidden = false; $("#stuWsMsg").textContent = "";
-    f.scrollIntoView({ behavior:"smooth", block:"center" });
-    return;
-  }
-  const lk = e.target.closest("[data-link]");
-  if (lk){
-    const cur = lk.dataset.url || "";
-    const v = prompt("Paste the link for \"" + lk.dataset.title + "\" (Canva, Google Slides, Drive, YouTube, ...).\nLeave it empty to remove the link.", cur);
-    if (v === null) return;
-    const url = v.trim();
-    if (url && !safeUrl(url)){ $("#stuWsMsg").textContent = "That link must start with http:// or https://"; return; }
-    stuSave($("#stuWsMsg"), { action:"setworkshoplink", id:lk.dataset.link, title:lk.dataset.title, link:url });
-    return;
-  }
   const b = e.target.closest("[data-remove]"); if (!b) return;
   if (!confirm("Remove \"" + b.dataset.title + "\" from the schedule?")) return;
   stuSave($("#stuWsMsg"), { action:"removeworkshop", id:b.dataset.remove, title:b.dataset.title });
@@ -3680,7 +3589,7 @@ function applyPortal(){
     shaded = !shaded;
   });
 
-  const items = staff ? NAV_STAFF : NAV_PUBLIC;
+  const items = staff ? NAV_STAFF.filter(i => i.view !== "manage" || (session() || {}).admin) : NAV_PUBLIC;
   $("#navList").innerHTML = items.map((n, i) => {
     if (n.children){
       return `<li class="has-menu">
