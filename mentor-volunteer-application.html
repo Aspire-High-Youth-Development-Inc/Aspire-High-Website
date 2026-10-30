@@ -11,394 +11,211 @@
         href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
 
-    
-<style>
-    :root {
-        --navy: #0B2D5B;
-        --navy-light: #123a73;
-        --maroon: #800020;
-        --white: #fff;
-        --bg: #F5F7FA;
-        --line: #DCE2EA;
-        --text: #0B2D5B;
-        --muted: #5b6b82;
-        --danger: #800020;
-        --surface: #fff;
-        --blue-light: #f5f7fa;
-        --gold: #800020;
-        --ink: #0B2D5B;
-        --blue: #123a73;
-    }
 
-    * {
-        box-sizing: border-box;
-    }
+    <style>
+        :root {
+            --navy: #0B2D5B;
+            --navy-light: #123a73;
+            --maroon: #800020;
+            --white: #fff;
+            --bg: #F5F7FA;
+            --line: #DCE2EA;
+            --text: #0B2D5B;
+            --muted: #5b6b82;
+            --danger: #800020;
+            --surface: #fff;
+            --blue-light: #f5f7fa;
+            --gold: #800020;
+            --ink: #0B2D5B;
+            --blue: #123a73;
+        }
 
-    [hidden] {
-        display: none !important;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        background: var(--bg);
-        font-family: "Segoe UI", Arial, sans-serif;
-        color: var(--text);
-        line-height: 1.6;
-    }
+        [hidden] {
+            display: none !important;
+        }
 
-    header {
-        background: linear-gradient(135deg, var(--navy) 60%, var(--navy-light) 100%);
-        color: var(--white);
-        padding: 28px 32px;
-        position: relative;
-        overflow: hidden;
-        margin: 24px auto 22px;
-        width: min(920px, calc(100% - 32px));
-        border-radius: 10px;
-    }
+        body {
+            margin: 0;
+            background: var(--bg);
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
 
-    header::after {
-        content: "";
-        position: absolute;
-        right: -60px;
-        top: -40px;
-        bottom: -40px;
-        width: 220px;
-        background: var(--maroon);
-        transform: rotate(18deg);
-        opacity: .9;
-    }
-
-    .header-inner {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        margin: 0;
-    }
-
-    .eyebrow {
-        color: #fff;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 2px;
-        margin: 2px 0 6px;
-        opacity: .9;
-        text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3 {
-        font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    h1 {
-        margin: 12px 0;
-        font-size: clamp(1.7rem, 5vw, 2rem);
-        line-height: 1.25;
-        font-weight: 700;
-    }
-
-    header p {
-        max-width: 680px;
-        margin: 12px 0 0;
-        color: #e4edf7;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    main {
-        width: min(920px, calc(100% - 32px));
-        margin: 0 auto;
-        padding: 0 0 40px;
-    }
-
-    .notice,
-    .section-card,
-    .form-card {
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        margin-bottom: 20px;
-        box-shadow: none;
-    }
-
-    .notice {
-        padding: 20px 24px;
-        border-top: 4px solid var(--maroon);
-        border-left: 1px solid var(--line);
-        font-size: 14px;
-        color: var(--muted);
-        line-height: 1.5;
-    }
-
-    .notice strong {
-        display: block;
-        margin-bottom: 5px;
-        color: var(--navy);
-    }
-
-    .section-card {
-        padding: 0;
-        overflow: hidden;
-        background: var(--white);
-        border-color: var(--line);
-    }
-
-    .section-card h2 {
-        margin: 0;
-        padding: 12px 20px;
-        background: var(--navy);
-        color: var(--white);
-        border-bottom: 4px solid var(--maroon);
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 1.5;
-    }
-
-    .section-card p {
-        margin: 0;
-        padding: 14px 20px;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    .form-card {
-        padding: 16px 20px;
-        border-radius: 8px;
-        border-bottom: 1px solid var(--line);
-    }
-
-    .question-number {
-        color: var(--muted);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-        margin-bottom: 4px;
-    }
-
-    .question-title {
-        display: block;
-        margin: 0 0 8px;
-        color: var(--navy);
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 1.5;
-    }
-
-    .required {
-        color: var(--maroon);
-    }
-
-    .help-text {
-        display: block;
-        margin: -4px 0 8px;
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 1.5;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="date"],
-    select,
-    textarea {
-        display: block;
-        width: 100%;
-        max-width: 420px;
-        min-height: 40px;
-        padding: 9px 12px;
-        border: 1px solid var(--line);
-        border-radius: 5px;
-        background: #fbfcfd;
-        color: var(--text);
-        font-family: inherit;
-        font-size: 13px;
-    }
-
-    textarea {
-        min-height: 96px;
-        max-width: 100%;
-        resize: vertical;
-        line-height: 1.5;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-        color: #9aa5b5;
-        opacity: 1;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-        outline: 2px solid var(--maroon);
-        outline-offset: 1px;
-        border-color: var(--maroon);
-    }
-
-    select {
-        color: var(--text);
-    }
-
-    .choices {
-        display: grid;
-        gap: 6px;
-        margin-top: 10px;
-    }
-
-    .choice {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        margin: 6px 0;
-        color: var(--text);
-        font-size: 13px;
-        line-height: 1.4;
-        cursor: pointer;
-    }
-
-    .choice input {
-        width: 16px;
-        height: 16px;
-        flex: 0 0 auto;
-        margin-top: 2px;
-        accent-color: var(--maroon);
-    }
-
-    .other-race {
-        display: grid;
-        grid-template-columns: 18px 1fr;
-        gap: 8px;
-        align-items: start;
-        font-size: 13px;
-    }
-
-    .other-race input[type="checkbox"] {
-        margin-top: 4px;
-        accent-color: var(--maroon);
-    }
-
-    .other-race input[type="text"] {
-        margin-top: 6px;
-        max-width: 420px;
-    }
-
-    .legal-copy {
-        margin: 0 0 14px;
-        color: var(--text);
-        font-size: 13px;
-        line-height: 1.75;
-        white-space: normal;
-    }
-
-    .legal-heading {
-        margin: 0 0 12px;
-        color: var(--navy);
-        font-size: 16px;
-        font-weight: 700;
-    }
-
-    .actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        margin-top: 8px;
-    }
-
-    button {
-        min-height: 42px;
-        padding: 11px 26px;
-        border: none;
-        border-radius: 5px;
-        background: var(--maroon);
-        color: var(--white);
-        font-family: inherit;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #6b001b;
-    }
-
-    button:disabled {
-        opacity: .65;
-        cursor: not-allowed;
-    }
-
-    .secondary-button {
-        border: 1px solid var(--line);
-        background: var(--white);
-        color: var(--navy);
-    }
-
-    .secondary-button:hover {
-        background: #f0f3f8;
-        color: var(--navy);
-    }
-
-    #form-message {
-        display: none;
-        margin-top: 12px;
-        padding: 12px 16px;
-        border-radius: 6px;
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    #form-message.show {
-        display: block;
-    }
-
-    #form-message.error {
-        background: #fff7f8;
-        border: 1px solid var(--maroon);
-        color: var(--maroon);
-    }
-
-    footer {
-        width: min(920px, calc(100% - 32px));
-        margin: 10px auto 24px;
-        padding: 14px;
-        border-radius: 8px;
-        background: var(--navy);
-        color: #cdd7e6;
-        font-size: 12px;
-        text-align: center;
-    }
-
-    @media (max-width: 640px) {
         header {
-            padding: 22px 20px;
+            background: linear-gradient(135deg, var(--navy) 60%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 28px 32px;
+            position: relative;
+            overflow: hidden;
+            margin: 24px auto 22px;
+            width: min(920px, calc(100% - 32px));
+            border-radius: 10px;
         }
 
         header::after {
-            width: 120px;
-            right: -50px;
+            content: "";
+            position: absolute;
+            right: -60px;
+            top: -40px;
+            bottom: -40px;
+            width: 220px;
+            background: var(--maroon);
+            transform: rotate(18deg);
+            opacity: .9;
         }
 
+        .header-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            margin: 0;
+        }
+
+        .eyebrow {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin: 2px 0 6px;
+            opacity: .9;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        h1 {
+            margin: 12px 0;
+            font-size: clamp(1.7rem, 5vw, 2rem);
+            line-height: 1.25;
+            font-weight: 700;
+        }
+
+        header p {
+            max-width: 680px;
+            margin: 12px 0 0;
+            color: #e4edf7;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        main {
+            width: min(920px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 0 0 40px;
+        }
+
+        .notice,
+        .section-card,
         .form-card {
-            padding: 16px;
-        }
-
-        .section-card h2 {
-            padding: 12px 16px;
-        }
-
-        .section-card p {
-            padding: 12px 16px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: none;
         }
 
         .notice {
-            padding: 16px;
+            padding: 20px 24px;
+            border-top: 4px solid var(--maroon);
+            border-left: 1px solid var(--line);
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .notice strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--navy);
+        }
+
+        .section-card {
+            padding: 0;
+            overflow: hidden;
+            background: var(--white);
+            border-color: var(--line);
+        }
+
+        .section-card h2 {
+            margin: 0;
+            padding: 12px 20px;
+            background: var(--navy);
+            color: var(--white);
+            border-bottom: 4px solid var(--maroon);
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .section-card p {
+            margin: 0;
+            padding: 14px 20px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .form-card {
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .question-number {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .question-title {
+            display: block;
+            margin: 0 0 8px;
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .required {
+            color: var(--maroon);
+        }
+
+        .help-text {
+            display: block;
+            margin: -4px 0 8px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .conditional-field {
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        .conditional-field label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .conditional-field textarea {
+            max-width: 100%;
         }
 
         input[type="text"],
@@ -407,19 +224,219 @@
         input[type="date"],
         select,
         textarea {
+            display: block;
+            width: 100%;
+            max-width: 420px;
+            min-height: 40px;
+            padding: 9px 12px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: #fbfcfd;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        textarea {
+            min-height: 96px;
             max-width: 100%;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9aa5b5;
+            opacity: 1;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid var(--maroon);
+            outline-offset: 1px;
+            border-color: var(--maroon);
+        }
+
+        select {
+            color: var(--text);
+        }
+
+        .choices {
+            display: grid;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .choice {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 6px 0;
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .choice input {
+            width: 16px;
+            height: 16px;
+            flex: 0 0 auto;
+            margin-top: 2px;
+            accent-color: var(--maroon);
+        }
+
+        .other-race {
+            display: grid;
+            grid-template-columns: 18px 1fr;
+            gap: 8px;
+            align-items: start;
+            font-size: 13px;
+        }
+
+        .other-race input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: var(--maroon);
+        }
+
+        .other-race input[type="text"] {
+            margin-top: 6px;
+            max-width: 420px;
+        }
+
+        .legal-copy {
+            margin: 0 0 14px;
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.75;
+            white-space: normal;
+        }
+
+        .legal-heading {
+            margin: 0 0 12px;
+            color: var(--navy);
+            font-size: 16px;
+            font-weight: 700;
         }
 
         .actions {
-            flex-direction: column;
-            align-items: stretch;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
         }
 
-        .actions button {
-            width: 100%;
+        button {
+            min-height: 42px;
+            padding: 11px 26px;
+            border: none;
+            border-radius: 5px;
+            background: var(--maroon);
+            color: var(--white);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
         }
-    }
-</style>
+
+        button:hover {
+            background: #6b001b;
+        }
+
+        button:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        .secondary-button {
+            border: 1px solid var(--line);
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .secondary-button:hover {
+            background: #f0f3f8;
+            color: var(--navy);
+        }
+
+        #form-message {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        #form-message.show {
+            display: block;
+        }
+
+        #form-message.error {
+            background: #fff7f8;
+            border: 1px solid var(--maroon);
+            color: var(--maroon);
+        }
+
+        footer {
+            width: min(920px, calc(100% - 32px));
+            margin: 10px auto 24px;
+            padding: 14px;
+            border-radius: 8px;
+            background: var(--navy);
+            color: #cdd7e6;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 22px 20px;
+            }
+
+            header::after {
+                width: 120px;
+                right: -50px;
+            }
+
+            .form-card {
+                padding: 16px;
+            }
+
+            .section-card h2 {
+                padding: 12px 16px;
+            }
+
+            .section-card p {
+                padding: 12px 16px;
+            }
+
+            .notice {
+                padding: 16px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="date"],
+            select,
+            textarea {
+                max-width: 100%;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .actions button {
+                width: 100%;
+            }
+        }
+    </style>
 
 </head>
 
@@ -564,6 +581,36 @@
 
             <div class="form-card">
                 <div class="question-number">Question 12</div>
+                <span class="question-title">What is your gender? <span class="required">*</span></span>
+
+                <div class="choices">
+                    <label class="choice">
+                        <input type="radio" name="gender" value="Woman" required> Woman
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gender" value="Man" required> Man
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gender" value="Non-binary" required> Non-binary
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gender" value="A different identity" required>
+                        A different identity
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gender" value="Prefer not to say" required>
+                        Prefer not to say
+                    </label>
+                </div>
+
+                <div id="genderOtherField" class="conditional-field" hidden>
+                    <label for="genderOther">Please specify your identity:</label>
+                    <input id="genderOther" name="genderOther" type="text">
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="question-number">Question 13</div>
                 <span class="question-title">What is your Nationality?</span>
                 <div class="choices" id="nationalityChoices">
                     <label class="choice"><input type="radio" name="nationality" value="North American/ Canadian"> North
@@ -617,16 +664,21 @@
                     <label class="choice"><input type="radio" name="nationality" value="India"> India</label>
                     <label class="choice"><input type="radio" name="nationality" value="Korea"> Korea</label>
                     <label class="choice"><input type="radio" name="nationality" value="Australia"> Australia</label>
-                    <label class="choice"><input type="radio" name="nationality" value="Bangladeshi">
-                        Bangladeshi</label>
+                    <label class="choice"><input type="radio" name="nationality" value="Bangladeshi">Bangladeshi</label>
                     <label class="choice"><input type="radio" name="nationality" value="Mexican"> Mexican</label>
                     <label class="choice"><input type="radio" name="nationality" value="Vietnamese"> Vietnamese</label>
                     <label class="choice"><input type="radio" name="nationality" value="Indonesian"> Indonesian</label>
+                    <label class="choice"><input type="radio" name="nationality" value="Filipino"> Filipino</label>
+                    <label class="choice"><input type="radio" name="nationality" value="Other"> Other</label>
+                </div>
+                <div id="nationalityOtherField" class="conditional-field" hidden>
+                    <label for="nationalityOther">Please specify your nationality:</label>
+                    <input id="nationalityOther" name="nationalityOther" type="text">
                 </div>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 13</div>
+                <div class="question-number">Question 14</div>
                 <span class="question-title">Race <span class="required">*</span></span>
                 <span class="help-text">Check all that apply.</span>
                 <div class="choices" id="raceChoices">
@@ -648,7 +700,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 14</div>
+                <div class="question-number">Question 15</div>
                 <span class="question-title">Are you Hispanic or Latinx? <span class="required">*</span></span>
                 <div class="choices">
                     <label class="choice"><input type="radio" name="hispanicLatinx" value="Yes" required> Yes</label>
@@ -657,7 +709,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 15</div>
+                <div class="question-number">Question 16</div>
                 <span class="question-title">Are you a first-generation college student? <span
                         class="required">*</span></span>
                 <div class="choices">
@@ -667,55 +719,115 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 16</div>
+                <div class="question-number">Question 17</div>
                 <span class="question-title">Grade level <span class="required">*</span></span>
+
                 <div class="choices">
-                    <label class="choice"><input type="radio" name="gradeLevel" value="Freshman" required>
-                        Freshman</label>
-                    <label class="choice"><input type="radio" name="gradeLevel" value="Sophomore" required>
-                        Sophomore</label>
-                    <label class="choice"><input type="radio" name="gradeLevel" value="Junior" required> Junior</label>
-                    <label class="choice"><input type="radio" name="gradeLevel" value="Senior" required> Senior</label>
-                    <label class="choice"><input type="radio" name="gradeLevel" value="MA" required> MA</label>
-                    <label class="choice"><input type="radio" name="gradeLevel" value="PHD" required> PHD</label>
-                    <label class="choice"><input type="radio" name="gradeLevel" value="Other" required> Other</label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="Freshman" required> Freshman
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="Sophomore" required> Sophomore
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="Junior" required> Junior
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="Senior" required> Senior
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="MA" required> MA
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="PHD" required> PHD
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="gradeLevel" value="Other" required> Other
+                    </label>
+                </div>
+
+                <div id="gradeLevelOtherField" class="conditional-field" hidden>
+                    <label for="gradeLevelOther">Please specify your grade or program:</label>
+                    <input id="gradeLevelOther" name="gradeLevelOther" type="text"
+                        placeholder="Example: Certificate program">
                 </div>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 17</div>
+                <div class="question-number">Question 18</div>
                 <label class="question-title" for="major">What's your major? <span class="required">*</span></label>
                 <input id="major" name="major" type="text" required>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 18</div>
+                <div class="question-number">Question 19</div>
                 <label class="question-title" for="sororityFraternity">If you are in a sorority/fraternity? If yes,
                     please write the entire name of your org and the chapter:</label>
                 <textarea id="sororityFraternity" name="sororityFraternity"></textarea>
             </div>
 
+            <div class="form-card">
+                <div class="question-number">Question 20</div>
+                <label class="question-title" for="club">
+                    Are you a member of any clubs or organizations?
+                </label>
+                <span class="help-text">
+                    If yes, provide the full name of the club or organization. If it has a chapter,
+                    include the full chapter name as well.
+                </span>
+                <textarea id="club" name="club"
+                    placeholder="Enter the full club name and chapter, if applicable."></textarea>
+            </div>
+
             <div class="section-card">
-                <h2>For work-study, Unpaid Internship, CPT/OPT Opportunity Fully Remote</h2>
-                <p>If you qualify for work-study through your university, we have hybrid and virtual opportunities
-                    available.</p>
+                <h2>Work-Study, Unpaid Internship, CPT/OPT Opportunities</h2>
+                <p>
+                    Aspire High Youth Development Program offers opportunities for eligible college
+                    students to gain practical experience while contributing to the organization's
+                    technology, administration, and youth development initiatives.
+                    Opportunities may include Federal Work-Study positions, unpaid internships,
+                    and eligible CPT/OPT experiences, depending on university requirements and
+                    program availability.
+
+                    Depending on the position and project, participants may assist with website
+                    development, programming, data management, spreadsheet automation, technical
+                    support, digital communications, and administrative projects. Participants
+                    may gain hands-on experience, develop professional and technical skills,
+                    collaborate with other team members, and contribute to projects that support
+                    Aspire High's programs and operations.
+
+                    Work arrangements may be hybrid or fully remote, depending on the position.
+                    Work-Study eligibility, internship requirements, and CPT/OPT authorization
+                    must be confirmed with the applicant's university.
+                </p>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 19</div>
-                <span class="question-title">If you would like to take advantage of this opportunity? <span
-                        class="required">*</span></span>
+                <div class="question-number">Question 21</div>
+                <span class="question-title">
+                    Are you interested in participating in a Work-Study, internship, or CPT/OPT opportunity?
+                    <span class="required">*</span>
+                </span>
+
                 <div class="choices">
-                    <label class="choice"><input type="radio" name="workStudy" value="Yes, sign me up!" required> Yes,
-                        sign me up!</label>
-                    <label class="choice"><input type="radio" name="workStudy" value="No, thank you" required> No, thank
-                        you</label>
+                    <label class="choice">
+                        <input type="radio" name="workStudy" value="Yes" required> Yes
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="workStudy" value="No" required> No
+                    </label>
                 </div>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 20</div>
-                <label class="question-title" for="skills">Skills: (LEAVE BLANK IF NOT INTERESTED IN WORK-STUDY)</label>
+                <div class="question-number">Question 22</div>
+                <label class="question-title" for="skills">
+                    Please describe any relevant skills, experience, or areas of interest.
+                </label>
+                <span class="help-text">
+                    This may include technical skills, programming languages, software,
+                    administrative experience, or other abilities you could contribute.
+                </span>
                 <textarea id="skills" name="skills"></textarea>
             </div>
 
@@ -724,30 +836,72 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 21</div>
-                <label class="question-title" for="arrestConviction">Have you ever been arrested or convicted of a
-                    crime? If yes, please explain.: <span class="required">*</span></label>
-                <textarea id="arrestConviction" name="arrestConviction" required></textarea>
-            </div>
+                <div class="question-number">Question 23</div>
+                <span class="question-title">
+                    Have you ever been arrested or convicted of a crime?
+                    <span class="required">*</span>
+                </span>
 
-            <div class="form-card">
-                <div class="question-number">Question 22</div>
-                <span class="question-title">Are you currently using any illegal drugs or controlled substances? <span
-                        class="required">*</span></span>
                 <div class="choices">
-                    <label class="choice"><input type="radio" name="controlledSubstances" value="Yes" required>
-                        Yes</label>
-                    <label class="choice"><input type="radio" name="controlledSubstances" value="No" required>
-                        No</label>
+                    <label class="choice">
+                        <input type="radio" name="arrestConviction" value="Yes" required> Yes
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="arrestConviction" value="No" required> No
+                    </label>
+                </div>
+
+                <div id="arrestConvictionField" class="conditional-field" hidden>
+                    <label for="arrestConvictionDetails">Please explain:</label>
+                    <textarea id="arrestConvictionDetails" name="arrestConvictionDetails"
+                        placeholder="Provide details about the arrest or conviction."></textarea>
                 </div>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 23</div>
-                <label class="question-title" for="youthAbuseInvestigation">Have you ever been investigated or convicted
-                    of sexually abusing or molesting a youth 18 or younger? If yes, please explain. <span
-                        class="required">*</span></label>
-                <textarea id="youthAbuseInvestigation" name="youthAbuseInvestigation" required></textarea>
+                <div class="question-number">Question 24</div>
+                <span class="question-title">
+                    Are you currently using any illegal drugs or controlled substances?
+                    <span class="required">*</span>
+                </span>
+
+                <div class="choices">
+                    <label class="choice">
+                        <input type="radio" name="controlledSubstances" value="Yes" required> Yes
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="controlledSubstances" value="No" required> No
+                    </label>
+                </div>
+
+                <div id="controlledSubstancesField" class="conditional-field" hidden>
+                    <label for="controlledSubstancesDetails">Please explain or list:</label>
+                    <textarea id="controlledSubstancesDetails" name="controlledSubstancesDetails"
+                        placeholder="Provide additional information."></textarea>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <div class="question-number">Question 25</div>
+                <span class="question-title">
+                    Have you ever been investigated or convicted of sexually abusing or molesting a youth 18 or younger?
+                    <span class="required">*</span>
+                </span>
+
+                <div class="choices">
+                    <label class="choice">
+                        <input type="radio" name="youthAbuseInvestigation" value="Yes" required> Yes
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="youthAbuseInvestigation" value="No" required> No
+                    </label>
+                </div>
+
+                <div id="youthAbuseInvestigationField" class="conditional-field" hidden>
+                    <label for="youthAbuseInvestigationDetails">Please explain:</label>
+                    <textarea id="youthAbuseInvestigationDetails" name="youthAbuseInvestigationDetails"
+                        placeholder="Provide additional information."></textarea>
+                </div>
             </div>
 
             <div class="section-card">
@@ -756,7 +910,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 24</div>
+                <div class="question-number">Question 26</div>
                 <p class="legal-copy">In the event of an emergency, I give Aspire High Youth Development Program consent
                     to transfer me to a healthcare provider. I understand any cost of service not reimbursable by my
                     health insurance coverage shall be solely my responsibility. In the event of an emergency,
@@ -774,7 +928,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 25</div>
+                <div class="question-number">Question 27</div>
                 <p class="legal-copy">WAIVER: In consideration of being permitted to participate in the Aspire High
                     Youth Development Program, I, for myself, my heirs, personal representatives or assigns, do hereby
                     release, waive, discharge, and covenant not to sue any university, facility, and Aspire High Youth
@@ -786,7 +940,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 26</div>
+                <div class="question-number">Question 28</div>
                 <p class="legal-copy">INDEMNIFICATION AND HOLD HARMLESS: I also agree to INDEMNIFY AND HOLD any
                     university, community facilities that we visit and Aspire High Youth Development Program HARMLESS
                     from any and all claims, actions, suits, procedures, costs, expenses, damages, and liabilities,
@@ -796,7 +950,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 27</div>
+                <div class="question-number">Question 29</div>
                 <p class="legal-copy">PHOTOGRAPHY RELEASE: I understand I may be photographed while at activities,
                     camps, and programs. I give Aspire High Youth Development Program permission to use the
                     pictures/videos of my child for the Aspire High Youth Development Program promotional and marketing
@@ -806,7 +960,7 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 28</div>
+                <div class="question-number">Question 30</div>
                 <p class="legal-copy">ACKNOWLEDGMENT OF UNDERSTANDING: I have read this waiver of liability, and
                     indemnity agreement, fully understand its items and understand that I am giving up substantial
                     rights, including my right to sue. I acknowledge that I am signing the agreement freely and
@@ -823,13 +977,13 @@
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 29</div>
+                <div class="question-number">Question 31</div>
                 <label class="question-title" for="signature">E-Signature <span class="required">*</span></label>
                 <input id="signature" name="signature" type="text" autocomplete="off" required>
             </div>
 
             <div class="form-card">
-                <div class="question-number">Question 30</div>
+                <div class="question-number">Question 32</div>
                 <label class="question-title" for="todayDate">Today's Date <span class="required">*</span></label>
                 <input id="todayDate" name="todayDate" type="date" required>
             </div>
@@ -853,97 +1007,241 @@
 
         const form = document.querySelector("form");
 
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
+        // Show or hide additional fields based on selected answers.
+        function setupConditionalField(radioName, triggerValue, fieldId, inputId) {
+            const radios = document.querySelectorAll(
+                `input[name="${radioName}"]`
+            );
 
-            if (!form.reportValidity()) {
+            const field = document.getElementById(fieldId);
+            const input = document.getElementById(inputId);
+
+            // Stop if the expected HTML elements do not exist.
+            if (!field || !input || radios.length === 0) {
+                console.error(
+                    `Conditional field setup failed for "${radioName}". ` +
+                    `Check the field ID, input ID, and radio name in your HTML.`
+                );
                 return;
             }
 
-            const submitButton = form.querySelector(
-                'button[type="submit"], input[type="submit"]'
-            );
-
-            if (submitButton) {
-                submitButton.disabled = true;
-            }
-
-            const formData = new FormData(form);
-
-            const getValue = (name) => {
-                const value = formData.get(name);
-                return value == null ? "" : String(value).trim();
-            };
-
-            const payload = {
-                formType: "mentorVolunteerApplication",
-                name: getValue("name"),
-                birthday: getValue("birthday"),
-                addressStreet1: getValue("addressStreet1"),
-                addressStreet2: getValue("addressStreet2"),
-                town: getValue("town"),
-                state: getValue("state"),
-                zip: getValue("zip"),
-                university: getValue("university"),
-                volunteerLocation: getValue("volunteerLocation"),
-                personalEmail: getValue("personalEmail"),
-                phone: getValue("phone"),
-                nationality: getValue("nationality"),
-                race: formData.getAll("race").map((race) => {
-                    if (race === "Other") {
-                        const otherRace = getValue("raceOtherText");
-                        return otherRace ? `Other: ${otherRace}` : "Other";
-                    }
-                    return race;
-                }),
-                hispanicLatinx: getValue("hispanicLatinx"),
-                firstGeneration: getValue("firstGeneration"),
-                gradeLevel: getValue("gradeLevel"),
-                major: getValue("major"),
-                sororityFraternity: getValue("sororityFraternity"),
-                workStudy: getValue("workStudy"),
-                skills: getValue("skills"),
-                arrestConviction: getValue("arrestConviction"),
-                controlledSubstances: getValue("controlledSubstances"),
-                youthAbuseInvestigation: getValue("youthAbuseInvestigation"),
-                emergencyInitials: getValue("emergencyInitials"),
-                waiverInitials: getValue("waiverInitials"),
-                indemnificationInitials: getValue("indemnificationInitials"),
-                photographyInitials: getValue("photographyInitials"),
-                acknowledgmentInitials: getValue("acknowledgmentInitials"),
-                signature: getValue("signature"),
-                todayDate: getValue("todayDate")
-            };
-
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                // A no-cors request does not expose the server's response.
-                // The spreadsheet must be checked to confirm the submission.
-                alert(
-                    "Your application request has been sent. " +
-                    "Please contact Aspire High if you need confirmation."
+            function updateField() {
+                const selected = document.querySelector(
+                    `input[name="${radioName}"]:checked`
                 );
-            } catch (error) {
-                console.error("Application submission error:", error);
-                alert(
-                    "We could not send your application. Please try again later " +
-                    "or contact Aspire High."
-                );
-            } finally {
-                if (submitButton) {
-                    submitButton.disabled = false;
+
+                const shouldShow = selected && selected.value === triggerValue;
+
+                field.hidden = !shouldShow;
+                input.disabled = !shouldShow;
+                input.required = Boolean(shouldShow);
+
+                // Clear the value when the field is hidden.
+                if (!shouldShow) {
+                    input.value = "";
                 }
             }
-        });
+
+            radios.forEach(radio => {
+                radio.addEventListener("change", updateField);
+            });
+
+            // Set the correct initial visibility when the page loads.
+            updateField();
+        }
+
+        // Gender: show a text field when "A different identity" is selected.
+        setupConditionalField(
+            "gender",
+            "A different identity",
+            "genderOtherField",
+            "genderOther"
+        );
+
+        // Nationality: show a text field when "Other" is selected.
+        setupConditionalField(
+            "nationality",
+            "Other",
+            "nationalityOtherField",
+            "nationalityOther"
+        );
+
+        // Grade level: show a text field when "Other" is selected.
+        setupConditionalField(
+            "gradeLevel",
+            "Other",
+            "gradeLevelOtherField",
+            "gradeLevelOther"
+        );
+
+        // Legal background: show an explanation field when "Yes" is selected.
+        setupConditionalField(
+            "arrestConviction",
+            "Yes",
+            "arrestConvictionField",
+            "arrestConvictionDetails"
+        );
+
+        setupConditionalField(
+            "controlledSubstances",
+            "Yes",
+            "controlledSubstancesField",
+            "controlledSubstancesDetails"
+        );
+
+        setupConditionalField(
+            "youthAbuseInvestigation",
+            "Yes",
+            "youthAbuseInvestigationField",
+            "youthAbuseInvestigationDetails"
+        );
+
+        // Handle form submission.
+        if (form) {
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                // Check required fields before submitting.
+                if (!form.reportValidity()) {
+                    return;
+                }
+
+                const submitButton = form.querySelector(
+                    'button[type="submit"], input[type="submit"]'
+                );
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                }
+
+                const formData = new FormData(form);
+
+                // Retrieve and trim a single form value.
+                const getValue = (name) => {
+                    const value = formData.get(name);
+                    return value == null ? "" : String(value).trim();
+                };
+
+                // Retrieve all selected checkbox values.
+                const getValues = (name) => {
+                    return formData.getAll(name).map(value => String(value).trim());
+                };
+
+                // Build the application data object.
+                const payload = {
+                    formType: "mentorVolunteerApplication",
+
+                    name: getValue("name"),
+                    birthday: getValue("birthday"),
+
+                    addressStreet1: getValue("addressStreet1"),
+                    addressStreet2: getValue("addressStreet2"),
+                    town: getValue("town"),
+                    state: getValue("state"),
+                    zip: getValue("zip"),
+
+                    university: getValue("university"),
+                    volunteerLocation: getValue("volunteerLocation"),
+                    personalEmail: getValue("personalEmail"),
+                    phone: getValue("phone"),
+
+                    gender: getValue("gender"),
+                    genderOther: getValue("genderOther"),
+
+                    nationality: getValue("nationality"),
+                    nationalityOther: getValue("nationalityOther"),
+
+                    race: getValues("race").map(race => {
+                        if (race === "Other") {
+                            const otherRace = getValue("raceOtherText");
+                            return otherRace ? `Other: ${otherRace}` : "Other";
+                        }
+                        return race;
+                    }),
+
+                    hispanicLatinx: getValue("hispanicLatinx"),
+                    firstGeneration: getValue("firstGeneration"),
+
+                    gradeLevel: getValue("gradeLevel"),
+                    gradeLevelOther: getValue("gradeLevelOther"),
+                    major: getValue("major"),
+
+                    sororityFraternity: getValue("sororityFraternity"),
+                    club: getValue("club"),
+
+                    workStudy: getValue("workStudy"),
+                    skills: getValue("skills"),
+
+                    arrestConviction: getValue("arrestConviction"),
+                    arrestConvictionDetails: getValue("arrestConvictionDetails"),
+
+                    controlledSubstances: getValue("controlledSubstances"),
+                    controlledSubstancesDetails: getValue("controlledSubstancesDetails"),
+
+                    youthAbuseInvestigation: getValue("youthAbuseInvestigation"),
+                    youthAbuseInvestigationDetails: getValue("youthAbuseInvestigationDetails"),
+
+                    emergencyInitials: getValue("emergencyInitials"),
+                    waiverInitials: getValue("waiverInitials"),
+                    indemnificationInitials: getValue("indemnificationInitials"),
+                    photographyInitials: getValue("photographyInitials"),
+                    acknowledgmentInitials: getValue("acknowledgmentInitials"),
+
+                    signature: getValue("signature"),
+                    todayDate: getValue("todayDate")
+                };
+
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: {
+                            "Content-Type": "text/plain;charset=utf-8"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // no-cors does not allow the browser to read the Apps Script response.
+                    // This confirms the request was sent, not that the spreadsheet saved it.
+                    alert(
+                        "Your application request has been sent. " +
+                        "Please contact Aspire High if you need confirmation."
+                    );
+
+                    // Reset the form after the request is sent.
+                    form.reset();
+
+                    // Refresh conditional fields after resetting the form.
+                    document.querySelectorAll(
+                        'input[name="gender"], ' +
+                        'input[name="nationality"], ' +
+                        'input[name="gradeLevel"], ' +
+                        'input[name="arrestConviction"], ' +
+                        'input[name="controlledSubstances"], ' +
+                        'input[name="youthAbuseInvestigation"]'
+                    ).forEach(radio => {
+                        radio.dispatchEvent(new Event("change"));
+                    });
+
+                } catch (error) {
+                    console.error("Application submission error:", error);
+
+                    alert(
+                        "We could not send your application. Please try again later " +
+                        "or contact Aspire High."
+                    );
+
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                    }
+                }
+            });
+        } else {
+            console.error("Application form not found.");
+        }
     </script>
+
 
 </body>
 
