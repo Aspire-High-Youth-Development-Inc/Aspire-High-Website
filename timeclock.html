@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Aspire High | Employee Time Clock</title>
+<style>
+:root{--navy:#0f2347;--maroon:#8a1538;--bg:#f3f5f9;--line:#dfe3ea;--muted:#667085}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#1c2430}
+header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand b{font-size:22px;letter-spacing:2px}.brand small{display:block;font-size:11px;letter-spacing:1.5px;opacity:.85}
+.tag{font-style:italic;opacity:.9}
+.banner{background:var(--maroon);color:#fff;padding:22px 20px;display:flex;gap:16px;align-items:center}
+.banner h1{margin:0 0 4px;font-size:26px}.banner p{margin:0;opacity:.9;font-size:14px}
+.now{margin-top:8px;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;opacity:1!important}
+main{max-width:760px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tabs button{flex:1;padding:12px 8px;border:1px solid var(--line);background:#fff;border-radius:10px;font-weight:600;cursor:pointer;color:var(--navy);font-size:14px}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.card h2{font-size:17px;margin:0 0 4px;color:var(--navy)}
+.card .sub{color:var(--muted);font-size:13px;margin-bottom:12px}
+.num{display:inline-block;width:24px;height:24px;border-radius:50%;background:var(--maroon);color:#fff;text-align:center;line-height:24px;font-size:13px;margin-right:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+label{font-size:13px;font-weight:600;display:block;margin-bottom:4px}
+label i{color:var(--maroon);font-style:normal}
+input[type=text],input[type=password],input[type=date],input[type=time],select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--navy);outline-offset:1px}
+.secret{padding-right:64px!important}
+.peek{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:#eef1f6;color:var(--navy);font:inherit;font-size:12px;font-weight:700;padding:6px 9px;border-radius:6px;cursor:pointer}
+textarea{min-height:90px;resize:vertical}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.linkbtn{background:none;border:0;padding:0;color:var(--maroon);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{padding:14px;border-radius:10px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer;font-size:16px}
+.act.in.on{background:#16a34a;border-color:#16a34a;color:#fff}
+.act.out.on{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.act.brk.on{background:#b45309;border-color:#b45309;color:#fff}
+.act.back.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.btypes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media(max-width:560px){.btypes{grid-template-columns:1fr}}
+.btype{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--line);border-radius:10px;padding:12px;cursor:pointer;margin:0;font-weight:600}
+.btype input{margin-top:3px;accent-color:#b45309}
+.btype small{display:block;font-weight:400;color:var(--muted);margin-top:2px}
+.btype:has(input:checked){border-color:#b45309;background:#fff7ed}
+.rule{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:13px;color:#344054}
+.rule .ic2{width:18px;height:18px;color:#b45309;margin-top:1px}
+.submit{width:100%;padding:15px;border:0;border-radius:10px;background:var(--maroon);color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.submit.alt{background:var(--navy)}
+.submit:disabled{opacity:.6;cursor:wait}
+.msg{padding:12px;border-radius:10px;margin-top:12px;display:none;font-size:14px;line-height:1.45}
+.msg.ok{display:block;background:#e7f6ec;color:#14532d}.msg.err{display:block;background:#fde8e8;color:#7f1d1d}
+.msg.warn{display:block;background:#fff4e5;color:#7c2d12}
+.msg .w{display:block;margin-top:6px;font-weight:700}
+.msg .linkbtn{display:block;margin-top:6px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px;letter-spacing:2px}
+.hidden{display:none!important}
+
+.ic,.ic2,.h-ic,.big-ic,.b-ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.big-ic{width:56px;height:56px;padding:12px;border:2px solid #fff;border-radius:50%}
+.h-ic{width:20px;height:20px;vertical-align:-4px;margin-right:6px;color:var(--maroon)}
+.b-ic{width:20px;height:20px}
+.f{position:relative}
+.f .ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
+.f input,.f select{padding-left:36px}
+.act,.submit,.tabs button{display:flex;gap:8px;align-items:center;justify-content:center}
+.fixico{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--maroon);color:#fff;margin-right:8px;vertical-align:middle}
+.fixico .b-ic{width:18px;height:18px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.info{grid-template-columns:1fr}.tabs .b-ic{display:none}.tabs button{font-size:13px;padding:12px 4px}}
+.info .card{display:flex;gap:12px;align-items:center;margin:0;font-size:13px;color:var(--muted)}
+.info .ic{width:32px;height:32px;color:var(--maroon)}
+.info b{color:var(--navy);display:block;font-size:14px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+<symbol id="i-id" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M13 10h5M13 14h5"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2M16 7l3 3M18 5l2 2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></symbol>
+<symbol id="i-note" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-coffee" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5M15 12H3"/></symbol>
+<symbol id="i-exit" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+</defs></svg>
+<header>
+  <div class="brand"><b>ASPIRE HIGH</b><small>YOUTH DEVELOPMENT INC.</small></div>
+  <div class="tag">Empower · Educate · Elevate</div>
+</header>
+<div class="banner"><svg class="big-ic"><use href="#i-clock"/></svg><div><h1>Employee Time Clock</h1><p>Clock in and out with your name and your private Employee ID. Times are recorded by our server for HR.</p><p class="now" id="now" aria-live="off"></p></div></div>
+
+<main>
+  <div class="tabs" role="tablist">
+    <button type="button" class="on" id="tabClock" data-tab="clock"><svg class="b-ic"><use href="#i-clock"/></svg>Clock In / Out</button>
+    <button type="button" id="tabFix" data-tab="fix"><svg class="b-ic"><use href="#i-alert"/></svg>Missed Punch</button>
+  </div>
+
+  <!-- ============ CLOCK IN / OUT ============ -->
+  <form id="clockForm" novalidate autocomplete="off">
+    <div class="card">
+      <h2><span class="num">1</span><svg class="h-ic"><use href="#i-lock"/></svg>Sign In</h2><div class="sub">Enter your name and your Employee ID.</div>
+      <div class="grid">
+        <div><label for="name">Full Name <i>*</i></label><div class="f"><svg class="ic"><use href="#i-user"/></svg><input type="text" id="name" placeholder="First and last name" autocomplete="off" spellcheck="false"></div></div>
+        <div><label for="empId">Employee ID <i>*</i></label><div class="f"><svg class="ic"><use href="#i-id"/></svg><input type="password" id="empId" class="secret" placeholder="Your private ID" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" class="peek" data-for="empId" aria-label="Show Employee ID">Show</button></div></div>
+      </div>
+      <div class="hint">Your Employee ID works like a password, so never share it. Forgot it? Contact HR.</div>
+    </div>
+    <div class="card">
+      <h2><span class="num">2</span><svg class="h-ic"><use href="#i-clock"/></svg>Clock Action</h2><div class="sub">Select the action you are performing. Use a break to step away without clocking out.</div>
+      <div class="actions">
+        <button type="button" class="act in on" data-a="IN" aria-pressed="true"><svg class="b-ic"><use href="#i-plus"/></svg>Clock IN</button>
+        <button type="button" class="act out" data-a="OUT" aria-pressed="false"><svg class="b-ic"><use href="#i-exit"/></svg>Clock OUT</button>
+        <button type="button" class="act brk" data-a="BREAK_START" aria-pressed="false"><svg class="b-ic"><use href="#i-coffee"/></svg>Start Break</button>
+        <button type="button" class="act back" data-a="BREAK_END" aria-pressed="false"><svg class="b-ic"><use href="#i-back"/></svg>End Break</button>
+      </div>
+      <div class="btypes hidden" id="breakTypes" role="radiogroup" aria-label="Kind of break">
+        <label class="btype"><input type="radio" name="bt" value="meal"><span>Meal break<small>Your required 30-minute break</small></span></label>
+        <label class="btype"><input type="radio" name="bt" value="short"><span>Short break<small>Restroom, phone call, etc.</small></span></label>
+      </div>
+      <div class="rule"><svg class="ic2"><use href="#i-coffee"/></svg><span>Working <b>6 or more hours</b>? You must take a <b>30-minute meal break</b>: choose Start Break → Meal break, then End Break when you're back.</span></div>
+    </div>
+    <div class="card">
+      <h2><span class="num">3</span><svg class="h-ic"><use href="#i-note"/></svg>Notes (Optional)</h2><div class="sub">Add any additional notes (special circumstances, location, etc.).</div>
+      <textarea id="notes" maxlength="500" placeholder="Type your notes here..."></textarea>
+    </div>
+    <button class="submit" id="sendClock" type="submit"><svg class="b-ic"><use href="#i-send"/></svg>Submit Time Entry</button>
+    <div class="msg" id="msgClock" role="status"></div>
+  </form>
+
+  <!-- ============ MISSED PUNCH / CORRECTION ============ -->
+  <form id="fixForm" class="hidden" novalidate autocomplete="off">
+    <div class="card">
+      <h2><span class="fixico"><svg class="b-ic"><use href="#i-alert"/></svg></span>Missed Punch / Correction Request</h2><div class="sub">Report a missed clock-in/out or request a correction. HR will review it.</div>
+      <div class="grid">
+        <div><label for="fName">Full Name <i>*</i></label><div class="f"><svg class="ic"><use href="#i-user"/></svg><input type="text" id="fName" placeholder="First and last name" autocomplete="off" spellcheck="false"></div></div>
+        <div><label for="fId">Employee ID <i>*</i></label><div class="f"><svg class="ic"><use href="#i-id"/></svg><input type="password" id="fId" class="secret" placeholder="Your private ID" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" class="peek" data-for="fId" aria-label="Show Employee ID">Show</button></div></div>
+        <div><label for="fReason">Reason for Correction <i>*</i></label>
+          <select id="fReason"><option value="">Select reason</option><option>Forgot to clock in</option><option>Forgot to clock out</option><option>Break not recorded correctly</option><option>Wrong time recorded</option><option>Technical issue</option><option>Other</option></select></div>
+        <div><label for="fDate">Missed Date <i>*</i></label><div class="f"><svg class="ic"><use href="#i-cal"/></svg><input type="date" id="fDate"></div></div>
+        <div><label for="fIn">Correct Clock-In Time</label><div class="f"><svg class="ic"><use href="#i-clock"/></svg><input type="time" id="fIn"></div></div>
+        <div><label for="fOut">Correct Clock-Out Time</label><div class="f"><svg class="ic"><use href="#i-clock"/></svg><input type="time" id="fOut"></div></div>
+      </div>
+      <div style="margin-top:12px"><label for="fWhy">Explanation / Additional Details <i>*</i></label><textarea id="fWhy" maxlength="500" placeholder="Please provide a brief explanation..."></textarea></div>
+    </div>
+    <button class="submit" id="sendFix" type="submit"><svg class="b-ic"><use href="#i-send"/></svg>Submit Request</button>
+    <div class="msg" id="msgFix" role="status"></div>
+  </form>
+
+  <div class="info">
+    <div class="card"><svg class="ic"><use href="#i-lock"/></svg><div><b>Keep your Employee ID private</b>It proves who you are. Clocking in for someone else is not allowed.</div></div>
+    <div class="card"><svg class="ic"><use href="#i-users"/></svg><div><b>Need help?</b>Contact the HR team.</div></div>
+  </div>
+</main>
+<footer>TECHNOLOGY · PEOPLE · PROGRESS</footer>
+
+<script>
+// Paste your Google Apps Script web app URL here (Deploy > Manage deployments > Web app URL, ends in /exec)
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxxyrHW4wR76sGvxFR6SRznEkAVokXsv1spo9ea9nASZzAwwLBEds7NTKoJPfsOMLhD/exec";
+
+const $ = id => document.getElementById(id);
+let action = "IN";
+let clearTimer = null;
+
+/* ---------- live clock ---------- */
+function tick(){
+  const d = new Date();
+  $("now").textContent = d.toLocaleDateString(undefined, { weekday:"long", month:"long", day:"numeric" }) +
+    "  ·  " + d.toLocaleTimeString([], { hour:"numeric", minute:"2-digit", second:"2-digit" });
+}
+tick(); setInterval(tick, 1000);
+
+/* ---------- tabs ---------- */
+const FORMS = { clock:"clockForm", fix:"fixForm" };
+function show(tab){
+  Object.keys(FORMS).forEach(k => $(FORMS[k]).classList.toggle("hidden", k !== tab));
+  document.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
+}
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => show(b.dataset.tab));
+document.addEventListener("click", e => {
+  const peek = e.target.closest(".peek");
+  if (peek) {
+    const input = $(peek.dataset.for), show = input.type === "password";
+    input.type = show ? "text" : "password";
+    peek.textContent = show ? "Hide" : "Show";
+    peek.setAttribute("aria-label", (show ? "Hide" : "Show") + " Employee ID");
+  }
+});
+function hideIds(){
+  document.querySelectorAll(".peek").forEach(p => { $(p.dataset.for).type = "password"; p.textContent = "Show"; });
+}
+
+/* ---------- clock action buttons ---------- */
+function setAction(a){
+  action = a;
+  document.querySelectorAll(".act").forEach(x => { const on = x.dataset.a === a; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
+  const isBreak = a === "BREAK_START";
+  $("breakTypes").classList.toggle("hidden", !isBreak);
+  if (!isBreak) document.querySelectorAll("input[name=bt]").forEach(r => r.checked = false);
+}
+document.querySelectorAll(".act").forEach(b => b.onclick = () => setAction(b.dataset.a));
+
+/* ---------- missed date can't be in the future ---------- */
+(function(){ const d = new Date(), p = n => String(n).padStart(2,"0");
+  $("fDate").max = d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate()); })();
+
+/* ---------- messages ---------- */
+function flash(el, ok, text, warning){
+  el.className = "msg " + (!ok ? "err" : warning ? "warn" : "ok");
+  el.textContent = text;
+  if (warning) {
+    const w = document.createElement("span");
+    w.className = "w"; w.textContent = "⚠ " + warning;
+    el.appendChild(w);
+  }
+  el.scrollIntoView({ block:"nearest", behavior:"smooth" });
+}
+
+/* ---------- talk to the Apps Script backend ---------- */
+async function api(payload){
+  if (!SCRIPT_URL || SCRIPT_URL.startsWith("PASTE")) throw new Error("not-configured");
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 30000);
+  try {
+    // text/plain keeps this a "simple" request (no CORS preflight), and Apps Script
+    // returns a readable JSON response, so we can show the real result.
+    const res = await fetch(SCRIPT_URL, {
+      method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+      body: JSON.stringify(payload), signal: ctrl.signal
+    });
+    if (!res.ok) throw new Error("http-" + res.status);
+    return await res.json();
+  } finally { clearTimeout(timer); }
+}
+
+async function run(btn, msgEl, payload, busyText){
+  const orig = btn.innerHTML;
+  btn.disabled = true; btn.textContent = busyText;
+  msgEl.className = "msg";
+  try {
+    const r = await api(payload);
+    if (r && r.ok) flash(msgEl, true, r.message, r.warning);
+    else flash(msgEl, false, (r && r.error) || "Something went wrong. Please try again.");
+    return r || {};
+  } catch (e) {
+    flash(msgEl, false,
+      e.message === "not-configured" ? "Setup needed: paste the Apps Script web app URL into SCRIPT_URL in this page." :
+      e.name === "AbortError" ? "The time clock server took too long to answer. Check your connection and try again." :
+      "Couldn't reach the time clock server. Check your connection and try again.");
+    return {};
+  } finally {
+    btn.disabled = false; btn.innerHTML = orig;
+  }
+}
+
+// On a shared device, wipe the success message after a little while.
+function clearLater(el, ms){
+  clearTimeout(clearTimer);
+  clearTimer = setTimeout(() => { el.className = "msg"; el.textContent = ""; }, ms || 20000);
+}
+
+/* ---------- Clock In / Out / Breaks ---------- */
+$("clockForm").onsubmit = async e => {
+  e.preventDefault();
+  const name = $("name").value.trim(), empId = $("empId").value.trim();
+  const bt = document.querySelector("input[name=bt]:checked");
+  if (!name) return flash($("msgClock"), false, "Enter your first and last name.");
+  if (!empId) return flash($("msgClock"), false, "Enter your Employee ID.");
+  if (action === "BREAK_START" && !bt) return flash($("msgClock"), false, "Choose the kind of break: Meal break or Short break.");
+  const r = await run($("sendClock"), $("msgClock"),
+    { action:"punch", name, empId, punch: action, breakType: bt ? bt.value : "", notes: $("notes").value.trim() }, "Checking…");
+  $("empId").value = ""; hideIds();
+  if (r.ok) { $("clockForm").reset(); setAction("IN"); clearLater($("msgClock"), r.warning ? 45000 : 20000); }
+};
+
+/* ---------- Missed Punch ---------- */
+$("fixForm").onsubmit = async e => {
+  e.preventDefault();
+  const d = { action:"correction", name:$("fName").value.trim(), empId:$("fId").value.trim(), reason:$("fReason").value,
+    date:$("fDate").value, timeIn:$("fIn").value, timeOut:$("fOut").value, details:$("fWhy").value.trim() };
+  if (!d.name || !d.empId || !d.reason || !d.date || !d.details) return flash($("msgFix"), false, "Please complete all required fields.");
+  const r = await run($("sendFix"), $("msgFix"), d, "Submitting…");
+  $("fId").value = ""; hideIds();
+  if (r.ok) { $("fixForm").reset(); clearLater($("msgFix")); }
+};
+
+</script>
+</body>
+</html>
