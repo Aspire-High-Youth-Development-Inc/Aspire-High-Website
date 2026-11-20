@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspire High | Career Representative Commitment Form</title>
+    <style>
+:root {
+    --navy: #142a4f;
+    --red: #9e2529;
+    --ink: #202a39;
+    --muted: #657083;
+    --line: #dbe1ea;
+    --paper: #fff;
+    --bg: #f3f5f8;
+    --pale: #eef2f8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 Arial, Helvetica, sans-serif;
+}
+
+.wrap {
+    max-width: 980px;
+    margin: auto;
+}
+
+header {
+    padding: 30px 18px;
+    background: var(--navy);
+    color: #fff;
+    border-bottom: 7px solid var(--red);
+}
+
+.eyebrow {
+    color: #e8c9ca;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 8px 0 12px;
+    font-size: clamp(1.8rem, 4vw, 2.65rem);
+    line-height: 1.12;
+}
+
+header p {
+    max-width: 760px;
+    margin: 0;
+    color: #edf1f7;
+}
+
+main {
+    max-width: 980px;
+    margin: 24px auto;
+    padding: 0 14px 40px;
+}
+
+.intro {
+    margin-bottom: 16px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--red);
+    border-radius: 10px;
+}
+
+.progress {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin: 0 0 18px;
+    padding: 8px 0;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: .88rem;
+}
+
+.track {
+    height: 7px;
+    margin-top: 6px;
+    overflow: hidden;
+    background: #dfe4ec;
+    border-radius: 20px;
+}
+
+.track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--red);
+    transition: width .2s;
+}
+
+form {
+    display: grid;
+    gap: 15px;
+}
+
+.section {
+    padding: 22px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    box-shadow: 0 3px 12px #142a4f08;
+}
+
+.section-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.step {
+    display: grid;
+    width: 35px;
+    height: 35px;
+    flex: 0 0 35px;
+    place-items: center;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+h2 {
+    margin: 0 0 3px;
+    color: var(--navy);
+    font-size: 1.22rem;
+}
+
+.help {
+    margin: 0;
+    color: var(--muted);
+    font-size: .91rem;
+}
+
+.questions {
+    display: grid;
+    gap: 17px;
+}
+
+.field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 7px;
+}
+
+label,
+.question-title {
+    font-size: .93rem;
+    font-weight: 700;
+}
+
+.req {
+    color: var(--red);
+}
+
+.optional {
+    color: var(--muted);
+    font-size: .82rem;
+    font-weight: 400;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 11px;
+    background: #fff;
+    border: 1px solid #c8d0dc;
+    border-radius: 7px;
+    color: var(--ink);
+    font: inherit;
+}
+
+textarea {
+    min-height: 85px;
+    resize: vertical;
+}
+
+.other-field {
+    margin-top: 9px;
+    padding-left: 26px;
+}
+
+.other-field[hidden] {
+    display: none;
+}
+
+.other-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: .88rem;
+    font-weight: 600;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid #9e252927;
+    border-color: var(--red);
+}
+
+.options {
+    display: grid;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #f8f9fb;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.option {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: .91rem;
+    font-weight: 400;
+}
+
+.option input {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+    margin: 3px 0 0;
+    accent-color: var(--red);
+}
+
+.hint {
+    margin: 0;
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+.note {
+    margin: 12px 0;
+    padding: 12px 14px;
+    background: var(--pale);
+    border-radius: 8px;
+    color: #36445b;
+    font-size: .91rem;
+}
+
+.warning {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #fff8ef;
+    border: 1px solid #ecd8b9;
+    border-radius: 8px;
+    font-size: .9rem;
+}
+
+button {
+    padding: 11px 16px;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.primary {
+    background: var(--red);
+    color: #fff;
+}
+
+.secondary {
+    background: #e8edf4;
+    color: var(--navy);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.status {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: #eaf5ee;
+    border: 1px solid #bdddc9;
+    border-radius: 8px;
+    color: #236546;
+}
+
+.err {
+    margin-top: 10px;
+    color: var(--red);
+    font-weight: 700;
+}
+
+footer {
+    padding: 22px;
+    color: var(--muted);
+    font-size: .85rem;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .section {
+        padding: 16px;
+    }
+}
+
+@media print {
+    body {
+        background: #fff;
+    }
+
+    .section {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .actions,
+    .progress {
+        display: none;
+    }
+
+    header {
+        background: #fff;
+        color: var(--navy);
+    }
+
+    header p,
+    .eyebrow {
+        color: var(--navy);
+    }
+
+    .status.pending {
+    display: block;
+    background: #eef2f8;
+    border-color: #c8d0dc;
+    color: var(--navy);
+    }
+
+    .status.error {
+        display: block;
+        background: #fff0f0;
+        border-color: #e5bcbc;
+        color: var(--red);
+    }
+
+    button:disabled {
+        opacity: .65;
+        cursor: not-allowed;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="eyebrow">Aspire High Youth Development Inc.</div>
+            <h1>Career Representative Commitment Form</h1>
+            <p>Share your professional journey, introduce students to career possibilities, and help inspire the next generation.</p>
+        </header>
+
+        <main>
+            <div class="intro">
+                <p>Career Representatives are encouraged to keep answers personal and relatable, share real-life examples, ask students questions, and have fun. Your story can motivate, inspire, and empower.</p>
+                <p><b>Privacy notice:</b> Any files uploaded may be shared outside of the organization they belong to.</p>
+                <p><span class="req">*</span> Indicates a required question.</p>
+            </div>
+
+            <div class="progress">
+                <span id="progressText">0 of 9 sections completed</span>
+                <div class="track">
+                    <span id="progressBar"></span>
+                </div>
+            </div>
+
+            <form id="careerForm">
+                <div id="sections"></div>
+
+                <div class="section">
+                    <h2>Review and submit</h2>
+                    <div class="actions">
+                        <button type="button" class="secondary" onclick="window.print()">Print form</button>
+                        <button type="reset" class="secondary">Clear form</button>
+                        <button type="submit" class="primary" id="submitButton">Submit Form</button>
+                    </div>
+                    <div class="status" id="status" role="status"></div>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            Thank you for supporting Aspire High Youth Development Inc. and inspiring the next generation.
+        </footer>
+    </div>
+
+    <script>
+const sectionsData = [
+    [
+        "Personal Information",
+        [
+            [
+                1,
+                "Full Name",
+                "text",
+                true
+            ],
+            [
+                2,
+                "Preferred Name",
+                "text",
+                false
+            ],
+            [
+                3,
+                "Email Address",
+                "email",
+                true
+            ],
+            [
+                4,
+                "Telephone Number",
+                "tel",
+                true
+            ],
+            [
+                5,
+                "How long have you volunteered as a Career Representative with Aspire High Youth Development Inc.?",
+                "radio",
+                true,
+                [
+                    "First Timer",
+                    "1 Year",
+                    "2 Years",
+                    "3 Years",
+                    "4 Years",
+                    "5 Years",
+                    "6 Years",
+                    "7 Years",
+                    "8 Years",
+                    "9 Years",
+                    "10+ Years"
+                ]
+            ],
+            [
+                6,
+                "Ethnicity",
+                "checkbox",
+                true,
+                [
+                    "American Indian or Alaska Native",
+                    "Asian",
+                    "Black or African American",
+                    "Hispanic or Latino",
+                    "Native Hawaiian or Other Pacific Islander",
+                    "White",
+                    "Prefer not to say",
+                    "Other"
+                ]
+            ]
+        ]
+    ],
+    [
+        "Professional Background",
+        [
+            [
+                7,
+                "What is your current job title?",
+                "text",
+                true
+            ],
+            [
+                8,
+                "What is the name of your current employer or organization?",
+                "text",
+                true
+            ],
+            [
+                9,
+                "What industry or professional field do you work in?",
+                "text",
+                true
+            ],
+            [
+                10,
+                "How many years of professional experience do you have in your field?",
+                "radio",
+                true,
+                [
+                    "Less than 1 year",
+                    "1–3 years",
+                    "4–6 years",
+                    "7–10 years",
+                    "11–15 years",
+                    "16–20 years",
+                    "More than 20 years"
+                ]
+            ],
+            [
+                11,
+                "Please upload a professional picture of yourself in your field.",
+                "file",
+                true
+            ],
+            [
+                12,
+                "Can you provide a link to your professional profile, portfolio, or website (e.g., LinkedIn, personal portfolio, or company profile)?",
+                "url",
+                false
+            ],
+            [
+                13,
+                "What professional accomplishments, projects, or experiences would you like to highlight to students?",
+                "textarea",
+                false
+            ]
+        ]
+    ],
+    [
+        "Career Expertise",
+        [
+            [
+                14,
+                "Which career category best describes your profession?",
+                "select",
+                true,
+                [
+                    "Arts, Design, and Entertainment",
+                    "Business, Finance, and Entrepreneurship",
+                    "Communications, Media, and Marketing",
+                    "Education and Training",
+                    "Engineering and Architecture",
+                    "Healthcare and Medicine",
+                    "Information Technology and Computer Science",
+                    "Law, Government, and Public Service",
+                    "Manufacturing and Skilled Trades",
+                    "Science and Research",
+                    "Social Services and Nonprofit",
+                    "Transportation and Logistics",
+                    "Other"
+                ]
+            ],
+            [
+                15,
+                "What are your areas of specialization or expertise?",
+                "textarea",
+                true
+            ],
+            [
+                16,
+                "What skills are most important for someone entering your profession?",
+                "textarea",
+                true
+            ],
+            [
+                17,
+                "What is a common misconception about your profession that you would like students to understand?",
+                "textarea",
+                true
+            ],
+            [
+                18,
+                "What entry-level positions, internships, apprenticeships, or training opportunities are available in your field?",
+                "textarea",
+                false
+            ],
+            [
+                19,
+                "What is the typical career growth or advancement path in your profession?",
+                "textarea",
+                false
+            ]
+        ]
+    ],
+    [
+        "Education and Professional Journey",
+        [
+            [
+                20,
+                "What is your educational background? Include degrees, certifications, trade training, or other educational pathways.",
+                "textarea",
+                true,
+                "Example: BA in Psychology, Master's in Public Relations, professional certifications, apprenticeships, or vocational training."
+            ],
+            [
+                21,
+                "How did you enter your profession, and what steps helped you get started?",
+                "textarea",
+                true
+            ],
+            [
+                22,
+                "Why did you choose this career?",
+                "textarea",
+                true
+            ],
+            [
+                23,
+                "Can you tell us a little about where you grew up and what your childhood was like?",
+                "textarea",
+                true
+            ],
+            [
+                24,
+                "Who or what inspired you the most in high school?",
+                "textarea",
+                true
+            ],
+            [
+                25,
+                "Was there a moment when you realized what you wanted to do in life?",
+                "textarea",
+                true
+            ],
+            [
+                26,
+                "What obstacles or unexpected experiences shaped your professional journey?",
+                "textarea",
+                true
+            ],
+            [
+                27,
+                "What drives you to keep going, even when things get tough?",
+                "textarea",
+                true
+            ],
+            [
+                28,
+                "What was your \"why\" behind going to college or choosing your career path?",
+                "textarea",
+                true
+            ],
+            [
+                29,
+                "Can you share a story about a time you felt especially proud of yourself?",
+                "textarea",
+                true
+            ]
+        ]
+    ],
+    [
+        "Student Engagement and Mentorship",
+        [
+            [
+                30,
+                "What is one thing you wish you had known when you were in high school?",
+                "textarea",
+                true
+            ],
+            [
+                31,
+                "What advice would you give a student who is unsure about their future?",
+                "textarea",
+                true
+            ],
+            [
+                32,
+                "If you could mentor your high school self, what advice would you give?",
+                "textarea",
+                true
+            ],
+            [
+                33,
+                "What's one lesson you learned outside of the classroom that helped you succeed?",
+                "textarea",
+                true
+            ],
+            [
+                34,
+                "What's a hidden talent, hobby, or skill most people don't know about you?",
+                "textarea",
+                true
+            ],
+            [
+                35,
+                "What age groups or grade levels would you feel most comfortable working with?",
+                "checkbox",
+                true,
+                [
+                    "Elementary School",
+                    "Middle School",
+                    "High School",
+                    "College Students",
+                    "All Age Groups"
+                ]
+            ],
+            [
+                36,
+                "What topics would you feel most comfortable discussing with students?",
+                "checkbox",
+                true,
+                [
+                    "Career Exploration",
+                    "College Preparation",
+                    "Trade Schools and Vocational Training",
+                    "Resume Writing and Interview Preparation",
+                    "Entrepreneurship and Starting a Business",
+                    "Professional Development",
+                    "Financial Literacy",
+                    "Workplace Expectations",
+                    "Networking",
+                    "Overcoming Career Challenges",
+                    "Other"
+                ]
+            ],
+            [
+                37,
+                "What would you enjoy teaching or discussing with students about your career?",
+                "textarea",
+                true
+            ],
+            [
+                38,
+                "Are you comfortable answering questions from students about your personal career experiences and challenges?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Somewhat"
+                ]
+            ],
+            [
+                39,
+                "What interactive activity or demonstration could you offer students to introduce them to your career?",
+                "textarea",
+                true
+            ],
+            [
+                40,
+                "Would you be interested in participating in future mentorship opportunities with Aspire High Youth Development Inc.?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Maybe / Would like more information"
+                ]
+            ],
+            [
+                41,
+                "Would you be interested in speaking at future Aspire High workshops, school visits, or career development events?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Maybe"
+                ]
+            ],
+            [
+                42,
+                "Would you be comfortable allowing students to connect with you professionally after the event (for example, through LinkedIn or another professional platform)?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Maybe, with additional guidelines"
+                ]
+            ]
+        ]
+    ],
+    [
+        "Participation and Availability",
+        [
+            [
+                43,
+                "Are you available to participate in person?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Unsure"
+                ]
+            ],
+            [
+                44,
+                "What time do you expect to arrive for the event?",
+                "text",
+                false
+            ],
+            [
+                45,
+                "How long would you be available to participate in the event?",
+                "radio",
+                true,
+                [
+                    "Entire event",
+                    "Half of the event",
+                    "1–2 hours",
+                    "Other"
+                ]
+            ],
+            [
+                46,
+                "Are there any scheduling or participation limitations we should be aware of?",
+                "textarea",
+                false
+            ],
+            [
+                47,
+                "Do you have any accessibility requirements or accommodations we should know about to support your participation?",
+                "textarea",
+                false
+            ]
+        ]
+    ],
+    [
+        "Contributions and Career Fair Materials",
+        [
+            [
+                48,
+                "What would you bring to put on your table to engage youth? Examples include pamphlets, examples of items you use in your career, informational materials, or giveaways.",
+                "textarea",
+                false
+            ],
+            [
+                49,
+                "Would you be interested in providing a demonstration, hands-on activity, or interactive presentation?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Maybe / Need more information"
+                ]
+            ],
+            [
+                50,
+                "If you answered yes or maybe, please describe the materials, equipment, demonstrations, or activities you could provide.",
+                "textarea",
+                false
+            ],
+            [
+                51,
+                "Will you need any equipment or resources provided by Aspire High for your presentation or demonstration?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No",
+                    "Unsure"
+                ]
+            ],
+            [
+                52,
+                "If yes or unsure, please describe the equipment or resources you would need.",
+                "textarea",
+                false
+            ]
+        ]
+    ],
+    [
+        "Employer and Organizational Partnerships",
+        [
+            [
+                53,
+                "Would your employer or organization be interested in supporting future Aspire High programs through resources, sponsorships, internships, job-shadowing opportunities, or other partnerships?",
+                "checkbox",
+                false,
+                [
+                    "Sponsorship or Financial Support",
+                    "Internship Opportunities",
+                    "Job-Shadowing Opportunities",
+                    "Educational Resources or Materials",
+                    "Guest Speakers or Workshops",
+                    "Facility or Event Space",
+                    "Other",
+                    "Not at this time"
+                ]
+            ],
+            [
+                54,
+                "If you selected any partnership opportunities, please provide additional details or explain who Aspire High could contact to discuss them.",
+                "textarea",
+                false
+            ]
+        ]
+    ],
+    [
+        "Consent and Agreements",
+        [
+            [
+                55,
+                "Do you agree to participate as a Career Representative and share your professional experiences with Aspire High students?",
+                "radio",
+                true,
+                [
+                    "Yes, I agree.",
+                    "No, I do not agree."
+                ]
+            ],
+            [
+                56,
+                "Do you give Aspire High Youth Development Inc. permission to photograph or record you during the event?",
+                "radio",
+                true,
+                [
+                    "Yes, I give permission.",
+                    "No, I do not give permission."
+                ]
+            ],
+            [
+                57,
+                "Do you give Aspire High Youth Development Inc. permission to use photographs or recordings of you in promotional materials, including its website and social media?",
+                "radio",
+                true,
+                [
+                    "Yes, I give permission.",
+                    "No, I do not give permission."
+                ]
+            ],
+            [
+                58,
+                "Do you consent to receiving future communications from Aspire High Youth Development Inc. about career fairs, mentorship opportunities, and related events?",
+                "radio",
+                true,
+                [
+                    "Yes",
+                    "No"
+                ]
+            ],
+            [
+                59,
+                "Is there anything else you would like us to know?",
+                "textarea",
+                false
+            ]
+        ]
+    ]
+];
+
+const root = document.getElementById("sections");
+const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbxXQi2jVlCkj3kKVx0d6XeWyFh2GEFbTZymk1YM3VRO8nA_8BZ1A9GvHJojEjvYsA3e8A/exec";
+
+
+function makeField(question) {
+    const [num, label, type, required, extra] = question;
+    const field = document.createElement("div");
+    field.className = "field";
+
+    const title = document.createElement("div");
+    title.className = "question-title";
+    title.innerHTML = `${num}. ${escapeHtml(label)} ${
+        required
+            ? '<span class="req">*</span>'
+            : '<span class="optional">(Optional)</span>'
+    }`;
+
+    field.appendChild(title);
+
+    const name = `q${num}`;
+
+    // Radio buttons and checkboxes
+    if (type === "radio" || type === "checkbox") {
+        const group = document.createElement("div");
+        group.className = "options";
+        group.setAttribute("role", "group");
+        group.setAttribute("aria-label", label);
+
+        extra.forEach((choice, index) => {
+            const lab = document.createElement("label");
+            lab.className = "option";
+
+            const input = document.createElement("input");
+            input.type = type;
+            input.name = name;
+            input.value = choice;
+
+            if (required && type === "radio" && index === 0) {
+                input.required = true;
+            }
+
+            if (required && type === "checkbox") {
+                input.dataset.requiredGroup = "true";
+            }
+
+            const span = document.createElement("span");
+            span.textContent = choice;
+
+            lab.append(input, span);
+            group.appendChild(lab);
+        });
+
+        field.appendChild(group);
+
+        // Add a text field if this question contains an "Other" option.
+        if (extra.some(choice => /^other\b/i.test(choice.trim()))) {
+            const otherField = document.createElement("div");
+            otherField.className = "other-field";
+            otherField.hidden = true;
+            otherField.dataset.otherFor = name;
+
+            const otherLabel = document.createElement("label");
+            otherLabel.htmlFor = `${name}_other`;
+            otherLabel.textContent = "Please specify:";
+
+            const otherInput = document.createElement("input");
+            otherInput.type = "text";
+            otherInput.id = `${name}_other`;
+            otherInput.name = `${name}_other`;
+            otherInput.placeholder = "Please specify your answer";
+            otherInput.dataset.otherInput = "true";
+
+            otherField.append(otherLabel, otherInput);
+            field.appendChild(otherField);
+        }
+
+        if (required && type === "checkbox") {
+            const hint = document.createElement("p");
+            hint.className = "hint";
+            hint.textContent = "Select at least one option.";
+            field.appendChild(hint);
+        }
+
+    // Dropdown menus
+    } else if (type === "select") {
+        const select = document.createElement("select");
+        select.name = name;
+        select.required = required;
+
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "Select an option";
+        placeholder.disabled = true;
+        placeholder.selected = true;
+
+        select.appendChild(placeholder);
+
+        extra.forEach((choice) => {
+            const option = document.createElement("option");
+            option.value = choice;
+            option.textContent = choice;
+            select.appendChild(option);
+        });
+
+        field.appendChild(select);
+
+        // Add a text field if this dropdown contains an "Other" option.
+        if (extra.some(choice => /^other\b/i.test(choice.trim()))) {
+            const otherField = document.createElement("div");
+            otherField.className = "other-field";
+            otherField.hidden = true;
+            otherField.dataset.otherFor = name;
+
+            const otherLabel = document.createElement("label");
+            otherLabel.htmlFor = `${name}_other`;
+            otherLabel.textContent = "Please specify:";
+
+            const otherInput = document.createElement("input");
+            otherInput.type = "text";
+            otherInput.id = `${name}_other`;
+            otherInput.name = `${name}_other`;
+            otherInput.placeholder = "Please specify your answer";
+            otherInput.dataset.otherInput = "true";
+
+            otherField.append(otherLabel, otherInput);
+            field.appendChild(otherField);
+        }
+
+    // Regular text, email, telephone, URL, file, and textarea inputs
+    } else {
+        const input = document.createElement(
+            type === "textarea" ? "textarea" : "input"
+        );
+
+        if (type !== "textarea") {
+            input.type = type;
+        }
+
+        input.name = name;
+        input.required = required;
+
+        if (type === "file") {
+            input.accept = "image/*";
+            input.setAttribute("aria-describedby", `hint${num}`);
+        }
+
+        if (num === 20) {
+            input.placeholder =
+                "Include degrees, certifications, trade training, or other pathways.";
+        }
+
+        field.appendChild(input);
+
+        if (type === "file") {
+            const hint = document.createElement("p");
+            hint.className = "hint";
+            hint.id = `hint${num}`;
+            hint.textContent =
+                "Accepted file types depend on your browser and eventual submission setup. Please choose a professional image.";
+            field.appendChild(hint);
+        }
+    }
+
+    // Additional example text for Question 20
+    if (num === 20) {
+        const hint = document.createElement("p");
+        hint.className = "hint";
+        hint.textContent = extra;
+        field.appendChild(hint);
+    }
+
+    return field;
+}
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+sectionsData.forEach((section, index) => {
+    const card = document.createElement("section");
+    card.className = "section";
+
+    const head = document.createElement("div");
+    head.className = "section-head";
+
+    const step = document.createElement("div");
+    step.className = "step";
+    step.textContent = index + 1;
+
+    const heading = document.createElement("div");
+
+    const h = document.createElement("h2");
+    h.textContent = section[0];
+
+    const p = document.createElement("p");
+    p.className = "help";
+    p.textContent = `Section ${index + 1} of ${sectionsData.length}`;
+
+    heading.append(h, p);
+    head.append(step, heading);
+    card.appendChild(head);
+
+    const questions = document.createElement("div");
+    questions.className = "questions";
+
+    section[1].forEach((question) => {
+        questions.appendChild(makeField(question));
+    });
+
+    card.appendChild(questions);
+    root.appendChild(card);
+});
+
+const form = document.getElementById("careerForm");
+
+// Show or hide the text field when an applicant selects "Other".
+function updateOtherFields() {
+    form.querySelectorAll("[data-other-for]").forEach((otherField) => {
+        const questionName = otherField.dataset.otherFor;
+
+        const selected = [
+            ...form.querySelectorAll(`[name="${questionName}"]`)
+        ].some((control) => {
+            if (control.type === "checkbox" || control.type === "radio") {
+                return control.checked &&
+                    /^other\b/i.test(control.value.trim());
+            }
+
+            return control.tagName === "SELECT" &&
+                /^other\b/i.test(control.value.trim());
+        });
+
+        const textInput = otherField.querySelector("[data-other-input]");
+
+        otherField.hidden = !selected;
+        textInput.required = selected;
+
+        if (!selected) {
+            textInput.value = "";
+        }
+    });
+}
+
+
+/**
+ * Converts an uploaded image into a Base64 data URL.
+ */
+function readPhotoAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(
+            new Error("The applicant photo could not be read.")
+        );
+
+        reader.readAsDataURL(file);
+    });
+}
+
+/**
+ * Collects all answers, including checkbox groups
+ * and conditional Other text responses.
+ */
+function collectAnswers() {
+    const answers = {};
+
+    sectionsData.forEach((section) => {
+        section[1].forEach((question) => {
+            const [number, label, type] = question;
+            const name = `q${number}`;
+
+            if (type === "checkbox") {
+                answers[name] = [
+                    ...form.querySelectorAll(
+                        `input[name="${name}"]:checked`
+                    )
+                ].map(input => input.value);
+
+            } else if (type !== "file") {
+                const control = form.querySelector(
+                    `[name="${name}"]`
+                );
+
+                answers[name] = control
+                    ? control.value.trim()
+                    : "";
+            }
+
+            // Save the conditional Other answer separately.
+            const otherInput = form.querySelector(
+                `[name="${name}_other"]`
+            );
+
+            if (otherInput) {
+                answers[`${name}_other`] =
+                    otherInput.value.trim();
+            }
+        });
+    });
+
+    return answers;
+}
+
+/**
+ * Validates required checkbox groups.
+ */
+function validateCheckboxGroups() {
+    const groups = [
+        ...form.querySelectorAll("[data-required-group]")
+    ].reduce((result, input) => {
+        (result[input.name] ??= []).push(input);
+        return result;
+    }, {});
+
+    for (const [name, inputs] of Object.entries(groups)) {
+        const hasSelection = inputs.some(
+            input => input.checked
+        );
+
+        inputs.forEach(input => input.setCustomValidity(""));
+
+        if (!hasSelection) {
+            inputs[0].setCustomValidity(
+                "Please select at least one option."
+            );
+
+            inputs[0].reportValidity();
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Submits the completed form to Google Apps Script.
+ */
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const status = document.getElementById("status");
+    const submitButton = document.getElementById("submitButton");
+
+    // Refresh conditional fields before validation.
+    updateOtherFields();
+
+    // Validate ordinary required fields.
+    if (!form.reportValidity()) {
+        status.className = "status error";
+        status.textContent =
+            "Please complete all required questions before submitting.";
+
+        status.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        return;
+    }
+
+    // Validate required checkbox groups.
+    if (!validateCheckboxGroups()) {
+        status.className = "status error";
+        status.textContent =
+            "Please select at least one option in every required checkbox group.";
+
+        status.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        return;
+    }
+
+    // Find the applicant's professional photo.
+    const photoInput = form.querySelector('input[name="q11"]');
+    const photoFile = photoInput.files[0];
+
+    if (!photoFile) {
+        status.className = "status error";
+        status.textContent =
+            "Please upload your professional photo.";
+
+        photoInput.reportValidity();
+        return;
+    }
+
+    // Check the photo size before encoding it.
+    const maximumSize = 10 * 1024 * 1024;
+
+    if (photoFile.size > maximumSize) {
+        status.className = "status error";
+        status.textContent =
+            "Your photo must be smaller than 10 MB.";
+
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    status.className = "status pending";
+    status.textContent =
+        "Preparing your answers and uploading your photo. Please wait...";
+
+    status.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    try {
+        const photoData = await readPhotoAsDataURL(photoFile);
+
+        const payload = {
+            answers: collectAnswers(),
+
+            photo: {
+                fileName: photoFile.name,
+                mimeType: photoFile.type || "image/jpeg",
+                data: photoData
+            }
+        };
+
+        // Send as form-encoded data so Apps Script can
+        // retrieve the JSON from e.parameter.payload.
+        const requestBody = new URLSearchParams();
+        requestBody.append("payload", JSON.stringify(payload));
+
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: requestBody
+        });
+
+        // A no-cors response is opaque. The browser cannot
+        // inspect the JSON returned by Apps Script.
+        status.className = "status pending";
+        status.textContent =
+            "Your submission request has been sent to Aspire High. " +
+            "Google's response cannot be verified in this browser, " +
+            "so please contact Aspire High if you need confirmation. " +
+            "Do not submit again unless you have checked whether your " +
+            "submission already appears in the response spreadsheet.";
+
+        submitButton.textContent = "Request Sent";
+
+    } catch (error) {
+        console.error("Form submission error:", error);
+
+        status.className = "status error";
+        status.textContent =
+            "We could not send your submission. Please check your " +
+            "internet connection and try again. If the problem continues, " +
+            "contact Aspire High.";
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Form";
+    }
+
+    status.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+});
+
+
+form.addEventListener("change", (event) => {
+    updateOtherFields();
+
+    if (event.target.matches("[data-required-group]")) {
+        const group = [
+            ...form.querySelectorAll(`[name="${event.target.name}"]`)
+        ];
+
+        group.forEach((input) => input.setCustomValidity(""));
+    }
+});
+
+form.addEventListener("reset", () => {
+    document.getElementById("status").style.display = "none";
+
+    setTimeout(() => {
+        updateOtherFields();
+        updateProgress();
+    }, 0);
+});
+
+function updateProgress() {
+    const cards = [
+        ...document.querySelectorAll("#sections .section")
+    ];
+
+    const completed = cards.filter((card) => {
+        const controls = [
+            ...card.querySelectorAll("input, select, textarea")
+        ];
+
+        return controls.some((control) => {
+            if (control.type === "checkbox" || control.type === "radio") {
+                return control.checked;
+            }
+
+            if (control.type === "file") {
+                return control.files.length > 0;
+            }
+
+            return control.value.trim() !== "";
+        });
+    }).length;
+
+    document.getElementById("progressText").textContent =
+        `${completed} of ${cards.length} sections started`;
+
+    document.getElementById("progressBar").style.width =
+        `${(completed / cards.length) * 100}%`;
+}
+
+form.addEventListener("input", updateProgress);
+form.addEventListener("change", updateProgress);
+
+// Initialize conditional fields.
+updateOtherFields();
+    </script>
+</body>
+</html>
